@@ -63,3 +63,8 @@
 (helm-autoresize-mode 1)
 (setq helm-split-window-in-side-p
       t)
+
+; anaconda-mode
+(add-hook 'python-mode-hook 'anaconda-mode)
+(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+
