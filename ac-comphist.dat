@@ -1,8 +1,54 @@
-((("font-family-list" .
+((("config" .
+   [1 0 0 0 0 0])
+  ("comment-or-uncomment-region" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("fib" .
+   [4 0 0])
+  ("ox-latex" .
+   [0 0 0 0 1 0 0 0])
+  ("require" .
+   [0 0 0 0 0 0 2])
+  ("font-family-list" .
    [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
   ("font" .
    [1 0 0 0])
   ("solarized" .
    [0 0 0 1 0 0 0 0 0])
   ("shape" .
-   [0 0 0 0 1])))
+   [0 0 0 0 1])
+  ("or" .
+   [1 0])
+  ("org-" .
+   [1 0 0 0])
+  ("org-mode" .
+   [1 0 0 0 0 0 0 0])
+  ("text" .
+   [1 0 0 0])
+  ("configs" .
+   [0 0 0 0 0 0 1])
+  ("when" .
+   [1 0 0 0])
+  ("execute" .
+   [0 0 0 0 1 0 0])
+  ("executable-find" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("exec-path" .
+   [0 0 0 0 2 0 0 0 0])
+  ("switch-to-next-buffer" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("split-window-vertically" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("zl/split-window-vertically" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("hrs/current-font-size" .
+   [0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("hrs/default-font" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1])
+  ("concat" .
+   [0 0 0 0 1 0])
+  ("number-to-string" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("hrs/set-font-size" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("ox-gfm" .
+   [0 0 0 0 1 0])))
