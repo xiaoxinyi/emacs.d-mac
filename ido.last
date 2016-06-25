@@ -8,6 +8,7 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "/Users/zhangli/"
  "/Users/zhangli/.emacs.d/super-emacs/"
 )
 
@@ -18,11 +19,11 @@
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/zhangli/.emacs.d/super-emacs/" (22381 21150 0 0) "repositories.el" "packages.el~" "packages.el" "misc.el" "key-bindings.el~" "key-bindings.el" "interface.el~" "interface.el" "../" "./")
+ ("/Users/zhangli/" (22381 61821 0 0) "ubuntu/" "Qt5.2.1/" "Public/" "projs/" "Pictures/" "Music/" "Movies/" "mnt/" "Library/" "Downloads/" "Documents/" "Desktop/" "code/" "bin/" "Applications/" "anaconda3/" "anaconda2/" ".zshrc~" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump-章立的MacBook Pro-5.0.8" ".zcompdump-章立的MacBook Pro-5.0.5" ".zcompdump-zhangli'MacBook-5.0.8" ".zcompdump-zhangli'MacBook Pro-5.0.8" ".zcompdump-MacBook Pro-5.0.8" ".Xauthority" ".virtualenvs/" ".viminfo" ".Trash/" ".terminfo/" ".subversion/" ".ssh/" ".spyder2-py3/" ".spacemacs" ".smex-items" ".scalaide/" ".scala_history" ".sbt/" ".rnd" ".python_history" ".pylintrc" ".pylint.d/" ".pdbrc.py~" ".pdbrc.py" ".p2/" ".oracle_jre_usage/" ".oh-my-zsh/" ".octave_hist" ".matplotlib/" ".matlab/" ".lldb/" ".jupyter/" ".ivy2/" ".ipython/" ".gnuplot_history" ".gitconfig" ".emacs.keyfreq" ".emacs.d.space/" ".emacs.d.bak/" ".emacs.d/" ".emacs.bak" ".eclipse/" ".DS_Store" ".custom.el" ".continuum/" ".config/" ".condamanager/" ".CFUserTextEncoding" ".cache/" ".bash_profile~" ".bash_profile" ".bash_history" ".backups/" ".astropy/" ".anaconda/" "../" "./")
 
- ("/Users/zhangli/.emacs.d/" (22381 21150 0 0) "super-emacs/" "recentf~" "recentf" "init.el" "ido.last~" "ido.last" "elpa/" "auto-save-list/" "anaconda-mode/" "ac-comphist.dat" ".git/" "../" "./")
+ ("/Users/zhangli/.emacs.d/" (22381 61818 0 0) "super-emacs/" "recentf~" "recentf" "init.el" "ido.last~" "ido.last" "elpa/" "Cask~" "Cask" "auto-save-list/" "anaconda-mode/" "ac-comphist.dat" ".git/" ".cask/" "../" "./")
 
- ("/Users/zhangli/" (22381 20814 0 0) "ubuntu/" "Qt5.2.1/" "Public/" "projs/" "Pictures/" "Music/" "Movies/" "mnt/" "Library/" "Downloads/" "Documents/" "Desktop/" "code/" "bin/" "Applications/" "anaconda3/" "anaconda2/" ".zshrc~" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump-章立的MacBook Pro-5.0.8" ".zcompdump-章立的MacBook Pro-5.0.5" ".zcompdump-zhangli'MacBook-5.0.8" ".zcompdump-zhangli'MacBook Pro-5.0.8" ".zcompdump-MacBook Pro-5.0.8" ".Xauthority" ".virtualenvs/" ".viminfo" ".Trash/" ".terminfo/" ".subversion/" ".ssh/" ".spyder2-py3/" ".smex-items" ".serverauth.28778" ".scalaide/" ".scala_history" ".sbt/" ".rnd" ".python_history" ".pylintrc" ".pylint.d/" ".pdbrc.py~" ".pdbrc.py" ".p2/" ".oracle_jre_usage/" ".oh-my-zsh/" ".octave_hist" ".matplotlib/" ".matlab/" ".lldb/" ".jupyter/" ".ivy2/" ".ipython/" ".gnuplot_history" ".gitconfig" ".emacs.keyfreq" ".emacs.d.bak/" ".emacs.d/" ".emacs.bak" ".eclipse/" ".DS_Store" ".custom.el" ".continuum/" ".config/" ".condamanager/" ".CFUserTextEncoding" ".cache/" ".bash_profile~" ".bash_profile" ".bash_history" ".backups/" ".astropy/" ".anaconda/" "../" "./")
+ ("/Users/zhangli/.emacs.d/super-emacs/" (22381 61013 0 0) "repositories.el" "packages.el~" "packages.el" "misc.el" "key-bindings.el~" "key-bindings.el" "interface.el~" "interface.el" ".#repositories.el" "#repositories.el#" "../" "./")
 )
 
 ;; ----- ido-unc-hosts-cache -----

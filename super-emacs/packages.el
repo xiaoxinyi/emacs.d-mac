@@ -69,6 +69,9 @@
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 
+(setq python-indent 4)
+
+
 ; multi term
 (require 'multi-term)
 (setq multi-term-program "/bin/zsh")
@@ -91,7 +94,7 @@
 
 ;; export html get rid of footer
 (setq org-html-postamble nil)
-
+(setq org-html-toc nil)
 
 ;; execute in emacs
 (setenv "PATH"
@@ -108,9 +111,10 @@
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-(setq org-latex-pdf-process
-           '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-;; ;; add minted package
+;; (setq org-latex-pdf-process
+;;            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+;; add minted package highlight source code
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
@@ -197,8 +201,6 @@
 (setq dired-recursive-copies 'always)
 
 (setq dired-recursive-deletes 'top)
-
-(flx-ido-mode 1)
 
 
 ;; ido

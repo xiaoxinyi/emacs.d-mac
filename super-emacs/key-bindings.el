@@ -43,6 +43,8 @@
     ("C-s-<left>" . buf-move-left)
     ("C-s-<right>" . buf-move-right)
     ("s-/" . comment-or-uncomment-region)
+    ("C-x t" . multi-term)
+    ("M-w" . kill-region)
     ("<f5>" . super-emacs-reload-current-file)))
 
 (defun super-emacs-apply-keyboard-bindings (pair)

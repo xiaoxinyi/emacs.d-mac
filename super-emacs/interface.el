@@ -14,7 +14,6 @@
 (defun hrs/mac? ()
   (eq system-type 'darwin))
 
-(hrs/mac?)
 
 (when window-system
   (setq solarized-use-variable-pitch nil)
@@ -41,8 +40,8 @@
 
 ;; font config
 
-(setq hrs/default-font "Inconsolata")
-;; (setq hrs/default-font "Fira Code")
+;; (setq hrs/default-font "Inconsolata")
+(setq hrs/default-font "Fira Code")
 (setq hrs/default-font-size 18)
 (setq hrs/current-font-size hrs/default-font-size)
 
@@ -95,7 +94,6 @@
 
 (setq-default indent-tabs-mode nil)
 
-(setq python-indent 4)
 
 
 
