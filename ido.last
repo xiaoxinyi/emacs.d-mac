@@ -2,28 +2,117 @@
 
 ;; ----- ido-last-directory-list -----
 (
- ("/Users/zhangli/" . ".emacs.d/")
+ ("/Users/zhangli/.oh-my-zsh/plugins/" . "common-aliases/")
+ ("/Users/zhangli/.oh-my-zsh/" . "plugins/")
+ ("/Users/" . "zhangli/")
+ ("/" . "Users/")
+ ("/usr/local/Cellar/emacs-plus/" . "24.5/")
+ ("/usr/local/Cellar/" . "emacs-plus/")
+ ("/usr/local/" . "Cellar/")
+ ("/usr/" . "local/")
+ ("/Users/zhangli/.emacs.d/elpa/yasnippet-20160624.1326/snippets/" . "python-mode/")
+ ("/Users/zhangli/.emacs.d/elpa/yasnippet-20160624.1326/" . "snippets/")
+ ("/Users/zhangli/.emacs.d/elpa/elpy-1.8.0/" . "elpy/")
+ ("/Users/zhangli/.emacs.d/elpa/" . "github-theme-0.0.3/")
+ ("/Users/zhangli/code/" . "python/")
+ ("/Users/zhangli/code/cplusplus/my_program/" . "my_inc/")
+ ("/Users/zhangli/code/cplusplus/" . "emacs-config/")
+ ("/Users/zhangli/" . ".oh-my-zsh/")
  ("/Users/zhangli/.emacs.d/" . "super-emacs/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
  "/Users/zhangli/"
+ "/Users/zhangli/.oh-my-zsh/plugins/common-aliases/"
  "/Users/zhangli/.emacs.d/super-emacs/"
+ "/usr/local/Cellar/emacs-plus/24.5/"
+ "/Users/zhangli/.emacs.d/elpa/github-theme-0.0.3/"
+ "/Users/zhangli/.emacs.d/elpa/"
+ "/Users/zhangli/.emacs.d/elpa/color-theme-solarized-20160626.743/"
+ "/Users/zhangli/.emacs.d/elpa/yasnippet-20160624.1326/snippets/c++-mode/"
+ "/Users/zhangli/.emacs.d/elpa/solarized-theme-20160515.442/"
+ "/Users/zhangli/code/python/test-elpy/"
+ "/Users/zhangli/.emacs.d/elpa/elpy-1.8.0/elpy/"
+ "/Users/zhangli/code/python/"
+ "/Users/zhangli/code/cplusplus/my_program/src/"
+ "/Users/zhangli/code/cplusplus/my_program/my_inc/"
+ "/Users/zhangli/code/cplusplus/emacs-config/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ "key-bindings.el"
  "packages.el"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/zhangli/" (22381 61821 0 0) "ubuntu/" "Qt5.2.1/" "Public/" "projs/" "Pictures/" "Music/" "Movies/" "mnt/" "Library/" "Downloads/" "Documents/" "Desktop/" "code/" "bin/" "Applications/" "anaconda3/" "anaconda2/" ".zshrc~" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump-章立的MacBook Pro-5.0.8" ".zcompdump-章立的MacBook Pro-5.0.5" ".zcompdump-zhangli'MacBook-5.0.8" ".zcompdump-zhangli'MacBook Pro-5.0.8" ".zcompdump-MacBook Pro-5.0.8" ".Xauthority" ".virtualenvs/" ".viminfo" ".Trash/" ".terminfo/" ".subversion/" ".ssh/" ".spyder2-py3/" ".spacemacs" ".smex-items" ".scalaide/" ".scala_history" ".sbt/" ".rnd" ".python_history" ".pylintrc" ".pylint.d/" ".pdbrc.py~" ".pdbrc.py" ".p2/" ".oracle_jre_usage/" ".oh-my-zsh/" ".octave_hist" ".matplotlib/" ".matlab/" ".lldb/" ".jupyter/" ".ivy2/" ".ipython/" ".gnuplot_history" ".gitconfig" ".emacs.keyfreq" ".emacs.d.space/" ".emacs.d.bak/" ".emacs.d/" ".emacs.bak" ".eclipse/" ".DS_Store" ".custom.el" ".continuum/" ".config/" ".condamanager/" ".CFUserTextEncoding" ".cache/" ".bash_profile~" ".bash_profile" ".bash_history" ".backups/" ".astropy/" ".anaconda/" "../" "./")
+ ("/Users/zhangli/code/cplusplus/my_program/src/" (22388 64045 0 0) "main.cpp~" "main.cpp" "helper.h~" "helper.h" "helper.cpp" "GTAGS" "GRTAGS" "GPATH" "../" "./")
 
- ("/Users/zhangli/.emacs.d/" (22381 61818 0 0) "super-emacs/" "recentf~" "recentf" "init.el" "ido.last~" "ido.last" "elpa/" "Cask~" "Cask" "auto-save-list/" "anaconda-mode/" "ac-comphist.dat" ".git/" ".cask/" "../" "./")
+ ("/Users/zhangli/" (22388 63797 0 0) "ubuntu/" "Qt5.2.1/" "Public/" "projs/" "Pictures/" "Music/" "Movies/" "mnt/" "Library/" "Downloads/" "Documents/" "Desktop/" "code/" "bin/" "Applications/" "anaconda3/" "anaconda2/" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump-章立的MacBook Pro-5.0.8" ".zcompdump-章立的MacBook Pro-5.0.5" ".zcompdump-zhangli'MacBook-5.0.8" ".zcompdump-zhangli'MacBook Pro-5.0.8" ".zcompdump-MacBook Pro-5.0.8" ".Xauthority" ".virtualenvs/" ".viminfo" ".Trash/" ".terminfo/" ".subversion/" ".ssh/" ".spyder2-py3/" ".spacemacs" ".smex-items" ".scalaide/" ".scala_history" ".sbt/" ".rnd" ".python_history" ".pylintrc" ".pylint.d/" ".p2/" ".oracle_jre_usage/" ".oh-my-zsh/" ".octave_hist" ".matplotlib/" ".matlab/" ".local/" ".lldb/" ".jupyter/" ".ivy2/" ".ipython/" ".gtags/" ".gnuplot_history" ".gitconfig" ".emacs.keyfreq" ".emacs.d.space/" ".emacs.d.bak/" ".emacs.d/" ".emacs.bak" ".eclipse/" ".DS_Store" ".custom.el" ".continuum/" ".config/" ".condamanager/" ".CFUserTextEncoding" ".cache/" ".bash_profile" ".bash_history" ".backups/" ".astropy/" ".anaconda/" "../" "./")
 
- ("/Users/zhangli/.emacs.d/super-emacs/" (22381 61013 0 0) "repositories.el" "packages.el~" "packages.el" "misc.el" "key-bindings.el~" "key-bindings.el" "interface.el~" "interface.el" ".#repositories.el" "#repositories.el#" "../" "./")
+ ("/Users/zhangli/.oh-my-zsh/plugins/common-aliases/" (22137 23319 0 0) "common-aliases.plugin.zsh" "../" "./")
+
+ ("/Users/zhangli/.oh-my-zsh/plugins/" (22351 48251 0 0) "zsh_reload/" "zsh-navigation-tools/" "zeus/" "z/" "yum/" "yii2/" "yii/" "xcode/" "wp-cli/" "web-search/" "wd/" "wakeonlan/" "vundle/" "virtualenvwrapper/" "virtualenv/" "vim-interaction/" "vi-mode/" "vault/" "vagrant/" "urltools/" "ubuntu/" "tugboat/" "torrent/" "tmuxinator/" "tmux-cssh/" "tmux/" "thor/" "themes/" "thefuck/" "textmate/" "textastic/" "terraform/" "terminitor/" "terminalapp/" "taskwarrior/" "systemd/" "systemadmin/" "symfony2/" "symfony/" "svn-fast-info/" "svn/" "suse/" "supervisor/" "sudo/" "sublime/" "stack/" "ssh-agent/" "sprunge/" "spring/" "singlechar/" "sfffe/" "scw/" "screen/" "scd/" "scala/" "sbt/" "safe-paste/" "rvm/" "rust/" "ruby/" "rsync/" "repo/" "redis-cli/" "rebar/" "react-native/" "rbfu/" "rbenv/" "rand-quote/" "rake-fast/" "rake/" "rails/" "python/" "pylint/" "pyenv/" "profiles/" "powify/" "powder/" "pow/" "postgres/" "pod/" "pj/" "pip/" "phing/" "perl/" "per-directory-history/" "pep8/" "paver/" "pass/" "osx/" "nyan/" "nvm/" "npm/" "node/" "nmap/" "nanoc/" "n98-magerun/" "mysql-macports/" "mvn/" "mosh/" "mix-fast/" "mix/" "meteor/" "mercurial/" "marked2/" "man/" "macports/" "lol/" "lighthouse/" "lein/" "last-working-dir/" "laravel5/" "laravel4/" "laravel/" "knife_ssh/" "knife/" "kitchen/" "kate/" "jump/" "jsontools/" "jruby/" "jira/" "jhbuild/" "jake-node/" "iwhois/" "httpie/" "history-substring-search/" "history/" "heroku/" "gulp/" "grunt/" "grails/" "gradle/" "gpg-agent/" "golang/" "go/" "gnu-utils/" "glassfish/" "gitignore/" "github/" "gitfast/" "git-remote-branch/" "git-prompt/" "git-hubflow/" "git-flow-avh/" "git-flow/" "git-extras/" "git/" "gem/" "geeknote/" "gas/" "frontend-search/" "fossil/" "forklift/" "fedora/" "fbterm/" "fastfile/" "fasd/" "fancy-ctrl-z/" "fabric/" "extract/" "encode64/" "emotty/" "emoji-clock/" "emoji/" "ember-cli/" "emacs/" "docker-compose/" "docker/" "dnf/" "django/" "dirpersist/" "dirhistory/" "dircycle/" "debian/" "cpanm/" "cp/" "copyfile/" "copydir/" "composer/" "compleat/" "common-aliases/" "command-not-found/" "colorize/" "colored-man-pages/" "colemak/" "coffee/" "codeclimate/" "cloudapp/" "chucknorris/" "chruby/" "celery/" "catimg/" "cask/" "capistrano/" "cakephp3/" "cake/" "cabal/" "bwana/" "bundler/" "brew-cask/" "brew/" "branch/" "bower/" "boot2docker/" "bgnotify/" "bbedit/" "battery/" "aws/" "autopep8/" "autojump/" "autoenv/" "asdf/" "archlinux/" "arcanist/" "apache2-macports/" "ant/" "adb/" "../" "./")
+
+ ("/Users/zhangli/.oh-my-zsh/custom/" (22333 51118 0 0) "plugins/" "example.zsh" "../" "./")
+
+ ("/Users/zhangli/.oh-my-zsh/" (22333 51118 0 0) "tools/" "themes/" "templates/" "README.md" "plugins/" "oh-my-zsh.sh" "log/" "LICENSE.txt" "lib/" "custom/" "cache/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/" (22388 63510 0 0) "TAGS" "super-emacs/" "snippets/" "semanticdb/" "recentf~" "recentf" "irony/" "init.el" "ido.last~" "ido.last" "elpa/" "ede-projects.el" "Cask~" "Cask" "auto-save-list/" "anaconda-mode/" "ac-comphist.dat" ".gitignore" ".git/" ".cask/" "../" "./")
+
+ ("/usr/local/Cellar/emacs-plus/24.5/" (22387 47587 0 0) "var/" "TAGS" "share/" "README" "libexec/" "INSTALL_RECEIPT.json" "homebrew.mxcl.emacs-plus.plist" "Emacs.app/" "COPYING" "ChangeLog" "bin/" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/super-emacs/" (22388 56998 0 0) "repositories.el" "packages.el" "misc.el" "key-bindings.el" "interface.el" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/" (22388 56806 0 0) "ztree-20160127.1542/" "yasnippet-20160624.1326/" "ws-butler-20150126.759/" "with-editor-20160408.201/" "undo-tree-20140509.522/" "theme-looper-20150723.1104/" "switch-window-20160229.334/" "stickyfunc-enhance-20150429.1114/" "solarized-theme-20160515.442/" "smex-20151212.1409/" "smartparens-20160619.322/" "shut-up-20150423.522/" "s-20160508.2357/" "pyvenv-20160527.442/" "pythonic-20160221.1123/" "py-autopep8-20151231.614/" "powerline-20160601.724/" "popup-20160531.425/" "pallet-20150512.2/" "package-build-20160619.1317/" "ox-twbs-20160306.2258/" "ox-gfm-20160520.1442/" "org-pandoc-20130729.1850/" "org-bullets-20140918.1137/" "org-20160620/" "myterminal-controls-20160119.2030/" "multiple-cursors-20160616.1404/" "multi-term-20160619.233/" "monokai-theme-20160515.1404/" "meta-presenter-20150501.410/" "material-theme-20160516.844/" "magit-popup-20160606.1041/" "magit-2.4.1/" "ivy-20160624.23/" "irony-20160611.417/" "iedit-0.97/" "ido-vertical-mode-20160429.1037/" "ido-ubiquitous-20160623.815/" "ido-completing-read+-20160623.815/" "htmlize-20130207.1202/" "highlight-indentation-20150307.208/" "helm-themes-20151008.2321/" "helm-core-20160617.307/" "helm-20160616.217/" "google-c-style-20140929.1118/" "github-theme-0.0.3/" "git-commit-20160519.950/" "ggtags-20160617.1840/" "flymake-google-cpplint-20140205.525/" "flymake-easy-20140818.55/" "flymake-cursor-20130822.332/" "flx-isearch-20160105.1217/" "flx-ido-20151030.1112/" "flx-20151030.1112/" "find-file-in-project-20160625.619/" "f-20160426.527/" "epl-20150517.433/" "elpy-20160613.1005/" "elpy-1.8.0/" "direx-20151023.1606/" "dired-open-20160205.1213/" "dired-hacks-utils-20160527.1436/" "dired+-20160528.748/" "dash-20160605.248/" "company-20160626.1903/" "command-log-mode-20160412.2147/" "color-theme-solarized-20160626.743/" "color-theme-monokai-0.0.5/" "color-theme-20080305.34/" "clean-aindent-mode-20150816.2029/" "cask-mode-20160410.749/" "cask-20151123.528/" "buffer-move-20160615.1103/" "auto-complete-c-headers-20150911.2023/" "auto-complete-20160416.604/" "async-20160513.128/" "archives/" "anaconda-mode-20160527.512/" "aggressive-indent-readme.txt" "ace-jump-mode-20140616.115/" "../" "./")
+
+ ("/Users/zhangli/code/python/test-elpy/" (22387 20527 0 0) "ex2.py~" "ex2.py" "ex.py~" "ex.py" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/elpy-1.8.0/elpy/" (22387 8118 0 0) "server.pyc" "server.py" "rpc.pyc" "rpc.py" "ropebackend.pyc" "ropebackend.py" "refactor.py" "pydocutils.pyc" "pydocutils.py" "jedibackend.pyc" "jedibackend.py" "impmagic.pyc" "impmagic.py" "compat.pyc" "compat.py" "__main__.py" "__init__.pyc" "__init__.py" "../" "./")
+
+ ("/Users/zhangli/code/cplusplus/my_program/my_inc/" (22388 51591 0 0) "myadd.h~" "myadd.h" "myadd.cpp~" "myadd.cpp" "../" "./")
+
+ ("/usr/local/Cellar/emacs-plus/" (22381 3474 0 0) "24.5/" "../" "./")
+
+ ("/usr/local/Cellar/" (22386 33848 0 0) "youtube-dl/" "xz/" "wget/" "webp/" "veclibfort/" "valgrind/" "tree/" "tbb/" "szip/" "suite-sparse421/" "sqlite/" "scala/" "sbt/" "readline/" "qrupdate/" "qhull/" "python/" "pstoedit/" "plotutils/" "pkg-config/" "pixman/" "pcre/" "pango/" "openssl/" "open-mpi/" "octave/" "nettle/" "mpfr/" "matplotlib-basemap/" "lua51/" "lua/" "little-cms2/" "libtool/" "libtiff/" "libtasn1/" "libsigsegv/" "librsvg/" "libpng/" "libmpc/" "libffi/" "libevent/" "libcroco/" "jpeg/" "jbig2dec/" "isl/" "imagemagick/" "icu4c/" "hdf5/" "harfbuzz/" "gsl/" "graphicsmagick/" "gobject-introspection/" "go/" "gnutls/" "gnuplot/" "gmp/" "glpk/" "global/" "glib/" "gl2ps/" "git-flow/" "git/" "ghostscript/" "gettext/" "geos/" "gdk-pixbuf/" "gdbm/" "gdb/" "gd/" "gcc/" "freetype/" "fontconfig/" "fftw/" "epstool/" "emacs-plus/" "doxygen/" "ctags/" "cscope/" "cmake/" "clisp/" "clang-format/" "cask/" "cairo/" "brew-cask/" "autojump/" "aspell/" "arpack/" "../" "./")
+
+ ("/usr/local/" (22372 38436 0 0) "var/" "texlive/" "share/" "README.md" "opt/" "LICENSE.txt" "Library/" "lib/" "include/" "Frameworks/" "etc/" "CODEOFCONDUCT.md" "Cellar/" "bin/" ".yardopts" ".travis.yml" ".gitignore" ".github/" ".git/" "../" "./")
+
+ ("/usr/" (22381 61695 0 0) "X11R6/" "X11/" "standalone/" "share/" "sbin/" "local/" "libexec/" "lib/" "bin/" "adic/" "../" "./")
+
+ ("/Users/" (22101 47167 0 0) "zhangli/" "Shared/" "Guest/" ".localized" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/github-theme-0.0.3/" (22387 29470 0 0) "github-theme.elc" "github-theme.el" "github-theme-pkg.elc" "github-theme-pkg.el" "github-theme-autoloads.el~" "github-theme-autoloads.el" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/color-theme-solarized-20160626.743/" (22387 19499 0 0) "solarized-theme.elc" "solarized-theme.el" "solarized-definitions.elc" "solarized-definitions.el" "color-theme-solarized.elc" "color-theme-solarized.el" "color-theme-solarized-pkg.el" "color-theme-solarized-autoloads.el~" "color-theme-solarized-autoloads.el" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/yasnippet-20160624.1326/snippets/c++-mode/" (22387 18218 0 0) "vector" "using" "tryw" "try" "throw" "this" "test_suite" "test_main" "test case" "template" "str" "std_colon" "std" "sstream" "public" "protected" "private" "pack" "ostream" "operator_ostream" "operator_istream" "operator[]" "operator==" "operator=" "operator+=" "operator+" "operator!=" "ns" "namespace" "module" "map" "iterator" "io" "inline" "ignore" "gtest" "function" "fun_declaration" "friend" "fori" "fixture" "enum" "dynamic_casting" "doc" "delete[]" "delete" "d_operator_ostream" "d_operator_istream" "d_operator[]_const" "d_operator[]" "d_operator" "d+=" "cstd" "cpp" "cout" "constructor" "const_[]" "class~" "class11~" "class11" "class" "cin" "cerr" "boost_require" "beginend" "assert" ".yas-setup.elc" ".yas-setup.el" ".yas-parents" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/yasnippet-20160624.1326/snippets/python-mode/" (22385 58253 0 0) "with_statement" "with" "while" "utf8" "unicode" "tryelse" "try" "trace" "test_file" "test_class" "super" "str" "static" "size" "setup" "setdef" "selfassign" "self_without_dot" "self" "script" "return" "repr" "reg" "prop" "print" "pl" "pass" "parser" "parse_args" "np" "not_impl" "method_docstring" "method" "metaclass" "main" "logging" "logger_name" "list" "lambda" "iter" "ipdbdebug" "interact" "init_docstring" "init" "import" "ifmain" "ife" "if" "function_docstring" "function" "from" "for" "eq" "doctest" "doc" "django_test_class" "deftest" "dec" "cls" "classmethod" "celery_pdb" "assertTrue" "assertRaises.with" "assertRaises" "assertNotIn" "assertNotEqual" "assertIn" "assertFalse" "assertEqual" "assert" "arg_positional" "arg" "all" "__setitem__" "__new__" "__len__" "__getitem__" "__exit__" "__enter__" "__contains__" ".yas-setup.elc" ".yas-setup.el" ".yas-parents" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/yasnippet-20160624.1326/snippets/" (22385 58229 0 0) "yaml-mode/" "web-mode" "udev-mode/" "typerex-mode" "tuareg-mode/" "text-mode/" "sql-mode/" "snippet-mode/" "sh-mode/" "scala-mode/" "ruby-mode/" "rst-mode/" "rename_add_contr.py" "README.md" "python-mode/" "prog-mode/" "perl-mode/" "org-mode/" "octave-mode/" "nxml-mode/" "nsis-mode/" "nix-mode/" "nesc-mode/" "ned-mode/" "markdown-mode/" "malabar-mode/" "makefile-mode/" "makefile-gmake-mode/" "makefile-bsdmake-mode/" "makefile-automake-mode/" "m4-mode/" "lua-mode/" "lisp-mode/" "lisp-interaction-mode/" "LICENSE" "latex-mode/" "js3-mode" "js2-mode" "js-mode/" "java-mode/" "html-mode/" "haskell-mode/" "groovy-mode/" "go-mode/" "git-commit-mode/" "fundamental-mode/" "faust-mode/" "f90-mode/" "erlang-mode/" "erc-mode/" "ensime-mode" "enh-ruby-mode" "emacs-lisp-mode/" "elixir-mode/" "dix-mode/" "css-mode/" "csharp-mode/" "cpp-omnet-mode/" "cperl-mode/" "CONTRIBUTORS.txt" "conf-unix-mode/" "cmake-mode/" "clojure-mode/" "cider-repl-mode" "chef-mode/" "cc-mode/" "c-mode/" "c++-mode/" "applescript-mode/" "antlr-mode/" ".nosearch" ".gitignore" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/yasnippet-20160624.1326/" (22385 58252 0 0) "yasnippet.elc" "yasnippet.el" "yasnippet-pkg.el" "yasnippet-autoloads.el~" "yasnippet-autoloads.el" "snippets/" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/solarized-theme-20160515.442/" (22372 53848 0 0) "solarized.el" "solarized-theme.elc" "solarized-theme.el" "solarized-theme-utils.elc" "solarized-theme-utils.el" "solarized-theme-pkg.el" "solarized-theme-autoloads.el~" "solarized-theme-autoloads.el" "solarized-light-theme.elc" "solarized-light-theme.el" "solarized-dark-theme.elc" "solarized-dark-theme.el" "../" "./")
+
+ ("/Users/zhangli/code/python/" (22387 7791 0 0) "test_ex.pyc" "test_ex.py" "test-elpy/" "search-a-2d-matrix.py" "pdb_script.pyc" "pdb_script.py" "number-sequence.txt" "mcmc-split-merge/" "maximum-subarray.py" "maximum-subarray.cpp" "longest-consecutive-sequence.py" "lda/" "hello.py~" "hello.py" "ex2.py" "__pycache__/" ".cache/" "#search-a-2d-matrix.py#" "#ex2.py#" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/elpy-1.8.0/" (22385 58356 0 0) "snippets/" "README.rst" "LICENSE" "elpy.elc" "elpy.el" "elpy-refactor.elc" "elpy-refactor.el" "elpy-pkg.elc" "elpy-pkg.el" "elpy-autoloads.el~" "elpy-autoloads.el" "elpy/" "../" "./")
+
+ ("/Users/zhangli/code/" (22370 5831 0 0) "shell/" "python/" "projects/" "leetcode/" "java/" "googletest/" "go/" "git/" "eclipse/" "cs231n-cnn-for-Visual-Recognition/" "cplusplus/" ".DS_Store" "../" "./")
+
+ ("/Users/zhangli/code/cplusplus/" (22386 30377 0 0) "my_program/" "lda-zl/" "hlda-zl/" "helloworld/" "hdp-zl/" "hatm-zl/" "foo/" "emacs-config/" "ctm-c/" "cpptest/" "corpus-process/" "atm-zl/" "atm-github/" "ahdp-zl/" ".git/" ".DS_Store" "../" "./")
+
+ ("/Users/zhangli/code/cplusplus/my_program/" (22386 30449 0 0) "src/" "my_inc/" "../" "./")
+
+ ("/Users/zhangli/code/cplusplus/emacs-config/" (22386 30020 0 0) "test.cpp~" "test.cpp" "../" "./")
+
+ ("/Users/zhangli/Desktop/tutorial/modulepackage/namespace_package/" (22383 21454 0 0) "spam_foo/" "spam_bar/" "runme.py" ".#runme.py" "#runme.py#" "../" "./")
+
+ ("/Users/zhangli/Desktop/" (22381 52996 0 0) "踏血寻梅.2015.国粤双语.简繁中字￡CMCT梦幻/" "论文/" "简历/" "神父俱乐部.The.Club.2015.BluRay.720p.MNHD-FRDS/" "岸边之旅.Journey.to.the.Shore.2015.BluRay.720p.MNHD-FRDS/" "寒枝雀静.A.Pigeon.Sat.on.a.Branch.Reflecting.on.Existence.2014.BluRay.720p.MNHD-FRDS/" "学校材料/" "危楼愚夫.2014.俄语.简繁中字￡CMCT梦幻/" "关于伊丽.About.Elly.2009.BluRay.720p.DD2.0.MNHD-FRDS/" "xcode projects/" "ufldl/" "Ubuntu Linux/" "tutorial/" "topic model code /" "To.Be.A.Better.Man.2016.E01-E03.1080p.WEB-DL.H264.AAC-NYHD/" "The.Revenant.2015.720p.WEBRip.x264.AC3.LT-TRL.mkv" "Red.Amnesia.2015.1080p.WEB-DL.x264.AAC-SeeHD/" "presentations/" "pics/" "papers/" "matlab/" "Machine_Learning(Andrew Ng)/" "machine-learning-cs229/" "leetcode/" "latex/" "funniest/" "ex.tex~" "ex.tex" "ex.pdf" "ex.org~" "ex.org_archive" "ex.org" "ex.md~" "ex.md" "ex.html~" "ex.html" "Emacs.app/" "Emacs configuration in 24 minutes.mp4" "Chongqing.Hot.Pot.2016.1080p.WEB-DL.x264.AC3-SeeHD/" "books/" "_minted-ex/" ".localized" ".DS_Store" "../" "./")
 )
 
 ;; ----- ido-unc-hosts-cache -----

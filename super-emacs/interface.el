@@ -21,6 +21,8 @@
   (setq solarized-height-plus-2 1.0)
   (setq solarized-height-plus-3 1.0)
   (setq solarized-height-plus-4 1.0)
+  (setq solarized-use-less-bold t)
+  (setq solarized-termcolors 256)
   (setq solarized-high-contrast-mode-line t)
   (load-theme 'solarized-dark t))
 

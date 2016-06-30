@@ -23,59 +23,96 @@
         (package-install p))
       super-emacs--required-packages)
 
-;Load default auto-complete configs
-(ac-config-default)
+;;Load default auto-complete configs
+(use-package auto-complete
+  :config
+  (ac-config-default))
 
-;Start undo-tree
-(global-undo-tree-mode)
+;;Start undo-tree
+(use-package undo-tree
+  :bind (("M-/" . undo-tree-visualize))
+  :config
+(global-undo-tree-mode))
 
 ;Set up ace-jump-mode
-(autoload 'ace-jump-mode 
-  "ace-jump-mode" 
-  "Emacs quick move minor mode"
-  t)
-(autoload 'ace-jump-mode-pop-mark 
-  "ace-jump-mode" 
-  "Ace jump back:-"
-  t)
+;; (autoload 'ace-jump-mode
+;;   "ace-jump-mode"
+;;   "Emacs quick move minor mode"
+;;   t)
+;; (autoload 'ace-jump-mode-pop-mark
+;;   "ace-jump-mode"
+;;   "Ace jump back:-"
+;;   t)
+
+(use-package ace-jump-mode
+  :commands ace-jump-mode
+  :init
+  (bind-key "C-." 'ace-jump-mode))
 
 ;Enable powerline
-(powerline-center-theme)
-(setq powerline-default-separator
-      'wave)
+(use-package powerline
+  :config
+  (powerline-center-theme)
+  (setq powerline-default-separator 'wave))
 
-;Configure theme-looper
-(theme-looper-set-theme-set '(deeper-blue
-                              wheatgrass
-                              wombat
-                              material
-                              monokai
-                              solarized-dark))
-(theme-looper-set-customizations 'powerline-reset)
+;;Configure theme-looper
+(use-package theme-looper
+  :bind (("C-\"" . theme-looper-enable-next-theme))
+  :config
+  (theme-looper-set-theme-set '(deeper-blue
+                                wheatgrass
+                                wombat
+                                material
+                                monokai
+                                solarized-dark
+                                solarized-light))
+  (theme-looper-set-customizations 'powerline-reset))
 
 ;Configure myterminal-controls
-(myterminal-controls-set-controls-data
- '(("t" "Change color theme" theme-looper-enable-next-theme)
-   ("r" "Reload file" super-emacs-reload-current-file)))
+(use-package myterminal-controls
+  :bind (("C-M-'" . myterminal-controls-open-controls))
+  :config
+  (myterminal-controls-set-controls-data
+   '(("t" "Change color theme" theme-looper-enable-next-theme)
+     ("r" "Reload file" super-emacs-reload-current-file))))
 
 ;Set up helm-mode
-(helm-mode 1)
-(helm-autoresize-mode 1)
-(setq helm-split-window-in-side-p
-      t)
-
+(use-package helm
+  :init
+  :bind (("M-x" . helm-M-x)
+    ("C-x b" . helm-mini)
+    ("C-x C-b" . helm-buffers-list)
+    ("C-x C-f" . helm-find-files)
+    ("C-x C-r" . helm-recentf)
+    ("M-y" . helm-show-kill-ring))
+  :config
+  (helm-mode 1)
+  (helm-autoresize-mode 1)
+  (setq helm-split-window-in-side-p t))
 
 ; anaconda-mode
-(add-hook 'python-mode-hook 'anaconda-mode)
-(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+;; (add-hook 'python-mode-hook 'anaconda-mode)
+;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 
 (setq python-indent 4)
 
 
 ; multi term
-(require 'multi-term)
-(setq multi-term-program "/bin/zsh")
-(setq system-uses-terminfo nil)
+(use-package multi-term
+  :bind (("C-x t" . multi-term))
+  :config
+  (require 'multi-term)
+  (setq multi-term-program "/bin/zsh")
+  ;; set PS1
+  (setq system-uses-terminfo nil)
+  ;; tab complete
+  (add-hook 'term-mode-hook
+            (lambda()
+              (setq yas-dont-activate t))))
+
+
+;;================================================================================
+;;================================================================================
 
 
 ;; org-mode
@@ -104,6 +141,8 @@
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
 
+;;================================================================================
+;;================================================================================
 
 ;; org-mode  export pdf
 (setq org-latex-pdf-process
@@ -181,6 +220,9 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 
+;;================================================================================
+;;================================================================================
+
 
 ;; dired config
 (require 'dired-x)
@@ -194,7 +236,7 @@
         ("mp4" . "vlc")
         ("avi" . "vlc")))
 
-(setq-default dired-listing-switches "-lhv")
+(setq-default dired-listing-switches "-lha")
 
 (setq dired-clean-up-buffers-too t)
 
@@ -202,6 +244,8 @@
 
 (setq dired-recursive-deletes 'top)
 
+;;================================================================================
+;;================================================================================
 
 ;; ido
 (setq ido-enable-flex-matching t)
@@ -214,7 +258,193 @@
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 
 ;; smex
-(smex-initialize)
+;; (smex-initialize)
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; (global-set-key (kbd "M-x") 'smex)
+;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+
+;;================================================================================
+;;================================================================================
+
+;; yasnippet config
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;;================================================================================
+;;================================================================================
+
+;; auto-complete-c-header
+(defun zl/ac-complete-c-header-init ()
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-source-c-headers)
+  (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/c++/4.2.1")
+  (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0/include")
+  )
+(add-hook 'c++-mode-hook 'zl/ac-complete-c-header-init)
+(add-hook 'c-mode-hook 'zl/ac-complete-c-header-init)
+
+;;================================================================================
+;;================================================================================
+
+;; iedit
+(define-key global-map (kbd "C-c o") 'iedit-mode)
+
+
+;;================================================================================
+;;================================================================================
+
+;; flymake google cpp
+(defun zl/flymake-google-init ()
+  (require 'flymake-google-cpplint)
+  (custom-set-variables
+   '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
+  (flymake-google-cpplint-load))
+(add-hook 'c-mode-hook 'zl/flymake-google-init)
+(add-hook 'c++-mode-hook 'zl/flymake-google-init)
+
+(setq-default tab-always-indent 'complete)
+
+;;================================================================================
+;;================================================================================
+
+;; google-c-style
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+
+
+;;================================================================================
+;;================================================================================
+
+;; cedet
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+(semantic-mode 1)
+(require 'stickyfunc-enhance)
+
+;; add senmatic as a suggestion backend to auto complete
+(defun zl/add-senmantic-to-autocompelte ()
+  (add-to-list 'ac-sources 'ac-source-semantic)
+  (add-to-list 'ac-sources 'ac-source-gtags)
+  )
+
+(add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
+(add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
+
+(defun zl/set-semantic-keys ()
+  (local-set-key "\C-c,d" 'semantic-ia-show-doc)
+  (local-set-key "\C-c,c" 'semantic-ia-describe-class)
+  (local-set-key "\C-c,s" 'semantic-ia-show-summary)
+  (local-set-key "\C-c,>" 'semantic-ia-fast-jump)
+  (local-set-key "\C-c,-" 'senator-fold-tag)
+  (local-set-key "\C-c,+" 'senator-unfold-tag))
+
+
+(add-hook 'c-mode-common-hook 'zl/set-semantic-keys)
+
+
+(global-ede-mode 1)
+
+(ede-cpp-root-project "my project" :file "~/code/cplusplus/my_program/src/main.cpp"
+                      :include-path '("/../my_inc"))
+
+(global-semantic-idle-scheduler-mode 1)
+
+(semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
+
+(defun zl/semantic-hook ()
+  (imenu-add-to-menubar "TAGS"))
+(add-hook 'semantic-init-hook 'zl/semantic-hook)
+
+;;================================================================================
+;;================================================================================
+
+  ;; Package: smartparens
+(require 'smartparens-config)
+(show-smartparens-global-mode +1)
+(smartparens-global-mode 1)
+
+;; when you press RET, the curly braces automatically
+;; add another newline
+(sp-with-modes '(c-mode c++-mode)
+  (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
+  (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
+                                            ("* ||\n[i]" "RET"))))
+;;================================================================================
+;;================================================================================
+
+;; Package: clean-aindent-mode
+(require 'clean-aindent-mode)
+(add-hook 'prog-mode-hook 'clean-aindent-mode)
+
+  ;; Package: ws-butler
+(require 'ws-butler)
+(add-hook 'c-mode-common-hook 'ws-butler-mode)
+(add-hook 'prog-mode-hook 'ws-butler-mode)
+
+;;================================================================================
+;;================================================================================
+
+
+;; irony-mode
+;;(setenv "LD_LIBARY_PATH" "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/")
+;; (require 'irony)
+
+;; (add-hook 'c++-mode-hook 'irony-mode)
+;; (add-hook 'c-mode-hook 'irony-mode)
+;; (add-hook 'objc-mode-hook 'irony-mode)
+
+;; ;; replace the `completion-at-point' and `complete-symbol' bindings in
+;; ;; irony-mode's buffers by irony-mode's function
+;; (defun my-irony-mode-hook ()
+;;   (define-key irony-mode-map [remap completion-at-point]
+;;     'irony-completion-at-point-async)
+;;   (define-key irony-mode-map [remap complete-symbol]
+;;     'irony-completion-at-point-async))
+;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+
+;;================================================================================
+;;================================================================================
+
+;; elpy
+(elpy-enable)
+(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+(require 'elpy)
+(setq elpy-rpc-python-command "/usr/local/bin/python")
+(elpy-use-ipython)
+
+;(setq elpy-rpc-backend "jedi")
+(setq elpy-rpc-backend "rope")
+
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+
+;;================================================================================
+;;================================================================================
+
+;; indention setup
+; automatically indent when press RET
+(global-set-key (kbd "RET") 'newline-and-indent)
+
+
+;; activate whitespace-mode to view all whitespace characters
+(global-set-key (kbd "C-c w") 'whitespace-mode)
+
+;; show unncessary whitespace that can mess up your diff
+(add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
+
+;; use space to indent by default
+(setq-default indent-tabs-mode nil)
+
+;; set appearance of a tab that is represented by 4 spaces
+(setq-default tab-width 4)
+
+
+;;================================================================================
+;;================================================================================
+
+;; projectile
+
+(projectile-global-mode)
