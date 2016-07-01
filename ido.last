@@ -23,6 +23,8 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "/Users/zhangli/.emacs.d/elpa/ctags-update-0.1.2/"
+ "/Users/zhangli/code/cplusplus/my_program/src/"
  "/Users/zhangli/"
  "/Users/zhangli/.oh-my-zsh/plugins/common-aliases/"
  "/Users/zhangli/.emacs.d/super-emacs/"
@@ -35,7 +37,6 @@
  "/Users/zhangli/code/python/test-elpy/"
  "/Users/zhangli/.emacs.d/elpa/elpy-1.8.0/elpy/"
  "/Users/zhangli/code/python/"
- "/Users/zhangli/code/cplusplus/my_program/src/"
  "/Users/zhangli/code/cplusplus/my_program/my_inc/"
  "/Users/zhangli/code/cplusplus/emacs-config/"
 )
@@ -48,7 +49,13 @@
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/zhangli/code/cplusplus/my_program/src/" (22388 64045 0 0) "main.cpp~" "main.cpp" "helper.h~" "helper.h" "helper.cpp" "GTAGS" "GRTAGS" "GPATH" "../" "./")
+ ("/Users/zhangli/code/cplusplus/my_program/src/" (22390 11423 0 0) "main.cpp~" "main.cpp" "helper.h~" "helper.h" "helper.cpp~" "helper.cpp" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/elpa/ctags-update-0.1.2/" (22390 9498 0 0) "ctags-update.el~" "ctags-update.elc" "ctags-update.el" "ctags-update-pkg.elc" "ctags-update-pkg.el" "ctags-update-autoloads.el~" "ctags-update-autoloads.el" "#ctags-update.el#" "../" "./")
+
+ ("/Users/zhangli/code/cplusplus/my_program/" (22390 6736 0 0) "TAGS" "src/" "my_inc/" "GTAGS" "GRTAGS" "GPATH" "../" "./")
+
+ ("/Users/zhangli/.emacs.d/" (22389 50246 0 0) "TAGS" "super-emacs/" "snippets/" "semanticdb/" "recentf~" "recentf" "projectile-bookmarks.eld" "irony/" "init.el" "ido.last~" "ido.last" "elpa/" "ede-projects.el" "Cask~" "Cask" "auto-save-list/" "anaconda-mode/" "ac-comphist.dat" ".gitignore" ".git/" ".cask/" "../" "./")
 
  ("/Users/zhangli/" (22388 63797 0 0) "ubuntu/" "Qt5.2.1/" "Public/" "projs/" "Pictures/" "Music/" "Movies/" "mnt/" "Library/" "Downloads/" "Documents/" "Desktop/" "code/" "bin/" "Applications/" "anaconda3/" "anaconda2/" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump-章立的MacBook Pro-5.0.8" ".zcompdump-章立的MacBook Pro-5.0.5" ".zcompdump-zhangli'MacBook-5.0.8" ".zcompdump-zhangli'MacBook Pro-5.0.8" ".zcompdump-MacBook Pro-5.0.8" ".Xauthority" ".virtualenvs/" ".viminfo" ".Trash/" ".terminfo/" ".subversion/" ".ssh/" ".spyder2-py3/" ".spacemacs" ".smex-items" ".scalaide/" ".scala_history" ".sbt/" ".rnd" ".python_history" ".pylintrc" ".pylint.d/" ".p2/" ".oracle_jre_usage/" ".oh-my-zsh/" ".octave_hist" ".matplotlib/" ".matlab/" ".local/" ".lldb/" ".jupyter/" ".ivy2/" ".ipython/" ".gtags/" ".gnuplot_history" ".gitconfig" ".emacs.keyfreq" ".emacs.d.space/" ".emacs.d.bak/" ".emacs.d/" ".emacs.bak" ".eclipse/" ".DS_Store" ".custom.el" ".continuum/" ".config/" ".condamanager/" ".CFUserTextEncoding" ".cache/" ".bash_profile" ".bash_history" ".backups/" ".astropy/" ".anaconda/" "../" "./")
 
@@ -59,8 +66,6 @@
  ("/Users/zhangli/.oh-my-zsh/custom/" (22333 51118 0 0) "plugins/" "example.zsh" "../" "./")
 
  ("/Users/zhangli/.oh-my-zsh/" (22333 51118 0 0) "tools/" "themes/" "templates/" "README.md" "plugins/" "oh-my-zsh.sh" "log/" "LICENSE.txt" "lib/" "custom/" "cache/" ".gitignore" ".git/" "../" "./")
-
- ("/Users/zhangli/.emacs.d/" (22388 63510 0 0) "TAGS" "super-emacs/" "snippets/" "semanticdb/" "recentf~" "recentf" "irony/" "init.el" "ido.last~" "ido.last" "elpa/" "ede-projects.el" "Cask~" "Cask" "auto-save-list/" "anaconda-mode/" "ac-comphist.dat" ".gitignore" ".git/" ".cask/" "../" "./")
 
  ("/usr/local/Cellar/emacs-plus/24.5/" (22387 47587 0 0) "var/" "TAGS" "share/" "README" "libexec/" "INSTALL_RECEIPT.json" "homebrew.mxcl.emacs-plus.plist" "Emacs.app/" "COPYING" "ChangeLog" "bin/" "../" "./")
 
@@ -105,8 +110,6 @@
  ("/Users/zhangli/code/" (22370 5831 0 0) "shell/" "python/" "projects/" "leetcode/" "java/" "googletest/" "go/" "git/" "eclipse/" "cs231n-cnn-for-Visual-Recognition/" "cplusplus/" ".DS_Store" "../" "./")
 
  ("/Users/zhangli/code/cplusplus/" (22386 30377 0 0) "my_program/" "lda-zl/" "hlda-zl/" "helloworld/" "hdp-zl/" "hatm-zl/" "foo/" "emacs-config/" "ctm-c/" "cpptest/" "corpus-process/" "atm-zl/" "atm-github/" "ahdp-zl/" ".git/" ".DS_Store" "../" "./")
-
- ("/Users/zhangli/code/cplusplus/my_program/" (22386 30449 0 0) "src/" "my_inc/" "../" "./")
 
  ("/Users/zhangli/code/cplusplus/emacs-config/" (22386 30020 0 0) "test.cpp~" "test.cpp" "../" "./")
 

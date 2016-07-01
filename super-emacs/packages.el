@@ -70,13 +70,17 @@
 
 ;Configure myterminal-controls
 (use-package myterminal-controls
+  :commands myterminal-controls-open-controls
   :bind (("C-M-'" . myterminal-controls-open-controls))
   :config
   (myterminal-controls-set-controls-data
    '(("t" "Change color theme" theme-looper-enable-next-theme)
      ("r" "Reload file" super-emacs-reload-current-file))))
 
-;Set up helm-mode
+;; Set up helm-mode
+(require 'helm)
+(require 'helm-config)
+
 (use-package helm
   :init
   :bind (("M-x" . helm-M-x)
@@ -84,11 +88,21 @@
     ("C-x C-b" . helm-buffers-list)
     ("C-x C-f" . helm-find-files)
     ("C-x C-r" . helm-recentf)
-    ("M-y" . helm-show-kill-ring))
+    ("M-y" . helm-show-kill-ring)
+    ("C-c h" . helm-command-prefix)
+  :map helm-map
+  ;("<tab>" . helm-execute-persistent-action)
+  ("C-j" .  helm-execute-persistent-action)
+  ("C-z" . helm-select-action))
   :config
   (helm-mode 1)
-  (helm-autoresize-mode 1)
-  (setq helm-split-window-in-side-p t))
+  (helm-autoresize-mode t)
+  (setq helm-split-window-in-side-p t
+        ;helm-move-to-line-cycle-in-source t
+        helm-ff-file-name-history-use-recentf t
+        helm-ff-search-library-in-sexp t))
+
+
 
 ; anaconda-mode
 ;; (add-hook 'python-mode-hook 'anaconda-mode)
@@ -150,32 +164,12 @@
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-;; (setq org-latex-pdf-process
-;;            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 ;; add minted package highlight source code
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
 
-
-;; (require 'ox-latex)
-;;     ;; Add minted to the defaults packages to include when exporting.
-;;     (add-to-list 'org-latex-packages-alist '("" "minted"))
-;;     ;; Tell the latex export to use the minted package for source
-;;     ;; code coloration.
-;;     (setq org-latex-listings 'minted)
-;;     ;; Let the exporter use the -shell-escape option to let latex
-;;     ;; execute external programs.
-;;     ;; This obviously and can be dangerous to activate!
-;;     (setq org-latex-minted-options
-;;           '(("mathescape" "true")
-;;             ("linenos" "true")
-;;             ("numbersep" "5pt")
-;;             ("frame" "lines")
-;;             ("framesep" "2mm")))
-;;     (setq org-latex-pdf-process
-;;           '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 ;; Tex config
 (setq TeX-parse-self t)
@@ -188,7 +182,6 @@
             (setq TeX-master t)))
 
 
-(setq org-src-fontify-natively t)
 
 (require 'ox-md)
 (require 'ox-beamer)
@@ -248,14 +241,35 @@
 ;;================================================================================
 
 ;; ido
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-(ido-ubiquitous)
-(flx-ido-mode 1) ; better/faster matching
-(setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
-(ido-vertical-mode 1)
-(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+(use-package ido
+  :ensure t
+  :init  (setq ido-enable-flex-matching t
+               ido-ignore-extensions t
+               ido-use-virtual-buffers t
+               ido-everywhere t)
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (add-to-list 'completion-ignored-extensions ".pyc")
+  ;; don't confirm to create new buffers
+  (setq ido-create-new-buffer 'always))
+
+(use-package flx-ido
+   :ensure t
+   :init (setq ido-enable-flex-matching t)
+   :config (flx-ido-mode 1))
+
+(use-package ido-vertical-mode
+  :ensure t
+  :init               ; I like up and down arrow keys:
+  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
+  :config
+  (ido-vertical-mode 1))
+
+(use-package ido-ubiquitous
+  :ensure t
+  :config
+  (ido-ubiquitous))
 
 ;; smex
 ;; (smex-initialize)
@@ -271,24 +285,32 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+
 ;;================================================================================
 ;;================================================================================
 
 ;; auto-complete-c-header
-(defun zl/ac-complete-c-header-init ()
-  (require 'auto-complete-c-headers)
-  (add-to-list 'ac-sources 'ac-source-c-headers)
-  (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/c++/4.2.1")
-  (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0/include")
-  )
-(add-hook 'c++-mode-hook 'zl/ac-complete-c-header-init)
-(add-hook 'c-mode-hook 'zl/ac-complete-c-header-init)
+(use-package auto-complete-c-headers
+  :ensure t
+  :config
+  (defun zl/ac-complete-c-header-init ()
+    (require 'auto-complete-c-headers)
 
-;;================================================================================
-;;================================================================================
+    (add-to-list 'ac-sources 'ac-source-c-headers)
+
+    (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/c++/4.2.1")
+
+    (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include"))
+
+  (add-hook 'c++-mode-hook 'zl/ac-complete-c-header-init)
+  (add-hook 'c-mode-hook 'zl/ac-complete-c-header-init))
+
 
 ;; iedit
-(define-key global-map (kbd "C-c o") 'iedit-mode)
+(use-package iedit
+  :ensure t
+  :bind (("C-c o" . iedit-mode)))
+
 
 
 ;;================================================================================
@@ -360,7 +382,7 @@
 ;;================================================================================
 ;;================================================================================
 
-  ;; Package: smartparens
+;; Package: smartparens
 (require 'smartparens-config)
 (show-smartparens-global-mode +1)
 (smartparens-global-mode 1)
@@ -448,3 +470,28 @@
 ;; projectile
 
 (projectile-global-mode)
+
+
+;; auto save
+(defun save-all ()
+  "Saves all dirty buffers without asking for confirmation."
+  (interactive)
+  (save-some-buffers t))
+
+(add-hook 'focus-out-hook 'save-all)
+
+;; tags
+(require 'etags)
+
+(use-package ctags-update
+  :ensure t
+  :bind (("C-c C-r" . ctags-update))
+  :config
+  ;;;###autoload
+  (defun turn-on-ctags-auto-update-mode()
+    "turn on `ctags-auto-update-mode'."
+    (interactive)
+    (ctags-update-minor-mode 1))
+  (add-hook 'prog-mode-hook  'turn-on-ctags-auto-update-mode)
+  (setq ctags-update-command "/usr/local/bin/ctags-zl")
+  :diminish ctags-auto-update-mode)
