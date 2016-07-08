@@ -78,9 +78,9 @@
      ("r" "Reload file" super-emacs-reload-current-file))))
 
 ;; Set up helm-mode
-(require 'helm)
-(require 'helm-config)
-
+;; (require 'helm)
+;; (require 'helm-config)
+;; (require 'helm-ag nil t)
 (use-package helm
   :init
   :bind (("M-x" . helm-M-x)
@@ -100,7 +100,9 @@
   (setq helm-split-window-in-side-p t
         ;helm-move-to-line-cycle-in-source t
         helm-ff-file-name-history-use-recentf t
-        helm-ff-search-library-in-sexp t))
+        helm-ff-search-library-in-sexp t)
+  (use-package helm-ag)
+  (use-package helm-config))
 
 
 
@@ -151,18 +153,27 @@
 (setenv "PATH"
         (concat (getenv "PATH")
                 ":" "/usr/local/bin"))
+(setenv "PATH"
+        (concat (getenv "PATH")
+                ":" "/Library/TeX/texbin/"))
 
 (setq exec-path (append exec-path '("/usr/local/bin")))
-
+(setq exec-path (append exec-path '("/Library/TeX/texbin/")))
 
 ;;================================================================================
 ;;================================================================================
 
 ;; org-mode  export pdf
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+;; (setq org-latex-pdf-process
+;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(setq org-latex-to-pdf-process
+      '("xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
+        "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
+        "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"))
+
+
 
 
 ;; add minted package highlight source code
@@ -193,7 +204,8 @@
  '((emacs-lisp . t)
    (ruby . t)
    (python . t)
-   (sh . t)))
+   (sh . t)
+   (dot . t)))
 
 (setq org-confirm-babel-evaluate nil)
 
@@ -400,7 +412,7 @@
 (require 'clean-aindent-mode)
 (add-hook 'prog-mode-hook 'clean-aindent-mode)
 
-  ;; Package: ws-butler
+;; Package: ws-butler
 (require 'ws-butler)
 (add-hook 'c-mode-common-hook 'ws-butler-mode)
 (add-hook 'prog-mode-hook 'ws-butler-mode)
@@ -432,16 +444,43 @@
 ;;================================================================================
 
 ;; elpy
-(elpy-enable)
-(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
-(require 'elpy)
-(setq elpy-rpc-python-command "/usr/local/bin/python")
-(elpy-use-ipython)
 
-;(setq elpy-rpc-backend "jedi")
-(setq elpy-rpc-backend "rope")
+(use-package elpy
+  :ensure t
+  :config
+  ;;  (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+  (require 'elpy)
+  (elpy-enable)
+  (setq elpy-rpc-python-command "/usr/local/bin/python")
+  (elpy-use-ipython)
 
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+  ;;(setq elpy-rpc-backend "jedi")
+  (setq elpy-rpc-backend "jedi")
+
+  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+  (defun zl/switch-to-python3 ()
+    (interactive)
+    (setq elpy-rpc-python-command "python3")
+    (elpy-use-ipython "ipython3"))
+  (defun zl/switch-to-python2 ()
+    (interactive)
+    (setq elpy-rpc-python-command "python")
+    (elpy-use-ipython "ipython"))
+  (use-package flycheck
+    :ensure t
+    :config
+    (require 'flycheck)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)))
+
+
+;; ein for ipython-notebook
+(use-package ein
+  :ensure t
+  :config
+  (require 'ein)
+  (setq ein:use-auto-complete-superpack t)
+  (setq ein:use-smartrep t))
 
 ;;================================================================================
 ;;================================================================================
@@ -495,3 +534,24 @@
   (add-hook 'prog-mode-hook  'turn-on-ctags-auto-update-mode)
   (setq ctags-update-command "/usr/local/bin/ctags-zl")
   :diminish ctags-auto-update-mode)
+
+;; ag
+(use-package ag
+  :ensure    t
+  :commands  ag
+  :init      (setq ag-highlight-search t)
+  :config    (add-to-list 'ag-arguments "--word-regexp"))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config (when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)))
+
+;; git-gutter+
+(use-package git-gutter+
+  :ensure t
+  :config (global-git-gutter+-mode))
+
+
+;; graphviz-dot
+(add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
