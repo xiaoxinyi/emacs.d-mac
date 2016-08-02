@@ -1,0 +1,26 @@
+;; Object emacs-config/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "emacs-config/"
+  :tables
+  (list
+    (semanticdb-table "test.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [39 48])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [49 62]))                  
+                :type "int")
+                nil [30 170]))          
+      :file "test.cpp"
+      :pointmax 173
+      :fsize 172
+      :lastmodtime '(22386 30020 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!zhangli!code!cplusplus!emacs-config!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

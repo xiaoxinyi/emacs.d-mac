@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: chinese
+# key: chi
+# --
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \setCJKmainfont{SimSun}

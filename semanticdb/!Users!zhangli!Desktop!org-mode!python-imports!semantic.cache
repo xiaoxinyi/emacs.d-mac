@@ -1,0 +1,16 @@
+;; Object python-imports/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "python-imports/"
+  :tables
+  (list
+    (semanticdb-table "python-imports.org[*Org Src python-imports.org[ python ]*]"
+      :major-mode 'python-mode
+      :tags 
+        '( ("foo" include nil nil [17 27]))          
+      :file "python-imports.org[*Org Src python-imports.org[ python ]*]"
+      :pointmax 54
+      :unmatched-syntax '((PERIOD 15 . 16)))
+)
+  :file "!Users!zhangli!Desktop!org-mode!python-imports!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

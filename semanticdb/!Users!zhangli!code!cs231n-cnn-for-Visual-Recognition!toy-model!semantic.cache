@@ -1,0 +1,49 @@
+;; Object toy-model/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "toy-model/"
+  :tables
+  (list
+    (semanticdb-table "datagen.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("numpy" include nil nil [1 19])
+            ("matplotlib.pyplot" include nil nil [20 51])
+            ("N" variable nil nil [84 91])
+            ("D" variable nil nil [122 127])
+            ("K" variable nil nil [146 151])
+            ("X" variable nil nil [171 193])
+            ("y" variable nil nil [237 269])
+            ("for" code nil nil [286 505])
+            ("plt" code nil nil [505 567])
+            ("plt" code nil nil [568 578])
+            ("W" code nil nil [580 612])
+            ("b" variable nil nil [613 633])
+            ("scores" code nil nil [634 659])
+            ("exp_scores" variable nil nil [693 720])
+            ("probs" code nil nil [755 817])
+            ("num_examples" code nil nil [818 838])
+            ("correct_logprobs" code nil nil [839 896])
+            ("data_loss" code nil nil [959 1010])
+            ("reg" variable nil nil [1011 1020])
+            ("reg_loss" code nil nil [1021 1051])
+            ("loss" code nil nil [1052 1079])
+            ("dscores" variable nil nil [1082 1097])
+            ("dscores" variable nil nil [1098 1134])
+            ("dscores" variable nil nil [1135 1158])
+            ("dW" variable nil nil [1160 1185])
+            ("db" variable nil nil [1186 1229])
+            ("dW" code nil nil [1230 1240])
+            ("W" code nil nil [1305 1337])
+            ("b" variable nil nil [1338 1358])
+            ("step_size" variable nil nil [1384 1400])
+            ("reg" variable nil nil [1401 1411])
+            ("num_examples" variable nil nil [1463 1488])
+            ("for" code nil nil [1489 1861]))          
+      :file "datagen.py"
+      :pointmax 1861
+      :fsize 1860
+      :lastmodtime '(22412 46960 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!zhangli!code!cs231n-cnn-for-Visual-Recognition!toy-model!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
