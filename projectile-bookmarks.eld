@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/Desktop/org-mode/sxwl-presentation/" "~/code/cplusplus/" "~/code/git/" "~/Desktop/org-mode/presentation-hatm/" "~/Desktop/论文/UCASthesis/" "~/code/python/test-elpy/" "/usr/local/" "~/.oh-my-zsh/")
+("~/.emacs.d/" "~/Desktop/org-mode/sxwl-presentation/" "~/Desktop/org-mode/" "~/code/cplusplus/" "~/code/git/" "~/Desktop/org-mode/presentation-hatm/" "~/Desktop/论文/UCASthesis/" "~/code/python/test-elpy/" "/usr/local/" "~/.oh-my-zsh/")
