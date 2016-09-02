@@ -1,0 +1,85 @@
+;; Object protocol-buffer/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "protocol-buffer/"
+  :tables
+  (list
+    (semanticdb-table "addressbook_pb2.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("sys" include nil nil [93 103])
+            ("_b" code nil nil [104 178])
+            ("google.protobuf" include nil nil [179 232])
+            ("google.protobuf" include nil nil [233 280])
+            ("google.protobuf" include nil nil [281 334])
+            ("google.protobuf" include nil nil [335 398])
+            ("google.protobuf" include nil nil [399 441])
+            ("_sym_db" variable nil nil [479 515])
+            ("DESCRIPTOR" variable nil nil [520 1201])
+            ("_sym_db" code nil nil [1202 1244])
+            ("_PERSON_PHONETYPE" variable nil nil [1248 1837])
+            ("_sym_db" code nil nil [1838 1887])
+            ("_PERSON_PHONENUMBER" variable nil nil [1890 2950])
+            ("_PERSON" variable nil nil [2952 4662])
+            ("_ADDRESSBOOK" variable nil nil [4665 5354])
+            ("_PERSON_PHONENUMBER" variable nil nil [5356 5428])
+            ("_PERSON_PHONENUMBER" variable nil nil [5429 5474])
+            ("_PERSON" variable nil nil [5475 5541])
+            ("_PERSON_PHONETYPE" variable nil nil [5542 5585])
+            ("_ADDRESSBOOK" variable nil nil [5586 5646])
+            ("DESCRIPTOR" variable nil nil [5647 5699])
+            ("DESCRIPTOR" variable nil nil [5700 5762])
+            ("Person" variable nil nil [5764 6234])
+            ("_sym_db" code nil nil [6235 6266])
+            ("_sym_db" code nil nil [6267 6310])
+            ("AddressBook" variable nil nil [6312 6542])
+            ("_sym_db" code nil nil [6543 6579]))          
+      :file "addressbook_pb2.py"
+      :pointmax 6623
+      :fsize 6598
+      :lastmodtime '(22432 25133 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "ex1.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("addressbook_pb2" include nil nil [26 48])
+            ("sys" include nil nil [49 59])
+            ("PromptForAddress" function (:arguments 
+              ( ("person" variable nil (reparse-symbol function_parameters) [146 152]))              ) nil [125 1006])
+            ("if" code nil nil [1157 1250])
+            ("address_book" variable nil nil [1251 1295])
+            ("try" code nil nil [1331 1511])
+            ("PromptForAddress" code nil nil [1530 1573])
+            ("f" variable nil nil [1618 1645])
+            ("f" code nil nil [1646 1687])
+            ("f" code nil nil [1688 1697])
+            ("judge" function (:arguments 
+              ( ("a" variable nil (reparse-symbol function_parameters) [1711 1712]))              ) nil [1701 1908])
+            ("judge" function (:arguments 
+              ( ("a" variable nil (reparse-symbol function_parameters) [1918 1919]))              ) nil [1908 2078]))          
+      :file "ex1.py"
+      :pointmax 2078
+      :fsize 2077
+      :lastmodtime '(22437 34330 0 0)
+      :unmatched-syntax nil)
+
+    (semanticdb-table "ex2.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("addressbook_pb2" include nil nil [1 23])
+            ("sys" include nil nil [24 34])
+            ("ListPeople" function (:arguments 
+              ( ("address_book" variable nil (reparse-symbol function_parameters) [128 140]))              ) nil [113 755])
+            ("if" code nil nil [860 953])
+            ("address_book" variable nil nil [953 997])
+            ("f" variable nil nil [1033 1060])
+            ("address_book" code nil nil [1061 1099])
+            ("f" code nil nil [1100 1109])
+            ("ListPeople" code nil nil [1111 1135]))          
+      :file "ex2.py"
+      :pointmax 1136
+      :fsize 1135
+      :lastmodtime '(22432 35480 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!zhangli!code!protocol-buffer!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

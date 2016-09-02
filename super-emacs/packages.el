@@ -199,12 +199,14 @@
 (require 'ox-twbs)
 (require 'ox-gfm)
 
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
    (ruby . t)
    (python . t)
    (sh . t)
+   (C . t)
    (dot . t)))
 
 (setq org-confirm-babel-evaluate nil)
@@ -452,6 +454,8 @@
   (require 'elpy)
   (elpy-enable)
   (setq elpy-rpc-python-command "/usr/local/bin/python")
+  ;; remove indention hightlight
+  (delq 'elpy-module-highlight-indentation elpy-modules)
   (elpy-use-ipython)
 
   ;;(setq elpy-rpc-backend "jedi")

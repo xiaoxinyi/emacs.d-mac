@@ -3,3 +3,6 @@
 (load-file "~/.emacs.d/super-emacs/interface.el")
 (load-file "~/.emacs.d/super-emacs/misc.el")
 (load-file "~/.emacs.d/super-emacs/key-bindings.el")
+
+
+(setq org-agenda-files (list "~/Desktop/org-mode/"))

@@ -1,0 +1,66 @@
+;; Object sxwl1070/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "sxwl1070/"
+  :tables
+  (list
+    (semanticdb-table "min-char-rnn.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("\"\"\"
+Minimal character-level Vanilla RNN model. Written by Andrej Karpathy (@karpathy)
+BSD License
+\"\"\"" code nil nil [1 102])
+            ("numpy" include nil nil [103 121])
+            ("random" include nil nil [122 148])
+            ("data" variable nil nil [162 198])
+            ("chars" variable nil nil [235 258])
+            ("data_size, vocab_size" code nil nil [259 304])
+            ("print" code nil nil [305 373])
+            ("char_to_ix" variable nil nil [374 424])
+            ("ix_to_char" variable nil nil [425 475])
+            ("hidden_size" variable nil nil [494 511])
+            ("seq_length" variable nil nil [547 562])
+            ("learning_rate" variable nil nil [604 624])
+            ("Wxh" code nil nil [644 697])
+            ("Whh" code nil nil [717 771])
+            ("Why" code nil nil [792 845])
+            ("bh" variable nil nil [866 897])
+            ("by" variable nil nil [913 943])
+            ("lossFun" function
+               (:documentation "
+    inputs,targets are both list of integers.
+    hprev is Hx1 array of initial hidden state
+    returns the loss, gradients on model parameters, and last hidden state
+    "
+                :arguments 
+                  ( ("inputs" variable nil (reparse-symbol function_parameters) [973 979])
+                    ("targets" variable nil (reparse-symbol function_parameters) [981 988])
+                    ("hprev" variable nil (reparse-symbol function_parameters) [990 995]))                  )
+                nil [961 2768])
+            ("sample" function
+               (:documentation " 
+    sample a sequence of integers from the model 
+    h is memory state, seed_ix is seed letter for first time step
+    "
+                :arguments 
+                  ( ("h" variable nil (reparse-symbol function_parameters) [2781 2782])
+                    ("seed_ix" variable nil (reparse-symbol function_parameters) [2784 2791])
+                    ("n" variable nil (reparse-symbol function_parameters) [2793 2794]))                  )
+                nil [2770 3311])
+            ("n, p" code nil nil [3311 3322])
+            ("mWxh, mWhh, mWhy" code nil nil [3323 3400])
+            ("mbh, mby" code nil nil [3401 3448])
+            ("smooth_loss" code nil nil [3481 3533])
+            ("while" code nil nil [3557 4882])
+            ("gradCheck" function (:arguments 
+              ( ("inputs" variable nil (reparse-symbol function_parameters) [4917 4923])
+                ("target" variable nil (reparse-symbol function_parameters) [4925 4931])
+                ("hprev" variable nil (reparse-symbol function_parameters) [4933 4938]))              ) nil [4903 6180]))          
+      :file "min-char-rnn.py"
+      :pointmax 6239
+      :fsize 6238
+      :lastmodtime '(22458 47480 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!zhangli!Desktop!sxwl1070!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
