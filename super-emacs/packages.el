@@ -559,3 +559,8 @@
 
 ;; graphviz-dot
 (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+
+;; magit
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
