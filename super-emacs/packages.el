@@ -207,6 +207,7 @@
    (python . t)
    (sh . t)
    (C . t)
+   (lua . t )
    (dot . t)))
 
 (setq org-confirm-babel-evaluate nil)
@@ -368,6 +369,7 @@
 (add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
 (add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
 
+;; local set key
 (defun zl/set-semantic-keys ()
   (local-set-key "\C-c,d" 'semantic-ia-show-doc)
   (local-set-key "\C-c,c" 'semantic-ia-describe-class)
@@ -573,3 +575,22 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+;; camcorder
+(use-package camcorder
+  :ensure t)
+
+;; lua mode
+(use-package lua-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+  :bind
+  (
+   :map lua-mode-map
+        ("C-<return>" . lua-send-current-line)
+        ("C-c C-c" . lua-send-region)
+        ("C-M-x" . lua-send-defun)
+  )
+)
