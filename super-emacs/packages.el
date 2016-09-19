@@ -90,10 +90,10 @@
     ("C-x C-r" . helm-recentf)
     ("M-y" . helm-show-kill-ring)
     ("C-c h" . helm-command-prefix)
-  :map helm-map
-  ;("<tab>" . helm-execute-persistent-action)
-  ("C-j" .  helm-execute-persistent-action)
-  ("C-z" . helm-select-action))
+    :map helm-map
+    ;;("<tab>" . helm-execute-persistent-action)
+    ("C-j" .  helm-execute-persistent-action)
+    ("C-z" . helm-select-action))
   :config
   (helm-mode 1)
   (helm-autoresize-mode t)
@@ -102,7 +102,7 @@
         helm-ff-file-name-history-use-recentf t
         helm-ff-search-library-in-sexp t)
   (use-package helm-ag)
-  (use-package helm-config))
+  (require 'helm-config))
 
 
 
@@ -138,6 +138,9 @@
             (org-bullets-mode t)))
 
 (setq org-ellipsis "⤵")
+
+;; show utf-8
+(setq org-pretty-entities t)
 
 (setq org-src-fontify-natively t)
 
@@ -180,6 +183,11 @@
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
+
+;; org latex preview inline
+(setq org-latex-create-formula-image-program 'imagemagick)
+;; scale image inline default set to 1.5
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 
 ;; Tex config
@@ -421,28 +429,6 @@
 (add-hook 'c-mode-common-hook 'ws-butler-mode)
 (add-hook 'prog-mode-hook 'ws-butler-mode)
 
-;;================================================================================
-;;================================================================================
-
-
-;; irony-mode
-;;(setenv "LD_LIBARY_PATH" "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/")
-;; (require 'irony)
-
-;; (add-hook 'c++-mode-hook 'irony-mode)
-;; (add-hook 'c-mode-hook 'irony-mode)
-;; (add-hook 'objc-mode-hook 'irony-mode)
-
-;; ;; replace the `completion-at-point' and `complete-symbol' bindings in
-;; ;; irony-mode's buffers by irony-mode's function
-;; (defun my-irony-mode-hook ()
-;;   (define-key irony-mode-map [remap completion-at-point]
-;;     'irony-completion-at-point-async)
-;;   (define-key irony-mode-map [remap complete-symbol]
-;;     'irony-completion-at-point-async))
-;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
 
 ;;================================================================================
 ;;================================================================================
@@ -548,6 +534,7 @@
   :init      (setq ag-highlight-search t)
   :config    (add-to-list 'ag-arguments "--word-regexp"))
 
+;; shell
 (use-package exec-path-from-shell
   :ensure t
   :config (when (memq window-system '(mac ns))
@@ -594,3 +581,15 @@
         ("C-M-x" . lua-send-defun)
   )
 )
+
+;; impatient-mode
+;; useage: httpd start impatient-mode
+;; localhost:8080/imp
+(use-package impatient-mode
+  :ensure t
+  :config
+  (require 'impatient-mode))
+
+
+;; sh-mode
+(add-to-list 'load-path "~/.emacs.d/elpa/")
