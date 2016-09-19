@@ -189,7 +189,7 @@
 ;; scale image inline default set to 1.5
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
-
+;; (setq org-src-fontify-natively t)
 ;; Tex config
 (setq TeX-parse-self t)
 
