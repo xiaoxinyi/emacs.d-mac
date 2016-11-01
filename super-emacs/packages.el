@@ -189,6 +189,27 @@
 ;; scale image inline default set to 1.5
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
+;; org-narrow-forward
+(defun zl/org-narrow-forward ()
+  "Move to the next subtree at same level, and narrow to it."
+  (interactive)
+  (widen)
+  (org-forward-heading-same-level 1)
+  (org-narrow-to-subtree))
+
+(defun zl/org-narrow-backward ()
+  "Move to the previous subtree at same level, and narrow to it."
+  (interactive)
+  (widen)
+  (org-backward-heading-same-level 1)
+  (org-narrow-to-subtree))
+
+(defun zl/set-org-keys ()
+  (local-set-key "\C-xnm" 'zl/org-narrow-forward)
+  (local-set-key "\C-xnp" 'zl/org-narrow-backward))
+
+(add-hook 'org-mode-hook 'zl/set-org-keys)
+
 ;; (setq org-src-fontify-natively t)
 ;; Tex config
 (setq TeX-parse-self t)
@@ -591,5 +612,41 @@
   (require 'impatient-mode))
 
 
-;; sh-mode
-(add-to-list 'load-path "~/.emacs.d/elpa/")
+;; sh-mode bug org-mode fontification error
+;; (add-to-list 'load-path "~/.emacs.d/elpa/sh-mode/")
+
+;; (use-package neotree
+;;   :ensure t)
+
+;; eproject
+(use-package eproject
+  :ensure t)
+
+(use-package etags-select
+  :ensure t
+  :config
+  (defun build-ctags ()
+    (interactive)
+    (message "building project tags")
+    (let ((root (eproject-root)))
+      (shell-command (concat "ctags-zl -e -R --extra=+fq --exclude=db --exclude=test --exclude=.git --exclude=public -f " root "TAGS " root))\
+)
+    (visit-project-tags)
+    (message "tags built successfully"))
+
+  (defun visit-project-tags ()
+    (interactive)
+    (let ((tags-file (concat (eproject-root) "TAGS")))
+      (visit-tags-table tags-file)
+      (message (concat "Loaded " tags-file))))
+
+  (defun my-find-tag ()
+    (interactive)
+    (if (file-exists-p (concat (eproject-root) "TAGS"))
+        (visit-project-tags)
+      (build-ctags))
+    (etags-select-find-tag-at-point))
+
+  (global-set-key (kbd "M-.") 'my-find-tag)
+
+  )
