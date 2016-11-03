@@ -520,15 +520,20 @@
 ;;================================================================================
 
 ;; projectile
-
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode)
+  (setq projectile-completion-system 'helm)
+  )
 (use-package  helm-projectile
   :ensure t
   :config
   (helm-projectile-on)
   ;; (setq projectile-switch-project-action 'helm-projectile-find-file)
-  (setq projectile-switch-project-action 'helm-projectile))
+  (setq projectile-switch-project-action 'helm-projectile)
+  (setq projectile-enable-caching t)
+  )
 
 
 ;; auto save
@@ -676,11 +681,25 @@
               (hs-show-all))
         (toggle-selective-display column)))
 
-(load-library "hideshow")
-(global-set-key (kbd "C-+") 'toggle-hiding)
-(global-set-key (kbd "C-\\") 'toggle-selective-display)
+ (load-library "hideshow")
+ (global-set-key (kbd "C-+") 'toggle-hiding)
+ (global-set-key (kbd "C-\\") 'toggle-selective-display)
 
-(add-hook 'c-mode-common-hook   'hs-minor-mode)
-(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-;; (add-hook 'elpy-mode-hook 'hs-minor-mode)
-(add-hook 'lua-mode-hook 'hs-minor-mode)
+ (add-hook 'c-mode-common-hook   'hs-minor-mode)
+ ; (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+ (add-hook 'elpy-mode-hook 'hs-minor-mode)
+ (add-hook 'lua-mode-hook 'hs-minor-mode)
+
+
+;; bookmark+
+ ; (use-package bookmark+
+ ;   :ensure t
+ ;   :config
+ ;   (require 'bookmark+)
+ ;   (setq bookmark-save-flag 1)
+ ;   (setq inhibit-splash-screen t)
+ ;   (require 'bookmark)
+ ;   (bookmark-bmenu-list)
+ ;   (switch-to-buffer "*Bookmark List*")
+ ;   ;; (bookmark-load bookmark-default-file t)
+ ;   )
