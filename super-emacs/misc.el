@@ -5,8 +5,11 @@
                                  (message "File reloaded")))
         (t (message "You're not editing a file!"))))
 
-;Disable splash message, start *scratch* buffer by default
-(setq initial-buffer-choice t)
+;; Disable splash message, start *scratch* buffer by default
+;;(setq initial-buffer-choice t)
+
+;; kill *gnu emacs* buffer when start
+(setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 
 ;; show unncessary whitespace that can mess up your diff
@@ -24,3 +27,11 @@
 (add-hook 'prog-mode-hook 'linum-mode)
 
 (setq ring-bell-function 'ignore)
+
+;; auto save
+(defun save-all ()
+  "Saves all dirty buffers without asking for confirmation."
+  (interactive)
+  (save-some-buffers t))
+
+(add-hook 'focus-out-hook 'save-all)

@@ -575,7 +575,7 @@
   :init      (setq ag-highlight-search t)
   :config    (add-to-list 'ag-arguments "--word-regexp"))
 
-;; shell
+;; exec-path-from-shell makes the command-line path with Emacs’s shell match the same one on OS X
 (use-package exec-path-from-shell
   :ensure t
   :config (when (memq window-system '(mac ns))
@@ -720,6 +720,9 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; (use-package macrostep
-;;   :ensure t
-;;   :bind ("C-c m e" . macrostep-expand))
+(use-package macrostep
+  :ensure t
+  :bind ("C-c m e" . macrostep-expand))
+
+(use-package smooth-scrolling
+  :ensure t)
