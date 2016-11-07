@@ -36,8 +36,8 @@
 (use-package ztree
   :ensure t)
 
-(use-package material-theme
-  :ensure t)
+;; (use-package material-theme
+;;   :ensure t)
 
 (use-package meta-presenter
   :ensure t)
@@ -726,6 +726,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(use-package macrostep
-  :ensure t
-  :bind ("C-c m e" . macrostep-expand))
+;; (use-package macrostep
+;;   :ensure t
+;;   :bind ("C-c m e" . macrostep-expand))
