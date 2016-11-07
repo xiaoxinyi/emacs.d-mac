@@ -44,8 +44,13 @@
 
 (use-package ace-jump-mode
   :commands ace-jump-mode
-  :init
-  (bind-key "C-." 'ace-jump-mode))
+  :bind* (("M-h" . ace-jump-mode))
+  :config (setq ace-jump-mode-submode-list
+                '(ace-jump-char-mode
+                  ace-jump-word-mode
+                  ace-jump-line-mode))
+  )
+
 
 ;Enable powerline
 (use-package powerline
@@ -664,7 +669,7 @@
 ;; hs-minor-mode
 (use-package hideshow
   :ensure t
-  :bind (("C-+" . toggle-hiding)
+  :bind (("S-+" . toggle-hiding)
          ("C-\\" . toggle-selective-display))
   :init
   (defun toggle-selective-display (column)

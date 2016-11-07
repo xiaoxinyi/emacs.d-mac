@@ -1,1 +1,7 @@
-*.~
+*.*~
+/*.lan
+/*.lan
+/.DS_Store
+*.lan
+*.cache
+*~
