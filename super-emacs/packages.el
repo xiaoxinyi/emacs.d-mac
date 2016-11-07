@@ -4,24 +4,31 @@
 
 ;Declare a list of required packages
 (defvar super-emacs--required-packages
-  '(helm
-    multiple-cursors
-    ace-jump-mode
-    powerline
-    switch-window
-    buffer-move
-    auto-complete
-    ztree
-    undo-tree
-    material-theme
-    meta-presenter
-    myterminal-controls
-    theme-looper))
+  '())
 
 ;Install required packages
 (mapc (lambda (p)
         (package-install p))
       super-emacs--required-packages)
+
+;; multiple-cursors
+(use-package multiple-cursors
+  :ensure t)
+
+(use-package switch-window
+  :ensure t)
+
+(use-package buffer-move
+  :ensure t)
+
+(use-package ztree
+  :ensure t)
+
+(use-package material-theme
+  :ensure t)
+
+(use-package meta-presenter
+  :ensure t)
 
 ;;Load default auto-complete configs
 (use-package auto-complete
@@ -34,15 +41,6 @@
   :config
 (global-undo-tree-mode))
 
-;Set up ace-jump-mode
-;; (autoload 'ace-jump-mode
-;;   "ace-jump-mode"
-;;   "Emacs quick move minor mode"
-;;   t)
-;; (autoload 'ace-jump-mode-pop-mark
-;;   "ace-jump-mode"
-;;   "Ace jump back:-"
-;;   t)
 
 (use-package ace-jump-mode
   :commands ace-jump-mode
@@ -54,6 +52,7 @@
   :config
   (powerline-center-theme)
   (setq powerline-default-separator 'wave))
+
 
 ;;Configure theme-looper
 (use-package theme-looper
@@ -101,7 +100,8 @@
         ;helm-move-to-line-cycle-in-source t
         helm-ff-file-name-history-use-recentf t
         helm-ff-search-library-in-sexp t)
-  (use-package helm-ag)
+  (use-package helm-ag
+    :ensure t)
   (require 'helm-config))
 
 
@@ -256,9 +256,6 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
-
-;;================================================================================
-;;================================================================================
 
 
 ;; dired config
@@ -665,30 +662,32 @@
   )
 
 ;; hs-minor-mode
-(defun toggle-selective-display (column)
-  (interactive "P")
-  (set-selective-display
-   (or column
-       (unless selective-display
-         (1+ (current-column))))))
+(use-package hideshow
+  :ensure t
+  :bind (("C-+" . toggle-hiding)
+         ("C-\\" . toggle-selective-display))
+  :init
+  (defun toggle-selective-display (column)
+    (interactive "P")
+    (set-selective-display
+     (or column
+         (unless selective-display
+           (1+ (current-column))))))
 
-(defun toggle-hiding (column)
-      (interactive "P")
-      (if hs-minor-mode
-          (if (condition-case nil
-                  (hs-toggle-hiding)
-                (error t))
-              (hs-show-all))
-        (toggle-selective-display column)))
-
- (load-library "hideshow")
- (global-set-key (kbd "C-+") 'toggle-hiding)
- (global-set-key (kbd "C-\\") 'toggle-selective-display)
-
- (add-hook 'c-mode-common-hook   'hs-minor-mode)
- ; (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
- (add-hook 'elpy-mode-hook 'hs-minor-mode)
- (add-hook 'lua-mode-hook 'hs-minor-mode)
+  (defun toggle-hiding (column)
+    (interactive "P")
+    (if hs-minor-mode
+        (if (condition-case nil
+                (hs-toggle-hiding)
+              (error t))
+            (hs-show-all))
+      (toggle-selective-display column)))
+  :config
+  (add-hook 'c-mode-common-hook   'hs-minor-mode)
+  ;; (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (add-hook 'elpy-mode-hook 'hs-minor-mode)
+  (add-hook 'lua-mode-hook 'hs-minor-mode)
+  )
 
 
 ;; bookmark+
