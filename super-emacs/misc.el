@@ -6,20 +6,21 @@
         (t (message "You're not editing a file!"))))
 
 ;Disable splash message, start *scratch* buffer by default
-(setq initial-buffer-choice 
-      t)
-(setq initial-scratch-message 
-      "")
+(setq initial-buffer-choice t)
+(setq initial-scratch-message "")
 
-;Enforce spaces for indentation, instead of tabs
-(setq-default indent-tabs-mode 
-              nil)
+;; show unncessary whitespace that can mess up your diff
+(add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
 
-;Enable show-paren-mode
+;; use space to indent by default
+(setq-default indent-tabs-mode nil)
+
+;; set appearance of a tab that is represented by 4 spaces
+(setq-default tab-width 4)
+
+;; Enable show-paren-mode
 (show-paren-mode)
 
-;Enable winner-mode
-(winner-mode t)
+(add-hook 'prog-mode-hook 'linum-mode)
 
-;Enable windmove
-(windmove-default-keybindings)
+(setq ring-bell-function 'ignore)

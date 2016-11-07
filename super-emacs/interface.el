@@ -44,12 +44,13 @@
 
 ;; (setq hrs/default-font "Inconsolata")
 (setq hrs/default-font "Fira Code")
+;; (setq hrs/default-font "Source Code Pro")
 (setq hrs/default-font-size 16)
 (setq hrs/current-font-size hrs/default-font-size)
 
-(if (hrs/mac?)
-    (setq hrs/default-font-size 16)
-    (setq hrs/default-font-size 12))
+;; (if (hrs/mac?)
+;;     (setq hrs/default-font-size 16)
+;;     (setq hrs/default-font-size 12))
 
 (setq hrs/font-change-increment 1.1)
 
@@ -91,12 +92,3 @@
 
 
 (global-prettify-symbols-mode t)
-
-(setq-default tab-width 4)
-
-(setq-default indent-tabs-mode nil)
-
-
-(add-hook 'prog-mode-hook 'linum-mode)
-
-(setq ring-bell-function 'ignore)

@@ -37,6 +37,9 @@
     ("M-w" . kill-region)
     ("M-n" . company-select-next)
     ("M-p" . company-select-previous)
+    ;; indention setup
+    ;; automatically indent when press RET
+    ("RET" . newline-and-indent)
     ("<f5>" . super-emacs-reload-current-file)))
 
 (defun super-emacs-apply-keyboard-bindings (pair)

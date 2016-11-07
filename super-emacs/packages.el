@@ -80,8 +80,7 @@
                                 wombat
                                 material
                                 monokai
-                                solarized-dark
-                                solarized-light))
+                                solarized-dark))
   (theme-looper-set-customizations 'powerline-reset))
 
 ;Configure myterminal-controls
@@ -127,7 +126,7 @@
 ;; (add-hook 'python-mode-hook 'anaconda-mode)
 ;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 
-(setq python-indent 4)
+
 
 
 ; multi term
@@ -476,6 +475,8 @@
   ;;  (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
   (require 'elpy)
   (elpy-enable)
+  ;; set indent for python
+  (setq python-indent-offset 4)
   (setq elpy-rpc-python-command "/usr/local/bin/python")
   ;; remove indention hightlight
   (delq 'elpy-module-highlight-indentation elpy-modules)
@@ -509,29 +510,22 @@
   (setq ein:use-auto-complete-superpack t)
   (setq ein:use-smartrep t))
 
-;;================================================================================
-;;================================================================================
-
-;; indention setup
-; automatically indent when press RET
-(global-set-key (kbd "RET") 'newline-and-indent)
-
-
 ;; activate whitespace-mode to view all whitespace characters
-(global-set-key (kbd "C-c w") 'whitespace-mode)
-
-;; show unncessary whitespace that can mess up your diff
-(add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
-
-;; use space to indent by default
-(setq-default indent-tabs-mode nil)
-
-;; set appearance of a tab that is represented by 4 spaces
-(setq-default tab-width 4)
+(use-package whitespace
+  :bind ("C-c w" . whitespace-mode))
 
 
-;;================================================================================
-;;================================================================================
+;; windmove
+(use-package windmove
+  :ensure t
+  :config
+  (windmove-default-keybindings)
+)
+
+;; winner-mode
+(use-package winner
+  :config
+  (winner-mode t))
 
 ;; projectile
 (use-package projectile
