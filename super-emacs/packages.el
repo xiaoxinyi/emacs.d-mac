@@ -13,13 +13,25 @@
 
 ;; multiple-cursors
 (use-package multiple-cursors
-  :ensure t)
+  :ensure t
+  :bind
+  ("C-}" . mc/mark-next-like-this)
+  ("C-{" . mc/mark-previous-like-this)
+  ("C-|" . mc/mark-all-like-this)
+  ("C-c C-}" . mc/skip-to-next-like-this)
+  ("C-c C-{" . mc/skip-to-previous-like-this))
 
 (use-package switch-window
-  :ensure t)
+  :ensure t
+  :bind ("C-<tab>" . switch-window))
 
 (use-package buffer-move
-  :ensure t)
+  :ensure t
+  :bind
+  ("C-s-<up>" . buf-move-up)
+  ("C-s-<down>" . buf-move-down)
+  ("C-s-<left>" . buf-move-left)
+  ("C-s-<right>" . buf-move-right))
 
 (use-package ztree
   :ensure t)
@@ -605,6 +617,7 @@
 ;; lua mode
 (use-package lua-mode
   :ensure t
+  :interpreter "lua5.1"
   :config
   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
@@ -707,3 +720,12 @@
  ;   (switch-to-buffer "*Bookmark List*")
  ;   ;; (bookmark-load bookmark-default-file t)
  ;   )
+
+(use-package smart-mode-line
+  :ensure t)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(use-package macrostep
+  :ensure t
+  :bind ("C-c m e" . macrostep-expand))

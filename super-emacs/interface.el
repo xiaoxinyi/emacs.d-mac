@@ -44,11 +44,11 @@
 
 ;; (setq hrs/default-font "Inconsolata")
 (setq hrs/default-font "Fira Code")
-(setq hrs/default-font-size 18)
+(setq hrs/default-font-size 16)
 (setq hrs/current-font-size hrs/default-font-size)
 
 (if (hrs/mac?)
-    (setq hrs/default-font-size 17)
+    (setq hrs/default-font-size 16)
     (setq hrs/default-font-size 12))
 
 (setq hrs/font-change-increment 1.1)
