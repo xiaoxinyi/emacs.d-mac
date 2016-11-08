@@ -1,25 +1,50 @@
-;Create repositories cache, if required
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)                ;; if you use any :bind variant
+
+;; Create repositories cache, if required
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-;Declare a list of required packages
+;; Declare a list of required packages
 (defvar super-emacs--required-packages
   '())
 
-;Install required packages
+;; Install required packages
 (mapc (lambda (p)
         (package-install p))
       super-emacs--required-packages)
 
 ;; multiple-cursors
+;; (use-package multiple-cursors
+;;   :ensure t
+;;   :bind
+;;   ("C-}" . mc/mark-next-like-this)
+;;   ("C-{" . mc/mark-previous-like-this)
+;;   ("C-|" . mc/mark-all-like-this)
+;;   ("C-c C-}" . mc/skip-to-next-like-this)
+;;   ("C-c C-{" . mc/skip-to-previous-like-this))
 (use-package multiple-cursors
   :ensure t
   :bind
-  ("C-}" . mc/mark-next-like-this)
-  ("C-{" . mc/mark-previous-like-this)
-  ("C-|" . mc/mark-all-like-this)
-  ("C-c C-}" . mc/skip-to-next-like-this)
-  ("C-c C-{" . mc/skip-to-previous-like-this))
+   (("C-c m t" . mc/mark-all-like-this)
+    ("C-c m m" . mc/mark-all-like-this-dwim)
+    ("C-c m l" . mc/edit-lines)
+    ("C-c m e" . mc/edit-ends-of-lines)
+    ("C-c m a" . mc/edit-beginnings-of-lines)
+    ("C-c m n" . mc/mark-next-like-this)
+    ("C-c m p" . mc/mark-previous-like-this)
+    ("C-c m s" . mc/mark-sgml-tag-pair)
+    ("C-c m d" . mc/mark-all-like-this-in-defun)))
+(use-package phi-search
+  :ensure t)
+(use-package phi-search-mc
+  :ensure t
+  :config (phi-search-mc/setup-keys))
+(use-package mc-extras
+  :ensure t
+  :config (define-key mc/keymap (kbd "C-. =") 'mc/compare-chars))
 
 (use-package switch-window
   :ensure t
