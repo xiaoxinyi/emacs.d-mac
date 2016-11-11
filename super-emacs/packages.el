@@ -28,15 +28,15 @@
 (use-package multiple-cursors
   :ensure t
   :bind
-   (("C-c m t" . mc/mark-all-like-this)
-    ("C-c m m" . mc/mark-all-like-this-dwim)
-    ("C-c m l" . mc/edit-lines)
-    ("C-c m e" . mc/edit-ends-of-lines)
-    ("C-c m a" . mc/edit-beginnings-of-lines)
-    ("C-c m n" . mc/mark-next-like-this)
-    ("C-c m p" . mc/mark-previous-like-this)
-    ("C-c m s" . mc/mark-sgml-tag-pair)
-    ("C-c m d" . mc/mark-all-like-this-in-defun)))
+  (("C-c m t" . mc/mark-all-like-this)
+   ("C-c m m" . mc/mark-all-like-this-dwim)
+   ("C-c m l" . mc/edit-lines)
+   ("C-c m e" . mc/edit-ends-of-lines)
+   ("C-c m a" . mc/edit-beginnings-of-lines)
+   ("C-c m n" . mc/mark-next-like-this)
+   ("C-c m p" . mc/mark-previous-like-this)
+   ("C-c m s" . mc/mark-sgml-tag-pair)
+   ("C-c m d" . mc/mark-all-like-this-in-defun)))
 (use-package phi-search
   :ensure t)
 (use-package phi-search-mc
@@ -76,7 +76,7 @@
 (use-package undo-tree
   :bind (("M-/" . undo-tree-visualize))
   :config
-(global-undo-tree-mode))
+  (global-undo-tree-mode))
 
 
 (use-package ace-jump-mode
@@ -89,7 +89,7 @@
   )
 
 
-;Enable powerline
+                                        ;Enable powerline
 (use-package powerline
   :config
   (powerline-center-theme)
@@ -108,7 +108,7 @@
                                 solarized-dark))
   (theme-looper-set-customizations 'powerline-reset))
 
-;Configure myterminal-controls
+                                        ;Configure myterminal-controls
 (use-package myterminal-controls
   :commands myterminal-controls-open-controls
   :bind (("C-M-'" . myterminal-controls-open-controls))
@@ -124,21 +124,21 @@
 (use-package helm
   :init
   :bind (("M-x" . helm-M-x)
-    ("C-x b" . helm-mini)
-    ("C-x C-b" . helm-buffers-list)
-    ("C-x C-f" . helm-find-files)
-    ("C-x C-r" . helm-recentf)
-    ("M-y" . helm-show-kill-ring)
-    ("C-c h" . helm-command-prefix)
-    :map helm-map
-    ;;("<tab>" . helm-execute-persistent-action)
-    ("C-j" .  helm-execute-persistent-action)
-    ("C-z" . helm-select-action))
+         ("C-x b" . helm-mini)
+         ("C-x C-b" . helm-buffers-list)
+         ("C-x C-f" . helm-find-files)
+         ("C-x C-r" . helm-recentf)
+         ("M-y" . helm-show-kill-ring)
+         ("C-c h" . helm-command-prefix)
+         :map helm-map
+         ;;("<tab>" . helm-execute-persistent-action)
+         ("C-j" .  helm-execute-persistent-action)
+         ("C-z" . helm-select-action))
   :config
   (helm-mode 1)
   (helm-autoresize-mode t)
   (setq helm-split-window-in-side-p t
-        ;helm-move-to-line-cycle-in-source t
+                                        ;helm-move-to-line-cycle-in-source t
         helm-ff-file-name-history-use-recentf t
         helm-ff-search-library-in-sexp t)
   (use-package helm-ag
@@ -147,14 +147,14 @@
 
 
 
-; anaconda-mode
+                                        ; anaconda-mode
 ;; (add-hook 'python-mode-hook 'anaconda-mode)
 ;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 
 
 
 
-; multi term
+                                        ; multi term
 (use-package multi-term
   :bind (("C-x t" . multi-term))
   :config
@@ -337,9 +337,9 @@
   (setq ido-create-new-buffer 'always))
 
 (use-package flx-ido
-   :ensure t
-   :init (setq ido-enable-flex-matching t)
-   :config (flx-ido-mode 1))
+  :ensure t
+  :init (setq ido-enable-flex-matching t)
+  :config (flx-ido-mode 1))
 
 (use-package ido-vertical-mode
   :ensure t
@@ -545,7 +545,7 @@
   :ensure t
   :config
   (windmove-default-keybindings)
-)
+  )
 
 ;; winner-mode
 (use-package winner
@@ -604,7 +604,7 @@
 (use-package exec-path-from-shell
   :ensure t
   :config (when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize)))
+            (exec-path-from-shell-initialize)))
 
 ;; git-gutter+
 (use-package git-gutter+
@@ -646,8 +646,8 @@
         ("C-<return>" . lua-send-current-line)
         ("C-c C-c" . lua-send-region)
         ("C-M-x" . lua-send-defun)
+        )
   )
-)
 
 ;; impatient-mode
 ;; useage: httpd start impatient-mode
@@ -677,7 +677,7 @@
     (message "building project tags")
     (let ((root (eproject-root)))
       (shell-command (concat "ctags-zl -e -R --extra=+fq --exclude=db --exclude=test --exclude=.git --exclude=public -f " root "TAGS " root))\
-)
+      )
     (visit-project-tags)
     (message "tags built successfully"))
 
@@ -701,7 +701,7 @@
 ;; hs-minor-mode
 (use-package hideshow
   :ensure t
-  :bind (("S-+" . toggle-hiding)
+  :bind (("s-+" . toggle-hiding)
          ("C-\\" . toggle-selective-display))
   :init
   (defun toggle-selective-display (column)
@@ -721,7 +721,7 @@
       (toggle-selective-display column)))
   :config
   (add-hook 'c-mode-common-hook   'hs-minor-mode)
-  ;; (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
   (add-hook 'elpy-mode-hook 'hs-minor-mode)
   (add-hook 'lua-mode-hook 'hs-minor-mode)
   )
