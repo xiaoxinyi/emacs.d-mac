@@ -36,7 +36,9 @@
    ("C-c m n" . mc/mark-next-like-this)
    ("C-c m p" . mc/mark-previous-like-this)
    ("C-c m s" . mc/mark-sgml-tag-pair)
-   ("C-c m d" . mc/mark-all-like-this-in-defun)))
+   ("C-c m d" . mc/mark-all-like-this-in-defun)
+   ("C-c m k" . mc/skip-to-next-like-this)
+   ("C-c m j" . mc/skip-to-previous-like-this)))
 (use-package phi-search
   :ensure t)
 (use-package phi-search-mc
