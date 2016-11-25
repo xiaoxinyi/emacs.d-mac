@@ -40,7 +40,10 @@
    ("C-c m k" . mc/skip-to-next-like-this)
    ("C-c m j" . mc/skip-to-previous-like-this)))
 (use-package phi-search
-  :ensure t)
+  :ensure t
+  :bind (("C-s" . phi-search)
+         ("C-r" . phi-search-backward))
+  )
 (use-package phi-search-mc
   :ensure t
   :config (phi-search-mc/setup-keys))
