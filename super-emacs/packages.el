@@ -751,3 +751,7 @@
 
 (use-package smooth-scrolling
   :ensure t)
+
+(use-package graphviz-dot-mode
+  :ensure t
+  )
