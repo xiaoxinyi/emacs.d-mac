@@ -16,15 +16,36 @@
         (package-install p))
       super-emacs--required-packages)
 
-;; multiple-cursors
-;; (use-package multiple-cursors
-;;   :ensure t
-;;   :bind
-;;   ("C-}" . mc/mark-next-like-this)
-;;   ("C-{" . mc/mark-previous-like-this)
-;;   ("C-|" . mc/mark-all-like-this)
-;;   ("C-c C-}" . mc/skip-to-next-like-this)
-;;   ("C-c C-{" . mc/skip-to-previous-like-this))
+
+;; yasnippet config
+(use-package yasnippet
+  :ensure t
+  :bind (:yas-minor-mode-map ("<backtab>" . yas-expand))
+  :config
+  (require 'yasnippet)
+  (yas-global-mode 1)
+  (setq yas-snippet-dirs
+        ;; personal snippets
+        '("~/.emacs.d/snippets"))
+  )
+
+;; Load default auto-complete configs
+(use-package auto-complete
+  :config
+  ;; auto complete mode
+  ;; should be loaded after yasnippet so that they can work together
+  (require 'auto-complete-config)
+  ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+  (ac-config-default)
+  ;; set the trigger key so that it can work together with yasnippet on tab key,
+  ;; if the word exists in yasnippet, pressing tab will cause yasnippet to
+  ;; activate, otherwise, auto-complete will
+  (ac-set-trigger-key "TAB")
+  (ac-set-trigger-key "<tab>")
+
+)
+
+
 (use-package multiple-cursors
   :ensure t
   :bind
@@ -39,11 +60,12 @@
    ("C-c m d" . mc/mark-all-like-this-in-defun)
    ("C-c m k" . mc/skip-to-next-like-this)
    ("C-c m j" . mc/skip-to-previous-like-this)))
-(use-package phi-search
-  :ensure t
-  :bind (("C-s" . phi-search)
-         ("C-r" . phi-search-backward))
-  )
+;; (use-package phi-search
+;;   :ensure t
+;;   :bind (("C-s" . phi-search)
+;;          ("C-r" . phi-search-backward)）
+;;   :config (set-face-attribute 'phi-search-selection-face nil
+;;                               :background "orange"))
 (use-package phi-search-mc
   :ensure t
   :config (phi-search-mc/setup-keys))
@@ -72,10 +94,6 @@
 (use-package meta-presenter
   :ensure t)
 
-;;Load default auto-complete configs
-(use-package auto-complete
-  :config
-  (ac-config-default))
 
 ;;Start undo-tree
 (use-package undo-tree
@@ -365,21 +383,12 @@
 ;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 
-;;================================================================================
-;;================================================================================
-
-;; yasnippet config
-(require 'yasnippet)
-(yas-global-mode 1)
-
-
-;;================================================================================
-;;================================================================================
 
 ;; auto-complete-c-header
 (use-package auto-complete-c-headers
   :ensure t
   :config
+  ;; c header complete
   (defun zl/ac-complete-c-header-init ()
     (require 'auto-complete-c-headers)
 
@@ -456,8 +465,8 @@
 
 (global-ede-mode 1)
 
-(ede-cpp-root-project "my project" :file "~/code/cplusplus/my_program/src/main.cpp"
-                      :include-path '("/../my_inc"))
+(ede-cpp-root-project "my project" :file "~/Desktop/DeepAR_Algorithm/include/SXAR/ARWrapper/Marker.h"
+                      :include-path '("../../"))
 
 (global-semantic-idle-scheduler-mode 1)
 
