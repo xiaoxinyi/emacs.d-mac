@@ -1,9 +1,0 @@
-;; Object org-mode/
-;; SEMANTICDB Tags save file
-(semanticdb-project-database-file "org-mode/"
-  :tables
-  (list
-)
-  :file "!Users!zhangli!Desktop!org-mode!semantic.cache"
-  :semantic-tag-version "2.0"
-  :semanticdb-version "2.2")

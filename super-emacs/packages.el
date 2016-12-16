@@ -113,7 +113,7 @@
   )
 
 
-                                        ;Enable powerline
+;; Enable powerline
 (use-package powerline
   :config
   (powerline-center-theme)
@@ -383,7 +383,11 @@
 ;; (global-set-key (kbd "M-x") 'smex)
 ;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
-
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11"))))
 
 ;; auto-complete-c-header
 (use-package auto-complete-c-headers
@@ -402,72 +406,89 @@
   (add-hook 'c++-mode-hook 'zl/ac-complete-c-header-init)
   (add-hook 'c-mode-hook 'zl/ac-complete-c-header-init))
 
-
 ;; iedit
 (use-package iedit
   :ensure t
   :bind (("C-c o" . iedit-mode)))
 
 
-
-;;================================================================================
-;;================================================================================
-
 ;; flymake google cpp
-(defun zl/flymake-google-init ()
-  (require 'flymake-google-cpplint)
-  (custom-set-variables
-   '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
-  (flymake-google-cpplint-load))
-(add-hook 'c-mode-hook 'zl/flymake-google-init)
-(add-hook 'c++-mode-hook 'zl/flymake-google-init)
+(use-package flymake-google-cpplint
+  :ensure t
+  :config
+  (defun zl/flymake-google-init ()
+    (require 'flymake-google-cpplint)
+    (custom-set-variables
+     '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
+    (flymake-google-cpplint-load))
+  (add-hook 'c-mode-hook 'zl/flymake-google-init)
+  (add-hook 'c++-mode-hook 'zl/flymake-google-init)
+)
 
-(setq-default tab-always-indent 'complete)
-
-;;================================================================================
-;;================================================================================
 
 ;; google-c-style
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
-
-
-;;================================================================================
-;;================================================================================
-
-;; cedet
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-(semantic-mode 1)
-(require 'stickyfunc-enhance)
-
-;; add senmatic as a suggestion backend to auto complete
-(defun zl/add-senmantic-to-autocompelte ()
-  (add-to-list 'ac-sources 'ac-source-semantic)
-  (add-to-list 'ac-sources 'ac-source-gtags)
+(use-package google-c-style
+  :ensure t
+  :config
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
   )
 
-(add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
-(add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
 
-;; local set key
-(defun zl/set-semantic-keys ()
-  (local-set-key "\C-c,d" 'semantic-ia-show-doc)
-  (local-set-key "\C-c,c" 'semantic-ia-describe-class)
-  (local-set-key "\C-c,s" 'semantic-ia-show-summary)
-  (local-set-key "\C-c,>" 'semantic-ia-fast-jump)
-  (local-set-key "\C-c,-" 'senator-fold-tag)
-  (local-set-key "\C-c,+" 'senator-unfold-tag))
+;; cedet
+(use-package cedet)
+
+;; stickfunc-enhance
+(use-package stickyfunc-enhance
+  :ensure t)
+
+;; semantic
+(use-package semantic
+  :init
+  ;; add senmatic as a suggestion backend to auto complete
+  (defun zl/add-senmantic-to-autocompelte ()
+    (add-to-list 'ac-sources 'ac-source-semantic)
+    (add-to-list 'ac-sources 'ac-source-gtags)
+    )
+  :bind (:map
+         semantic-mode-map
+         ("\C-c d" . semantic-ia-show-doc)
+         ("\C-c c" . semantic-ia-describe-class)
+         ("\C-c s" . semantic-ia-show-summary)
+         ("\C-c >" . semantic-ia-fast-jump)
+         ("\C-c -" . senator-fold-tag)
+         ("\C-c +" . senator-unfold-tag))
+
+  :config
+  (semantic-mode 1)
+  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+
+  (add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
+  (add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
+  )
 
 
-(add-hook 'c-mode-common-hook 'zl/set-semantic-keys)
+;; ;; local set key
+;; (defun zl/set-semantic-keys ()
+;;   (local-set-key "\C-c,d" 'semantic-ia-show-doc)
+;;   (local-set-key "\C-c,c" 'semantic-ia-describe-class)
+;;   (local-set-key "\C-c,s" 'semantic-ia-show-summary)
+;;   (local-set-key "\C-c,>" 'semantic-ia-fast-jump)
+;;   (local-set-key "\C-c,-" 'senator-fold-tag)
+;;   (local-set-key "\C-c,+" 'senator-unfold-tag))
 
 
-(global-ede-mode 1)
+;; (add-hook 'c-mode-common-hook 'zl/set-semantic-keys)
 
-(ede-cpp-root-project "my project" :file "~/Desktop/DeepAR_Algorithm/include/SXAR/ARWrapper/Marker.h"
+;; ede-mode
+(use-package ede
+  :config
+  (global-ede-mode 1)
+  (ede-cpp-root-project "my project" :file "~/Desktop/DeepAR_Algorithm/include/SXAR/ARWrapper/Marker.h"
                       :include-path '("../../"))
+  )
+
+
 
 (global-semantic-idle-scheduler-mode 1)
 
@@ -477,38 +498,40 @@
   (imenu-add-to-menubar "TAGS"))
 (add-hook 'semantic-init-hook 'zl/semantic-hook)
 
-;;================================================================================
-;;================================================================================
 
 ;; Package: smartparens
-(require 'smartparens-config)
-(show-smartparens-global-mode +1)
-(smartparens-global-mode 1)
+(use-package smartparens
+  :ensure t
+  :config
+  (require 'smartparens-config)
+  (show-smartparens-global-mode +1)
+  (smartparens-global-mode 1)
 
-;; when you press RET, the curly braces automatically
-;; add another newline
-(sp-with-modes '(c-mode c++-mode)
-  (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
-  (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
-                                            ("* ||\n[i]" "RET"))))
-;;================================================================================
-;;================================================================================
+  ;; when you press RET, the curly braces automatically
+  ;; add another newline
+  (sp-with-modes '(c-mode c++-mode)
+    (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
+    (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
+                                              ("* ||\n[i]" "RET"))))
+  )
+
 
 ;; Package: clean-aindent-mode
-(require 'clean-aindent-mode)
-(add-hook 'prog-mode-hook 'clean-aindent-mode)
+(use-package clean-aindent-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'clean-aindent-mode))
 
 ;; Package: ws-butler
-(require 'ws-butler)
-(add-hook 'c-mode-common-hook 'ws-butler-mode)
-(add-hook 'prog-mode-hook 'ws-butler-mode)
+(use-package ws-butler
+  :ensure t
+  :config
+  (add-hook 'c-mode-common-hook 'ws-butler-mode)
+  (add-hook 'prog-mode-hook 'ws-butler-mode)
+  )
 
-
-;;================================================================================
-;;================================================================================
 
 ;; elpy
-
 (use-package elpy
   :ensure t
   :config
@@ -534,12 +557,11 @@
     (interactive)
     (setq elpy-rpc-python-command "python")
     (elpy-use-ipython "ipython"))
-  (use-package flycheck
-    :ensure t
-    :config
-    (require 'flycheck)
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook 'flycheck-mode)))
+
+  (require 'flycheck)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
+  )
 
 
 ;; ein for ipython-notebook
@@ -574,6 +596,7 @@
   (projectile-global-mode)
   (setq projectile-completion-system 'helm)
   )
+
 (use-package  helm-projectile
   :ensure t
   :config
@@ -582,15 +605,6 @@
   (setq projectile-switch-project-action 'helm-projectile)
   (setq projectile-enable-caching t)
   )
-
-
-;; auto save
-(defun save-all ()
-  "Saves all dirty buffers without asking for confirmation."
-  (interactive)
-  (save-some-buffers t))
-
-(add-hook 'focus-out-hook 'save-all)
 
 ;; tags
 (require 'etags)
@@ -628,7 +642,11 @@
 
 
 ;; graphviz-dot
-(add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+(use-package graphviz-dot-mode
+  :ensure t
+  :config
+  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+  )
 
 ;; magit
 (use-package magit
@@ -643,6 +661,8 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+
 
 ;; camcorder
 (use-package camcorder
@@ -686,6 +706,7 @@
 ;; etags-select
 (use-package etags-select
   :ensure t
+  :bind (("M-*" . pop-tag-mark))
   :config
   (defun build-ctags ()
     (interactive)
@@ -710,7 +731,6 @@
     (etags-select-find-tag-at-point))
 
   (global-set-key (kbd "M-.") 'my-find-tag)
-
   )
 
 ;; hs-minor-mode
@@ -770,3 +790,16 @@
 (use-package graphviz-dot-mode
   :ensure t
   )
+
+(use-package cmake-mode
+  :ensure t
+  :config
+  ;; Add cmake listfile names to the mode list.
+  (setq auto-mode-alist
+        (append
+         '(("CMakeLists\\.txt\\'" . cmake-mode))
+         '(("\\.cmake\\'" . cmake-mode))
+         auto-mode-alist)))
+
+(use-package cmake-font-lock
+  :ensure t)
