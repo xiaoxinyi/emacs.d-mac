@@ -15,19 +15,28 @@
   (eq system-type 'darwin))
 
 
-(when window-system
-  (setq solarized-use-variable-pitch nil)
-  (setq solarized-height-plus-1 1.0)
-  (setq solarized-height-plus-2 1.0)
-  (setq solarized-height-plus-3 1.0)
-  (setq solarized-height-plus-4 1.0)
-  (setq solarized-use-less-bold t)
-  (setq solarized-termcolors 256)
-  (setq solarized-high-contrast-mode-line t)
-  (load-theme 'solarized-dark t))
+;; (use-package color-theme
+;;   :ensure t)
 
-(when window-system
-  (global-hl-line-mode))
+;; (use-package color-theme-solarized
+;;   :ensure t
+;;   :config
+;;   (when window-system
+;;     (setq solarized-use-variable-pitch nil)
+;;     (setq solarized-height-plus-1 1.0)
+;;     (setq solarized-height-plus-2 1.0)
+;;     (setq solarized-height-plus-3 1.0)
+;;     (setq solarized-height-plus-4 1.0)
+;;     (setq solarized-use-less-bold t)
+;;     (setq solarized-termcolors 256)
+;;     (setq solarized-high-contrast-mode-line t)
+;;     (load-theme 'solarized-dark t)
+;;     )
+;;)
+
+;;(when window-system
+(global-hl-line-mode)
+;;)
 
 (when (hrs/mac?)
   (set-frame-parameter nil 'fullscreen 'fullboth))
@@ -45,7 +54,7 @@
 ;; (setq hrs/default-font "Inconsolata")
 (setq hrs/default-font "Fira Code")
 ;; (setq hrs/default-font "Source Code Pro")
-(setq hrs/default-font-size 16)
+(setq hrs/default-font-size 15)
 (setq hrs/current-font-size hrs/default-font-size)
 
 ;; (if (hrs/mac?)

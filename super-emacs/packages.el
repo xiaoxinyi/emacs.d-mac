@@ -61,15 +61,29 @@
    ("C-c m d" . mc/mark-all-like-this-in-defun)
    ("C-c m k" . mc/skip-to-next-like-this)
    ("C-c m j" . mc/skip-to-previous-like-this)))
+
+(use-package visual-regexp
+  :ensure t
+  :init (use-package visual-regexp-steroids
+          :ensure t)
+  :bind* (
+          ("C-c r" . vr/replace)
+          ("C-c q" . vr/query-replace)
+          ("C-c m" . vr/mc-mark)
+          ("C-M-s" . vr/isearch-forward)
+          ("C-M-r" . vr/isearch-backward))
+
+  )
+
 ;; (use-package phi-search
 ;;   :ensure t
 ;;   :bind (("C-s" . phi-search)
 ;;          ("C-r" . phi-search-backward)）
 ;;   :config (set-face-attribute 'phi-search-selection-face nil
 ;;                               :background "orange"))
-(use-package phi-search-mc
-  :ensure t
-  :config (phi-search-mc/setup-keys))
+;; (use-package phi-search-mc
+;;   :ensure t
+;;   :config (phi-search-mc/setup-keys))
 (use-package mc-extras
   :ensure t
   :config (define-key mc/keymap (kbd "C-. =") 'mc/compare-chars))
@@ -119,12 +133,32 @@
   (powerline-center-theme)
   (setq powerline-default-separator 'wave))
 
+(use-package color-theme
+  :ensure t)
+
+(use-package color-theme-solarized
+  :ensure t
+  :config
+  (when window-system
+    (setq solarized-use-variable-pitch nil)
+    (setq solarized-height-plus-1 1.0)
+    (setq solarized-height-plus-2 1.0)
+    (setq solarized-height-plus-3 1.0)
+    (setq solarized-height-plus-4 1.0)
+    (setq solarized-use-less-bold t)
+    (setq solarized-termcolors 256)
+    (setq solarized-high-contrast-mode-line t)
+     (load-theme 'solarized-dark t)
+    )
+)
+
 
 ;;Configure theme-looper
 (use-package theme-looper
   :bind (("C-\"" . theme-looper-enable-next-theme))
   :config
   (theme-looper-set-theme-set '(deeper-blue
+                                darcula
                                 wheatgrass
                                 wombat
                                 material
@@ -171,14 +205,14 @@
 
 
 
-                                        ; anaconda-mode
+;; anaconda-mode
 ;; (add-hook 'python-mode-hook 'anaconda-mode)
 ;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 
 
 
 
-                                        ; multi term
+;; multi term
 (use-package multi-term
   :bind (("C-x t" . multi-term))
   :config
@@ -782,7 +816,8 @@
 
 (use-package macrostep
   :ensure t
-  :bind ("C-c o e" . macrostep-expand))
+  ;; :bind ("C-c m e" . macrostep-expand)
+  )
 
 (use-package smooth-scrolling
   :ensure t)
@@ -808,15 +843,3 @@
 (use-package yaml-mode
   :ensure t)
 
-(use-package visual-regexp
-  :ensure t
-  :init (use-package visual-regexp-steroids
-          :ensure t)
-  :bind* (
-          ("\C-c r" . vr/replace)
-          ("\C-c q" . vr/query-replace)
-          ("\C-c m" . vr/mc-mark)
-          ("\C-s" . vr/isearch-forward)
-          ("\C-r" . vr/isearch-backward))
-
-  )
