@@ -782,7 +782,7 @@
 
 (use-package macrostep
   :ensure t
-  :bind ("C-c m e" . macrostep-expand))
+  :bind ("C-c o e" . macrostep-expand))
 
 (use-package smooth-scrolling
   :ensure t)
@@ -803,3 +803,20 @@
 
 (use-package cmake-font-lock
   :ensure t)
+
+;; yaml-mode
+(use-package yaml-mode
+  :ensure t)
+
+(use-package visual-regexp
+  :ensure t
+  :init (use-package visual-regexp-steroids
+          :ensure t)
+  :bind* (
+          ("\C-c r" . vr/replace)
+          ("\C-c q" . vr/query-replace)
+          ("\C-c m" . vr/mc-mark)
+          ("\C-s" . vr/isearch-forward)
+          ("\C-r" . vr/isearch-backward))
+
+  )
