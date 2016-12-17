@@ -25,9 +25,7 @@
  '(package-selected-packages
    (quote
     (darcula-theme visual-regexp-steroids visual-regexp yaml-mode graphviz-dot-mode cmake-font-lock cmake-mode yasnippet objc-mode phi-search-mc mc-extras smooth-scrolling cyberpunk-theme macrostep smart-mode-line solarized solarized-dark auto-complete helm ztree ws-butler use-package undo-tree theme-looper switch-window stickyfunc-enhance solarized-theme smex smartparens py-autopep8 powerline pallet ox-twbs ox-gfm org-pandoc org-bullets org ob-ipython myterminal-controls multiple-cursors multi-term monokai-theme meta-presenter material-theme markdown-mode magit lua-mode irony impatient-mode iedit ido-vertical-mode ido-ubiquitous helm-themes helm-projectile helm-ag google-c-style github-theme git-gutter+ ggtags flymake-google-cpplint flymake-cursor flycheck flx-isearch flx-ido exec-path-from-shell etags-select eproject elpy ein direx dired-open dired+ cuda-mode ctags-update command-log-mode color-theme-solarized color-theme-monokai clean-aindent-mode cask-mode camcorder buffer-move bookmark+ auto-complete-c-headers anaconda-mode ag ace-jump-mode)))
- '(send-mail-function (quote mailclient-send-it))
- '(vr/command-python
-   "python3 /Users/zhangli/.emacs.d/elpa/visual-regexp-steroids-20160516.1238/regexp.py"))
+   )
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
