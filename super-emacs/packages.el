@@ -62,9 +62,9 @@
    ("C-c m k" . mc/skip-to-next-like-this)
    ("C-c m j" . mc/skip-to-previous-like-this)))
 
-(use-package visual-regexp
+(use-package visual-regexp-steroids
   :ensure t
-  :init (use-package visual-regexp-steroids
+  :init (use-package visual-regexp
           :ensure t)
   :bind* (
           ("C-c r" . vr/replace)
@@ -103,14 +103,12 @@
 (use-package ztree
   :ensure t)
 
-;; (use-package material-theme
-;;   :ensure t)
 
 (use-package meta-presenter
   :ensure t)
 
 
-;;Start undo-tree
+;; Start undo-tree
 (use-package undo-tree
   :bind (("M-/" . undo-tree-visualize))
   :config
@@ -148,25 +146,26 @@
     (setq solarized-use-less-bold t)
     (setq solarized-termcolors 256)
     (setq solarized-high-contrast-mode-line t)
-     (load-theme 'solarized-dark t)
+    (load-theme 'solarized-dark t)
     )
 )
 
-
-;;Configure theme-looper
+;; Configure theme-looper
 (use-package theme-looper
   :bind (("C-\"" . theme-looper-enable-next-theme))
   :config
-  (theme-looper-set-theme-set '(deeper-blue
+  (theme-looper-set-theme-set '(;;deeper-blue
                                 darcula
-                                wheatgrass
-                                wombat
-                                material
-                                monokai
+                                zenburn
+                                ;;wheatgrass
+                                ;;wombat
+                                ;;material
+                                ;;monokai
                                 solarized-dark))
   (theme-looper-set-customizations 'powerline-reset))
 
-                                        ;Configure myterminal-controls
+
+;; Configure myterminal-controls
 (use-package myterminal-controls
   :commands myterminal-controls-open-controls
   :bind (("C-M-'" . myterminal-controls-open-controls))
