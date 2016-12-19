@@ -129,6 +129,7 @@
 (use-package powerline
   :config
   (powerline-center-theme)
+  ;; (setq powerline-default-separator 'utf-8)
   (setq powerline-default-separator 'wave))
 
 (use-package color-theme
