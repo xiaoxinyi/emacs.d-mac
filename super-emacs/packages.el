@@ -1,8 +1,3 @@
-(eval-when-compile
-  (require 'use-package))
-(require 'diminish)                ;; if you use :diminish
-(require 'bind-key)                ;; if you use any :bind variant
-
 ;; Create repositories cache, if required
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -15,7 +10,6 @@
 (mapc (lambda (p)
         (package-install p))
       super-emacs--required-packages)
-
 
 ;; yasnippet config
 (use-package yasnippet
@@ -635,6 +629,8 @@
   :ensure t
   :config
   (helm-projectile-on)
+  ;; switch to project add call magit-status
+  (setq projectile-switch-project-action 'projectile-vc)
   ;; (setq projectile-switch-project-action 'helm-projectile-find-file)
   (setq projectile-switch-project-action 'helm-projectile)
   (setq projectile-enable-caching t)
@@ -685,7 +681,9 @@
 ;; magit
 (use-package magit
   :ensure t
-  :bind (("C-x g" . magit-status)))
+  :bind (("C-x g" . magit-status))
+  )
+
 
 ;; markdown mode
 (use-package markdown-mode
