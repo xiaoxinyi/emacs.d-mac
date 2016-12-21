@@ -36,3 +36,5 @@
 
 
 (add-hook 'focus-out-hook 'save-all)
+
+(fset 'yes-or-no-p 'y-or-n-p)

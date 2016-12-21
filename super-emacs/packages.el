@@ -415,7 +415,16 @@
   :ensure t
   :config
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11"))))
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
+
+  (add-hook 'c++-mode-hook
+            (lambda () (setq flycheck-clang-include-path
+                         (list (expand-file-name "~/Desktop/DeepAR_Algorithm/include")))))
+  (add-hook 'c-mode-hook
+            (lambda () (setq flycheck-clang-include-path
+                         (list (expand-file-name "~/Desktop/DeepAR_Algorithm/include")))))
+  )
+
 
 ;; auto-complete-c-header
 (use-package auto-complete-c-headers
@@ -591,6 +600,14 @@
   (add-hook 'elpy-mode-hook 'flycheck-mode)
   )
 
+;; clang-format
+(use-package clang-format
+  :ensure t
+  :bind* (
+         ("C-M-<tab>" . clang-format-buffer))
+  :config
+  (setq clang-format-style-option "google")
+  )
 
 ;; ein for ipython-notebook
 (use-package ein
@@ -841,3 +858,55 @@
 (use-package yaml-mode
   :ensure t)
 
+(use-package objc-font-lock
+  :ensure t
+  :config
+   (objc-font-lock-global-mode 1)
+   ;; Don't highlight brackets.
+   (setq objc-font-lock-bracket-face nil)
+   ;; Use `secondary-selection` (a builtin face) as background.
+   (setq objc-font-lock-background-face 'secondary-selection))
+
+(use-package cc-mode
+  :init
+    (defadvice ff-get-file-name (around ff-get-file-name-framework
+                    (search-dirs
+                     fname-stub
+                     &optional suffix-list))
+  "Search for Mac framework headers as well as POSIX headers."
+   (or
+    (if (string-match "\\(.*?\\)/\\(.*\\)" fname-stub)
+    (let* ((framework (match-string 1 fname-stub))
+           (header (match-string 2 fname-stub))
+           (fname-stub (concat framework ".framework/Headers/" header)))
+      ad-do-it))
+      ad-do-it))
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+  (add-to-list 'magic-mode-alist
+                `(,(lambda ()
+                     (and (string= (file-name-extension buffer-file-name) "h")
+                          (re-search-forward "@\\<interface\\>"
+                         magic-mode-regexp-match-limit t)))
+                  . objc-mode))
+  (require 'find-file) ;; for the "cc-other-file-alist" variable
+  (nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
+
+  ;; system header
+  (ad-enable-advice 'ff-get-file-name 'around 'ff-get-file-name-framework)
+  (ad-activate 'ff-get-file-name)
+
+  (setq cc-search-directories '("." "../include" "/usr/include" "/usr/local/include/*"
+                                "/System/Library/Frameworks" "/Library/Frameworks"))
+  )
+
+;; flycheck for objective c
+(use-package flycheck-objc-clang
+  :ensure t
+  :config
+  (with-eval-after-load 'flycheck
+    (add-hook 'flycheck-mode-hook #'flycheck-objc-clang-setup))
+  )
+
+(use-package dummy-h-mode
+  :ensure t)

@@ -1,15 +1,9 @@
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-
-;; Configuration for use-package
-(eval-when-compile
-  (require 'use-package))
-(require 'diminish)                ;; if you use :diminish
-(require 'bind-key)                ;; if you use any :bind variant
-
 
 (load-file "~/.emacs.d/super-emacs/repositories.el")
 (load-file "~/.emacs.d/super-emacs/packages.el")
@@ -65,7 +59,8 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (zenburn-theme molokai-theme darcula-theme visual-regexp-steroids visual-regexp yaml-mode graphviz-dot-mode cmake-font-lock cmake-mode yasnippet objc-mode phi-search-mc mc-extras smooth-scrolling cyberpunk-theme macrostep smart-mode-line solarized solarized-dark auto-complete helm ztree ws-butler use-package undo-tree theme-looper switch-window stickyfunc-enhance solarized-theme smex smartparens py-autopep8 powerline pallet ox-twbs ox-gfm org-pandoc org-bullets org ob-ipython myterminal-controls multiple-cursors multi-term monokai-theme meta-presenter material-theme markdown-mode magit lua-mode irony impatient-mode iedit ido-vertical-mode ido-ubiquitous helm-themes helm-projectile helm-ag google-c-style github-theme git-gutter+ ggtags flymake-google-cpplint flymake-cursor flycheck flx-isearch flx-ido exec-path-from-shell etags-select eproject elpy ein direx dired-open dired+ cuda-mode ctags-update command-log-mode color-theme-solarized color-theme-monokai clean-aindent-mode cask-mode camcorder buffer-move bookmark+ auto-complete-c-headers anaconda-mode ag ace-jump-mode)))
+    (clang-format dummy-h-mode flycheck-objc-clang objc-font-lock zenburn-theme molokai-theme darcula-theme visual-regexp-steroids visual-regexp yaml-mode graphviz-dot-mode cmake-font-lock cmake-mode yasnippet objc-mode phi-search-mc mc-extras smooth-scrolling cyberpunk-theme macrostep smart-mode-line solarized solarized-dark auto-complete helm ztree ws-butler use-package undo-tree theme-looper switch-window stickyfunc-enhance solarized-theme smex smartparens py-autopep8 powerline pallet ox-twbs ox-gfm org-pandoc org-bullets org ob-ipython myterminal-controls multiple-cursors multi-term monokai-theme meta-presenter material-theme markdown-mode magit lua-mode irony impatient-mode iedit ido-vertical-mode ido-ubiquitous helm-themes helm-projectile helm-ag google-c-style github-theme git-gutter+ ggtags flymake-google-cpplint flymake-cursor flycheck flx-isearch flx-ido exec-path-from-shell etags-select eproject elpy ein direx dired-open dired+ cuda-mode ctags-update command-log-mode color-theme-solarized color-theme-monokai clean-aindent-mode cask-mode camcorder buffer-move bookmark+ auto-complete-c-headers anaconda-mode ag ace-jump-mode)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(send-mail-function (quote mailclient-send-it))
@@ -94,6 +89,8 @@
      (340 . "#268fc6")
      (360 . "#268bd2"))))
  '(vc-annotate-very-old-color nil)
+ '(vr/command-python
+   "python3 /Users/zhangli/.emacs.d/elpa/visual-regexp-steroids-20160516.1238/regexp.py")
  '(weechat-color-list
    (quote
     (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
