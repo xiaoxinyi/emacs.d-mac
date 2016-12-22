@@ -1,4 +1,4 @@
-;; Create repositories cache, if required
+;; Create repositories cache,if required
 (when (not package-archive-contents)
   (package-refresh-contents))
 
@@ -43,7 +43,7 @@
 
 (use-package multiple-cursors
   :ensure t
-  :bind
+  :bind*
   (("C-c m t" . mc/mark-all-like-this)
    ("C-c m m" . mc/mark-all-like-this-dwim)
    ("C-c m l" . mc/edit-lines)
@@ -63,21 +63,26 @@
   :bind* (
           ("C-c r" . vr/replace)
           ("C-c q" . vr/query-replace)
-          ("C-c m" . vr/mc-mark)
+          ("C-c v m" . vr/mc-mark)
           ("C-M-s" . vr/isearch-forward)
           ("C-M-r" . vr/isearch-backward))
 
   )
 
 ;; (use-package phi-search
+;;   :disabled t
 ;;   :ensure t
 ;;   :bind (("C-s" . phi-search)
 ;;          ("C-r" . phi-search-backward)）
 ;;   :config (set-face-attribute 'phi-search-selection-face nil
 ;;                               :background "orange"))
+;; )
+
 ;; (use-package phi-search-mc
+;;   :disabled t
 ;;   :ensure t
 ;;   :config (phi-search-mc/setup-keys))
+
 (use-package mc-extras
   :ensure t
   :config (define-key mc/keymap (kbd "C-. =") 'mc/compare-chars))
@@ -129,7 +134,7 @@
 (use-package color-theme
   :ensure t)
 
-(use-package color-theme-solarized
+ (use-package color-theme-solarized
   :ensure t
   :config
   (when window-system
@@ -395,7 +400,7 @@
 
 (use-package ido-vertical-mode
   :ensure t
-  :init               ; I like up and down arrow keys:
+  :init               ;; I like up and down arrow keys:
   (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
   :config
   (ido-vertical-mode 1))
@@ -631,7 +636,7 @@
   (windmove-default-keybindings)
   )
 
-;; winner-mode
+;; winner-mode recover window
 (use-package winner
   :config
   (winner-mode t))
@@ -654,22 +659,6 @@
   (setq projectile-switch-project-action 'helm-projectile)
   (setq projectile-enable-caching t)
   )
-
-;; tags
-(require 'etags)
-
-(use-package ctags-update
-  :ensure t
-  :bind (("C-c C-r" . ctags-update))
-  :config
-  ;;;###autoload
-  (defun turn-on-ctags-auto-update-mode()
-    "turn on `ctags-auto-update-mode'."
-    (interactive)
-    (ctags-update-minor-mode 1))
-  (add-hook 'prog-mode-hook  'turn-on-ctags-auto-update-mode)
-  (setq ctags-update-command "/usr/local/bin/ctags-zl")
-  :diminish ctags-auto-update-mode)
 
 ;; ag
 (use-package ag
@@ -754,34 +743,54 @@
 (use-package eproject
   :ensure t)
 
+
+;; tags
+(require 'etags)
+
+(use-package ctags-update
+  :ensure t
+  :bind (("C-c C-r" . ctags-update))
+  :config
+  ;;;###autoload
+  (defun turn-on-ctags-auto-update-mode()
+    "turn on `ctags-auto-update-mode'."
+    (interactive)
+    (ctags-update-minor-mode 1))
+  (add-hook 'prog-mode-hook  'turn-on-ctags-auto-update-mode)
+  (setq ctags-update-command "/usr/local/bin/ctags-zl")
+  :diminish ctags-auto-update-mode)
+
 ;; etags-select
 (use-package etags-select
   :ensure t
-  :bind (("M-*" . pop-tag-mark))
-  :config
+  :commands etags-select-find-tag-at-point
+  :init
   (defun build-ctags ()
     (interactive)
     (message "building project tags")
     (let ((root (eproject-root)))
-      (shell-command (concat "ctags-zl -e -R --extra=+fq --exclude=db --exclude=test --exclude=.git --exclude=public -f " root "TAGS " root))\
+      (shell-command (concat "ctags-zl -e -R --extra=+fq --exclude=db --exclude=test --exclude=.git --exclude=public -f " root "TAGS " root))
       )
     (visit-project-tags)
     (message "tags built successfully"))
 
-  (defun visit-project-tags ()
+    (defun visit-project-tags ()
     (interactive)
     (let ((tags-file (concat (eproject-root) "TAGS")))
       (visit-tags-table tags-file)
       (message (concat "Loaded " tags-file))))
 
-  (defun my-find-tag ()
+      (defun my-find-tag ()
     (interactive)
     (if (file-exists-p (concat (eproject-root) "TAGS"))
         (visit-project-tags)
       (build-ctags))
     (etags-select-find-tag-at-point))
 
-  (global-set-key (kbd "M-.") 'my-find-tag)
+      :bind* (("M-*" . pop-tag-mark)
+              ("M-." . my-find-tag))
+  ;;:config
+  ;; (global-set-key (kbd "M-.") 'my-find-tag)
   )
 
 ;; hs-minor-mode

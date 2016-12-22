@@ -5,6 +5,12 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+;; Configuration for use-package
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)                ;; if you use any :bind variant
+
 (load-file "~/.emacs.d/super-emacs/repositories.el")
 (load-file "~/.emacs.d/super-emacs/packages.el")
 (load-file "~/.emacs.d/super-emacs/interface.el")
@@ -22,6 +28,7 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(compilation-message-face (quote default))
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
