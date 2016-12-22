@@ -1,3 +1,8 @@
+
+;; (unbind-key "<tab>")
+;; (unbind-key "<backtab>") 
+;; (bind-key "C-<return>" 'yas-expand yas-minor-mode-map)
+
 ;; Create repositories cache,if required
 (when (not package-archive-contents)
   (package-refresh-contents))
