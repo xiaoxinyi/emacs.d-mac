@@ -231,6 +231,12 @@
 
 ;; org-mode
 
+(defun my-org-mode-hook()
+  (progn
+    (auto-fill-mode 1))
+
+(add-hook 'org-mode-hook 'my-org-mode-hook)
+
 (add-hook 'org-mode-hook
           (lambda ()
             (org-bullets-mode t)))
