@@ -1,3 +1,13 @@
+;; when using emacs -q to setup
+;; (setq package-load-list '((yasnippet t)
+;;               (use-package t)
+;;               (bind-key t)
+;;               (diminish t)
+;;               ))
+;; (package-initialize)
+;; (eval-when-compile
+;;   (require 'use-package))
+
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -28,7 +38,7 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "/Users/zhangli/.emacs.d/bookmarks")
  '(compilation-message-face (quote default))
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
@@ -74,7 +84,6 @@
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#839496" 0.2))
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")
- '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
     ((20 . "#dc322f")

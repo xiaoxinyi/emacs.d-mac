@@ -1,3 +1,8 @@
+
+;; (unbind-key "<tab>")
+;; (unbind-key "<backtab>")
+;; (bind-key "C-<return>" 'yas-expand yas-minor-mode-map)
+
 ;; Create repositories cache,if required
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -13,15 +18,11 @@
 
 ;; yasnippet config
 (use-package yasnippet
-  :ensure t
-  :bind (:map
-         yas-minor-mode-map ("<backtab>" . yas-expand))
+  :bind (("<backtab>" . yas-expand))
   :config
-  (require 'yasnippet)
   (yas-global-mode 1)
   (setq yas-snippet-dirs
-        ;; personal snippets
-        '("~/.emacs.d/snippets"))
+    '("~/.emacs.d/snippets"))
   )
 
 ;; Load default auto-complete configs
@@ -230,6 +231,12 @@
 
 
 ;; org-mode
+
+(defun my-org-mode-hook ()
+  (progn
+    (auto-fill-mode 1)))
+
+(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 (add-hook 'org-mode-hook
           (lambda ()

@@ -35,7 +35,9 @@
 ;;)
 
 ;;(when window-system
-(global-hl-line-mode)
+(use-package hl-line
+  :config
+  (global-hl-line-mode))
 ;;)
 
 (when (hrs/mac?)
@@ -93,11 +95,12 @@
 
 (hrs/set-font-size)
 
-(define-key global-map (kbd "C-)") 'hrs/reset-font-size)
-(define-key global-map (kbd "C-+") 'hrs/increase-font-size)
-(define-key global-map (kbd "C-=") 'hrs/increase-font-size)
-(define-key global-map (kbd "C-_") 'hrs/decrease-font-size)
-(define-key global-map (kbd "C--") 'hrs/decrease-font-size)
+(bind-key "C-)" 'hrs/reset-font-size)
+(bind-key "C-)" 'hrs/reset-font-size)
+(bind-key "C-+" 'hrs/increase-font-size)
+(bind-key "C-=" 'hrs/increase-font-size)
+(bind-key "C-_" 'hrs/decrease-font-size)
+(bind-key "C--" 'hrs/decrease-font-size)
 
 
 (global-prettify-symbols-mode t)
