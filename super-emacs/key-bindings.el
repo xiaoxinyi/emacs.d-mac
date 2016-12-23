@@ -16,7 +16,7 @@
   (end-of-line) ; move to end of line
   (set-mark (line-beginning-position)))
 
-(bind-key "C-x _" 'zl/split-window-horizontally)
+(bind-key "C-x _" 'zl/split-window-vertically)
 (bind-key "C-x |" 'zl/split-window-horizontally)
 (bind-key "M-l" 'zl/select-current-line)
 (bind-key "C-c M-x" 'execute-extended-command)
