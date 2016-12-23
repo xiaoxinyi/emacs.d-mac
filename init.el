@@ -1,3 +1,13 @@
+;; when using emacs -q to setup
+;; (setq package-load-list '((yasnippet t)
+;;               (use-package t)
+;;               (bind-key t)
+;;               (diminish t)
+;;               ))
+;; (package-initialize)
+;; (eval-when-compile
+;;   (require 'use-package))
+
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
