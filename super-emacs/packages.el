@@ -502,20 +502,16 @@
 
   (add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
   (add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
+
+  (global-semantic-idle-scheduler-mode 1)
+  
+  (semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
+  
+  (defun zl/semantic-hook ()
+    (imenu-add-to-menubar "TAGS"))
+  (add-hook 'semantic-init-hook 'zl/semantic-hook)
   )
 
-
-;; ;; local set key
-;; (defun zl/set-semantic-keys ()
-;;   (local-set-key "\C-c,d" 'semantic-ia-show-doc)
-;;   (local-set-key "\C-c,c" 'semantic-ia-describe-class)
-;;   (local-set-key "\C-c,s" 'semantic-ia-show-summary)
-;;   (local-set-key "\C-c,>" 'semantic-ia-fast-jump)
-;;   (local-set-key "\C-c,-" 'senator-fold-tag)
-;;   (local-set-key "\C-c,+" 'senator-unfold-tag))
-
-
-;; (add-hook 'c-mode-common-hook 'zl/set-semantic-keys)
 
 ;; ede-mode
 (use-package ede
@@ -524,17 +520,6 @@
   (ede-cpp-root-project "my project" :file "~/Desktop/DeepAR_Algorithm/include/SXAR/ARWrapper/Marker.h"
                       :include-path '("../../"))
   )
-
-
-
-(global-semantic-idle-scheduler-mode 1)
-
-(semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
-
-(defun zl/semantic-hook ()
-  (imenu-add-to-menubar "TAGS"))
-(add-hook 'semantic-init-hook 'zl/semantic-hook)
-
 
 ;; Package: smartparens
 (use-package smartparens
@@ -572,7 +557,6 @@
 (use-package elpy
   :ensure t
   :config
-  ;;  (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
   (require 'elpy)
   (elpy-enable)
   ;; set indent for python
@@ -836,9 +820,6 @@
 (use-package smooth-scrolling
   :ensure t)
 
-(use-package graphviz-dot-mode
-  :ensure t
-  )
 
 (use-package cmake-mode
   :ensure t
@@ -866,34 +847,35 @@
    ;; Use `secondary-selection` (a builtin face) as background.
    (setq objc-font-lock-background-face 'secondary-selection))
 
+;; commented lines make org mode cannot convert to md.
 (use-package cc-mode
   :init
-    (defadvice ff-get-file-name (around ff-get-file-name-framework
-                    (search-dirs
-                     fname-stub
-                     &optional suffix-list))
-  "Search for Mac framework headers as well as POSIX headers."
-   (or
-    (if (string-match "\\(.*?\\)/\\(.*\\)" fname-stub)
-    (let* ((framework (match-string 1 fname-stub))
-           (header (match-string 2 fname-stub))
-           (fname-stub (concat framework ".framework/Headers/" header)))
-      ad-do-it))
-      ad-do-it))
-  :config
-  (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
-  (add-to-list 'magic-mode-alist
-                `(,(lambda ()
-                     (and (string= (file-name-extension buffer-file-name) "h")
-                          (re-search-forward "@\\<interface\\>"
-                         magic-mode-regexp-match-limit t)))
-                  . objc-mode))
-  (require 'find-file) ;; for the "cc-other-file-alist" variable
-  (nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
+  ;;   (defadvice ff-get-file-name (around ff-get-file-name-framework
+  ;;                   (search-dirs
+  ;;                    fname-stub
+  ;;                    &optional suffix-list))
+  ;; "Search for Mac framework headers as well as POSIX headers."
+  ;;  (or
+  ;;   (if (string-match "\\(.*?\\)/\\(.*\\)" fname-stub)
+  ;;   (let* ((framework (match-string 1 fname-stub))
+  ;;          (header (match-string 2 fname-stub))
+  ;;          (fname-stub (concat framework ".framework/Headers/" header)))
+  ;;     ad-do-it))
+  ;;     ad-do-it))
+  ;; :config
+  ;; (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+  ;; (add-to-list 'magic-mode-alist
+  ;;               `(,(lambda ()
+  ;;                    (and (string= (file-name-extension buffer-file-name) "h")
+  ;;                         (re-search-forward "@\\<interface\\>"
+  ;;                        magic-mode-regexp-match-limit t)))
+  ;;                 . objc-mode))
+  ;; (require 'find-file) ;; for the "cc-other-file-alist" variable
+  ;; (nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
 
   ;; system header
-  (ad-enable-advice 'ff-get-file-name 'around 'ff-get-file-name-framework)
-  (ad-activate 'ff-get-file-name)
+  ;; (ad-enable-advice 'ff-get-file-name 'around 'ff-get-file-name-framework)
+  ;; (ad-activate 'ff-get-file-name)
 
   (setq cc-search-directories '("." "../include" "/usr/include" "/usr/local/include/*"
                                 "/System/Library/Frameworks" "/Library/Frameworks"))
