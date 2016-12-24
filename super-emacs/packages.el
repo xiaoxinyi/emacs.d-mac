@@ -69,19 +69,17 @@
 
   )
 
-;; (use-package phi-search
-;;   :disabled t
-;;   :ensure t
-;;   :bind (("C-s" . phi-search)
-;;          ("C-r" . phi-search-backward)）
-;;   :config (set-face-attribute 'phi-search-selection-face nil
-;;                               :background "orange"))
-;; )
+;; used in multi-cursor for search
+(use-package phi-search
+  :ensure t
+  :config (set-face-attribute 'phi-search-selection-face nil
+                              :background "orange")
+  )
 
-;; (use-package phi-search-mc
-;;   :disabled t
-;;   :ensure t
-;;   :config (phi-search-mc/setup-keys))
+(use-package phi-search-mc
+  :disabled t
+  :ensure t
+  :config (phi-search-mc/setup-keys))
 
 (use-package mc-extras
   :ensure t
@@ -229,6 +227,7 @@
 
 
 ;; org-mode
+
 
 (defun my-org-mode-hook ()
   (progn
