@@ -1,4 +1,3 @@
-
 ;; (unbind-key "<tab>")
 ;; (unbind-key "<backtab>")
 ;; (bind-key "C-<return>" 'yas-expand yas-minor-mode-map)
@@ -137,18 +136,17 @@
 
  (use-package color-theme-solarized
   :ensure t
+  :if window-system
   :config
-  (when window-system
-    (setq solarized-use-variable-pitch nil)
-    (setq solarized-height-plus-1 1.0)
-    (setq solarized-height-plus-2 1.0)
-    (setq solarized-height-plus-3 1.0)
-    (setq solarized-height-plus-4 1.0)
-    (setq solarized-use-less-bold t)
-    (setq solarized-termcolors 256)
-    (setq solarized-high-contrast-mode-line t)
-    (load-theme 'solarized-dark t)
-    )
+  (setq solarized-use-variable-pitch nil)
+  (setq solarized-height-plus-1 1.0)
+  (setq solarized-height-plus-2 1.0)
+  (setq solarized-height-plus-3 1.0)
+  (setq solarized-height-plus-4 1.0)
+  (setq solarized-use-less-bold t)
+  (setq solarized-termcolors 256)
+  (setq solarized-high-contrast-mode-line t)
+  (load-theme 'solarized-dark t)
 )
 
 ;; Configure theme-looper
@@ -196,7 +194,7 @@
   (helm-mode 1)
   (helm-autoresize-mode t)
   (setq helm-split-window-in-side-p t
-                                        ;helm-move-to-line-cycle-in-source t
+        ;;helm-move-to-line-cycle-in-source t
         helm-ff-file-name-history-use-recentf t
         helm-ff-search-library-in-sexp t)
   (use-package helm-ag
@@ -928,3 +926,24 @@
 
 (use-package dummy-h-mode
   :ensure t)
+
+;; switch window shortcut
+(use-package   window-numbering
+  :ensure t
+  :bind (
+         ("s-0" .  select-window-0)
+         ("s-1" .  select-window-1)
+         ("s-2" .  select-window-2)
+         ("s-3" .  select-window-3)
+         ("s-4" .  select-window-4)
+         ("s-5" .  select-window-5)
+         ("s-6" .  select-window-6)
+         ("s-7" .  select-window-7)
+         ("s-8" .  select-window-8)
+         ("s-9" .  select-window-9)
+         )
+  :config
+  (window-numbering-mode 1)
+  (setq window-numbering-assign-func
+        (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
+  )
