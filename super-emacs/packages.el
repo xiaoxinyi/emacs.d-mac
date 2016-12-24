@@ -325,7 +325,22 @@
     (org-todo 'done)
     (org-archive-subtree))
 
+  (setq org-export-with-smart-quotes t)
 
+  (setq org-log-done 'time)
+
+  ;; babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (ruby . t)
+     (python . t)
+     (sh . t)
+     (C . t)
+     (lua . t )
+     (dot . t)))
+
+  (setq org-confirm-babel-evaluate nil)
   )
 
 
@@ -335,25 +350,6 @@
   :ensure t)
 (use-package ox-gfm
   :ensure t)
-
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (ruby . t)
-   (python . t)
-   (sh . t)
-   (C . t)
-   (lua . t )
-   (dot . t)))
-
-(setq org-confirm-babel-evaluate nil)
-
-(setq org-export-with-smart-quotes t)
-
-(setq org-log-done 'time)
-
-
 
 ;; dired config
 (require 'dired-x)
