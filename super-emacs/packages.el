@@ -155,9 +155,7 @@
                                 darcula
                                 zenburn
                                 ;;wheatgrass
-                                ;;wombat
-                                ;;material
-                                ;;monokai
+(use-pa ox-md)(use-pa ox-md)                                ;;monokai
                                 solarized-dark))
   (theme-looper-set-customizations 'powerline-reset))
 
@@ -222,37 +220,9 @@
               (setq yas-dont-activate t))))
 
 
-;;================================================================================
-;;================================================================================
+(use-package org-bullets
+  :ensure t)
 
-
-;; org-mode
-
-
-(defun my-org-mode-hook ()
-  (progn
-    (auto-fill-mode 1)))
-
-(add-hook 'org-mode-hook 'my-org-mode-hook)
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (org-bullets-mode t)))
-
-(setq org-ellipsis "⤵")
-
-;; show utf-8
-(setq org-pretty-entities t)
-
-(setq org-src-fontify-natively t)
-
-(setq org-src-tab-acts-natively t)
-
-(setq org-src-window-setup 'current-window)
-
-;; export html get rid of footer
-(setq org-html-postamble nil)
-(setq org-html-toc nil)
 
 ;; execute in emacs
 (setenv "PATH"
@@ -265,70 +235,106 @@
 (setq exec-path (append exec-path '("/usr/local/bin")))
 (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
 
-;;================================================================================
-;;================================================================================
 
-;; org-mode  export pdf
-;; (setq org-latex-pdf-process
-;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(setq org-latex-to-pdf-process
-      '("xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
-        "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
-        "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"))
+;; org-mode
+(use-package org
+  :ensure t
+  :init
+  (defun my-org-mode-hook ()
+    (progn
+      (auto-fill-mode 1)))
+  :bind (:map org-mode-map
+         ("C-x n m"  . zl/org-narrow-forward)
+         ("C-x n p"  . zl/org-narrow-backward)
+         ("C-c C-x C-s" . mark-done-and-archive)
+         ("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
 
-
-
-
-;; add minted package highlight source code
-(require 'ox-latex)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
-
-;; org latex preview inline
-(setq org-latex-create-formula-image-program 'imagemagick)
-;; scale image inline default set to 1.5
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
-
-;; org-narrow-forward
-(defun zl/org-narrow-forward ()
-  "Move to the next subtree at same level, and narrow to it."
-  (interactive)
-  (widen)
-  (org-forward-heading-same-level 1)
-  (org-narrow-to-subtree))
-
-(defun zl/org-narrow-backward ()
-  "Move to the previous subtree at same level, and narrow to it."
-  (interactive)
-  (widen)
-  (org-backward-heading-same-level 1)
-  (org-narrow-to-subtree))
-
-(defun zl/set-org-keys ()
-  (local-set-key "\C-xnm" 'zl/org-narrow-forward)
-  (local-set-key "\C-xnp" 'zl/org-narrow-backward))
-
-(add-hook 'org-mode-hook 'zl/set-org-keys)
-
-;; (setq org-src-fontify-natively t)
-;; Tex config
-(setq TeX-parse-self t)
-
-(setq TeX-PDF-mode t)
-
-(add-hook 'LaTeX-mode-hook
+         )
+  :config
+  (add-hook 'org-mode-hook 'my-org-mode-hook)
+  (add-hook 'org-mode-hook
           (lambda ()
-            (LaTeX-math-mode)
-            (setq TeX-master t)))
+            (org-bullets-mode t)))
 
+  (setq org-ellipsis "⤵")
+
+  ;; show utf-8
+  (setq org-pretty-entities t)
+
+  (setq org-src-fontify-natively t)
+
+  (setq org-src-tab-acts-natively t)
+
+  (setq org-src-window-setup 'current-window)
+
+  ;; export html get rid of footer
+  (setq org-html-postamble nil)
+
+  (setq org-html-toc nil)
+
+  ;; org-mode  export pdf
+  ;; (setq org-latex-pdf-process
+  ;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+  ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+  ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (setq org-latex-to-pdf-process
+        '("xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
+          "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
+          "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"))
+
+  ;; add minted package highlight source code
+  (require 'ox-latex)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+
+  ;; org latex preview inline
+;;  eamer  (setq org-latex-create-formula-image-program 'imagemagick)
+  ;; scale image inline default set to 1.5
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+
+  ;; org-narrow-forward
+  (defun zl/org-narrow-forward ()
+    "Move to the next subtree at same level, and narrow to it."
+    (interactive)
+    (widen)
+    (org-forward-heading-same-level 1)
+    (org-narrow-to-subtree))
+
+  (defun zl/org-narrow-backward ()
+    "Move to the previous subtree at same level, and narrow to it."
+    (interactive)
+    (widen)
+    (org-backward-heading-same-level 1)
+    (org-narrow-to-subtree))
+
+  ;; Tex config
+  (setq TeX-parse-self t)
+
+  (setq TeX-PDF-mode t)
+
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (LaTeX-math-mode)
+              (setq TeX-master t)))
+
+  (defun mark-done-and-archive ()
+    "Mark the state of an org-mode item as DONE and archive it."
+    (interactive)
+    (org-todo 'done)
+    (org-archive-subtree))
+
+
+  )
 
 
 (require 'ox-md)
 (require 'ox-beamer)
-(require 'ox-twbs)
-(require 'ox-gfm)
+(use-package ox-twbs
+  :ensure t)
+(use-package ox-gfm
+  :ensure t)
 
 
 (org-babel-do-load-languages
@@ -347,17 +353,6 @@
 
 (setq org-log-done 'time)
 
-(defun mark-done-and-archive ()
-  "Mark the state of an org-mode item as DONE and archive it."
-  (interactive)
-  (org-todo 'done)
-  (org-archive-subtree))
-
-(define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
-
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cc" 'org-capture)
 
 
 ;; dired config
@@ -366,11 +361,11 @@
 (require 'dired-open)
 
 (setq dired-open-extensions
-      '(("pdf" . "preview")
+      '(
+        ("pdf" . "preview")
         ("md" . "emacs")
-        ("mkv" . "vlc")
-        ("mp4" . "vlc")
-        ("avi" . "vlc")))
+        )
+      )
 
 (setq-default dired-listing-switches "-lha")
 
@@ -380,8 +375,6 @@
 
 (setq dired-recursive-deletes 'top)
 
-;;================================================================================
-;;================================================================================
 
 ;; ido
 (use-package ido
@@ -706,11 +699,6 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-
-
-;; camcorder
-(use-package camcorder
-  :ensure t)
 
 ;; lua mode
 (use-package lua-mode
