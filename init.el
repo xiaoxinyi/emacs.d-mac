@@ -44,25 +44,6 @@
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
- '(ensime-sem-high-faces
-   (quote
-    ((var :foreground "#9876aa" :underline
-          (:style wave :color "yellow"))
-     (val :foreground "#9876aa")
-     (varField :slant italic)
-     (valField :foreground "#9876aa" :slant italic)
-     (functionCall :foreground "#a9b7c6")
-     (implicitConversion :underline
-                         (:color "#808080"))
-     (implicitParams :underline
-                     (:color "#808080"))
-     (operator :foreground "#cc7832")
-     (param :foreground "#a9b7c6")
-     (class :foreground "#4e807d")
-     (trait :foreground "#4e807d" :slant italic)
-     (object :foreground "#6897bb" :slant italic)
-     (package :foreground "#cc7832")
-     (deprecated :strike-through "#a9b7c6"))))
  '(fci-rule-color "#073642")
  '(flymake-google-cpplint-command "/usr/local/bin/cpplint")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
@@ -95,7 +76,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (window-numbering clang-format dummy-h-mode flycheck-objc-clang objc-font-lock zenburn-theme molokai-theme darcula-theme visual-regexp-steroids visual-regexp yaml-mode graphviz-dot-mode cmake-font-lock cmake-mode yasnippet objc-mode phi-search-mc mc-extras smooth-scrolling cyberpunk-theme macrostep smart-mode-line solarized solarized-dark auto-complete helm ztree ws-butler use-package undo-tree theme-looper switch-window stickyfunc-enhance solarized-theme smex smartparens py-autopep8 powerline pallet ox-twbs ox-gfm org-pandoc org-bullets org ob-ipython myterminal-controls multiple-cursors multi-term monokai-theme meta-presenter material-theme markdown-mode magit lua-mode irony impatient-mode iedit ido-vertical-mode ido-ubiquitous helm-themes helm-projectile helm-ag google-c-style github-theme git-gutter+ ggtags flymake-google-cpplint flymake-cursor flycheck flx-isearch flx-ido exec-path-from-shell etags-select eproject elpy ein direx dired-open dired+ cuda-mode ctags-update command-log-mode color-theme-solarized color-theme-monokai clean-aindent-mode cask-mode camcorder buffer-move bookmark+ auto-complete-c-headers anaconda-mode ag ace-jump-mode)))
+    (clang-format dummy-h-mode flycheck-objc-clang objc-font-lock zenburn-theme molokai-theme darcula-theme visual-regexp-steroids visual-regexp yaml-mode graphviz-dot-mode cmake-font-lock cmake-mode yasnippet objc-mode phi-search-mc mc-extras smooth-scrolling cyberpunk-theme macrostep smart-mode-line solarized solarized-dark auto-complete helm ztree ws-butler use-package undo-tree theme-looper switch-window stickyfunc-enhance solarized-theme smex smartparens py-autopep8 powerline pallet ox-twbs ox-gfm org-pandoc org-bullets org ob-ipython myterminal-controls multiple-cursors multi-term monokai-theme meta-presenter material-theme markdown-mode magit lua-mode irony impatient-mode iedit ido-vertical-mode ido-ubiquitous helm-themes helm-projectile helm-ag google-c-style github-theme git-gutter+ ggtags flymake-google-cpplint flymake-cursor flycheck flx-isearch flx-ido exec-path-from-shell etags-select eproject elpy ein direx dired-open dired+ cuda-mode ctags-update command-log-mode color-theme-solarized color-theme-monokai clean-aindent-mode cask-mode camcorder buffer-move bookmark+ auto-complete-c-headers anaconda-mode ag ace-jump-mode)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
@@ -103,6 +84,7 @@
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#839496" 0.2))
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")
+ '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
     ((20 . "#dc322f")
