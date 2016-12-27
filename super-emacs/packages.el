@@ -906,7 +906,7 @@
 (use-package dummy-h-mode
   :ensure t)
 
-<<<<<<< HEAD
+
 ;; switch window shortcut
 (use-package   window-numbering
   :ensure t
@@ -927,5 +927,3 @@
   (setq window-numbering-assign-func
         (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
   )
-=======
->>>>>>> org-mode
