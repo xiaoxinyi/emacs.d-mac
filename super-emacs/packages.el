@@ -69,19 +69,17 @@
 
   )
 
-;; (use-package phi-search
-;;   :disabled t
-;;   :ensure t
-;;   :bind (("C-s" . phi-search)
-;;          ("C-r" . phi-search-backward)）
-;;   :config (set-face-attribute 'phi-search-selection-face nil
-;;                               :background "orange"))
-;; )
+;; used in multi-cursor for search
+(use-package phi-search
+  :ensure t
+  :config (set-face-attribute 'phi-search-selection-face nil
+                              :background "orange")
+  )
 
-;; (use-package phi-search-mc
-;;   :disabled t
-;;   :ensure t
-;;   :config (phi-search-mc/setup-keys))
+(use-package phi-search-mc
+  :disabled t
+  :ensure t
+  :config (phi-search-mc/setup-keys))
 
 (use-package mc-extras
   :ensure t
@@ -157,9 +155,7 @@
                                 darcula
                                 zenburn
                                 ;;wheatgrass
-                                ;;wombat
-                                ;;material
-                                ;;monokai
+(use-pa ox-md)(use-pa ox-md)                                ;;monokai
                                 solarized-dark))
   (theme-looper-set-customizations 'powerline-reset))
 
@@ -201,12 +197,26 @@
     :ensure t)
   (require 'helm-config))
 
-
-
-;; anaconda-mode
-;; (add-hook 'python-mode-hook 'anaconda-mode)
-;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-
+;; switch window shortcut
+(use-package   window-numbering
+  :ensure t
+  :bind (
+         ("s-0" .  select-window-0)
+         ("s-1" .  select-window-1)
+         ("s-2" .  select-window-2)
+         ("s-3" .  select-window-3)
+         ("s-4" .  select-window-4)
+         ("s-5" .  select-window-5)
+         ("s-6" .  select-window-6)
+         ("s-7" .  select-window-7)
+         ("s-8" .  select-window-8)
+         ("s-9" .  select-window-9)
+         )
+  :config
+  (window-numbering-mode 1)
+  (setq window-numbering-assign-func
+        (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
+  )
 
 
 
@@ -224,36 +234,9 @@
               (setq yas-dont-activate t))))
 
 
-;;================================================================================
-;;================================================================================
+(use-package org-bullets
+  :ensure t)
 
-
-;; org-mode
-
-(defun my-org-mode-hook ()
-  (progn
-    (auto-fill-mode 1)))
-
-(add-hook 'org-mode-hook 'my-org-mode-hook)
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (org-bullets-mode t)))
-
-(setq org-ellipsis "⤵")
-
-;; show utf-8
-(setq org-pretty-entities t)
-
-(setq org-src-fontify-natively t)
-
-(setq org-src-tab-acts-natively t)
-
-(setq org-src-window-setup 'current-window)
-
-;; export html get rid of footer
-(setq org-html-postamble nil)
-(setq org-html-toc nil)
 
 ;; execute in emacs
 (setenv "PATH"
@@ -266,100 +249,121 @@
 (setq exec-path (append exec-path '("/usr/local/bin")))
 (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
 
-;;================================================================================
-;;================================================================================
 
-;; org-mode  export pdf
-;; (setq org-latex-pdf-process
-;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(setq org-latex-to-pdf-process
-      '("xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
-        "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
-        "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"))
+;; org-mode
+(use-package org
+  :ensure t
+  :init
+  (defun my-org-mode-hook ()
+    (progn
+      (auto-fill-mode 1)))
+  :bind (:map org-mode-map
+         ("C-x n m"  . zl/org-narrow-forward)
+         ("C-x n p"  . zl/org-narrow-backward)
+         ("C-c C-x C-s" . mark-done-and-archive)
+         ("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
 
-
-
-
-;; add minted package highlight source code
-(require 'ox-latex)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
-
-;; org latex preview inline
-(setq org-latex-create-formula-image-program 'imagemagick)
-;; scale image inline default set to 1.5
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
-
-;; org-narrow-forward
-(defun zl/org-narrow-forward ()
-  "Move to the next subtree at same level, and narrow to it."
-  (interactive)
-  (widen)
-  (org-forward-heading-same-level 1)
-  (org-narrow-to-subtree))
-
-(defun zl/org-narrow-backward ()
-  "Move to the previous subtree at same level, and narrow to it."
-  (interactive)
-  (widen)
-  (org-backward-heading-same-level 1)
-  (org-narrow-to-subtree))
-
-(defun zl/set-org-keys ()
-  (local-set-key "\C-xnm" 'zl/org-narrow-forward)
-  (local-set-key "\C-xnp" 'zl/org-narrow-backward))
-
-(add-hook 'org-mode-hook 'zl/set-org-keys)
-
-;; (setq org-src-fontify-natively t)
-;; Tex config
-(setq TeX-parse-self t)
-
-(setq TeX-PDF-mode t)
-
-(add-hook 'LaTeX-mode-hook
+         )
+  :config
+  (add-hook 'org-mode-hook 'my-org-mode-hook)
+  (add-hook 'org-mode-hook
           (lambda ()
-            (LaTeX-math-mode)
-            (setq TeX-master t)))
+            (org-bullets-mode t)))
 
+  (setq org-ellipsis "⤵")
+
+  ;; show utf-8
+  (setq org-pretty-entities t)
+
+  (setq org-src-fontify-natively t)
+
+  (setq org-src-tab-acts-natively t)
+
+  (setq org-src-window-setup 'current-window)
+
+  ;; export html get rid of footer
+  (setq org-html-postamble nil)
+
+  (setq org-html-toc nil)
+
+  ;; org-mode  export pdf
+  ;; (setq org-latex-pdf-process
+  ;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+  ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+  ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (setq org-latex-to-pdf-process
+        '("xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
+          "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"
+          "xelatex -shell-escape -file-line-error -interaction=nonstopmode  -synctex=1 -output-directory %o %f"))
+
+  ;; add minted package highlight source code
+  (require 'ox-latex)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+
+  ;; org latex preview inline
+;;  eamer  (setq org-latex-create-formula-image-program 'imagemagick)
+  ;; scale image inline default set to 1.5
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+
+  ;; org-narrow-forward
+  (defun zl/org-narrow-forward ()
+    "Move to the next subtree at same level, and narrow to it."
+    (interactive)
+    (widen)
+    (org-forward-heading-same-level 1)
+    (org-narrow-to-subtree))
+
+  (defun zl/org-narrow-backward ()
+    "Move to the previous subtree at same level, and narrow to it."
+    (interactive)
+    (widen)
+    (org-backward-heading-same-level 1)
+    (org-narrow-to-subtree))
+
+  ;; Tex config
+  (setq TeX-parse-self t)
+
+  (setq TeX-PDF-mode t)
+
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (LaTeX-math-mode)
+              (setq TeX-master t)))
+
+  (defun mark-done-and-archive ()
+    "Mark the state of an org-mode item as DONE and archive it."
+    (interactive)
+    (org-todo 'done)
+    (org-archive-subtree))
+
+  (setq org-export-with-smart-quotes t)
+
+  (setq org-log-done 'time)
+
+  ;; babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (ruby . t)
+     (python . t)
+     (sh . t)
+     (C . t)
+     (lua . t )
+     (dot . t)))
+
+  (setq org-confirm-babel-evaluate nil)
+  )
 
 
 (require 'ox-md)
 (require 'ox-beamer)
-(require 'ox-twbs)
-(require 'ox-gfm)
-
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (ruby . t)
-   (python . t)
-   (sh . t)
-   (C . t)
-   (lua . t )
-   (dot . t)))
-
-(setq org-confirm-babel-evaluate nil)
-
-(setq org-export-with-smart-quotes t)
-
-(setq org-log-done 'time)
-
-(defun mark-done-and-archive ()
-  "Mark the state of an org-mode item as DONE and archive it."
-  (interactive)
-  (org-todo 'done)
-  (org-archive-subtree))
-
-(define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
-
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cc" 'org-capture)
-
+(use-package ox-twbs
+  :ensure t)
+(use-package ox-gfm
+  :ensure t)
 
 ;; dired config
 (require 'dired-x)
@@ -367,11 +371,11 @@
 (require 'dired-open)
 
 (setq dired-open-extensions
-      '(("pdf" . "preview")
+      '(
+        ("pdf" . "preview")
         ("md" . "emacs")
-        ("mkv" . "vlc")
-        ("mp4" . "vlc")
-        ("avi" . "vlc")))
+        )
+      )
 
 (setq-default dired-listing-switches "-lha")
 
@@ -381,8 +385,6 @@
 
 (setq dired-recursive-deletes 'top)
 
-;;================================================================================
-;;================================================================================
 
 ;; ido
 (use-package ido
@@ -514,20 +516,16 @@
 
   (add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
   (add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
+
+  (global-semantic-idle-scheduler-mode 1)
+  
+  (semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
+  
+  (defun zl/semantic-hook ()
+    (imenu-add-to-menubar "TAGS"))
+  (add-hook 'semantic-init-hook 'zl/semantic-hook)
   )
 
-
-;; ;; local set key
-;; (defun zl/set-semantic-keys ()
-;;   (local-set-key "\C-c,d" 'semantic-ia-show-doc)
-;;   (local-set-key "\C-c,c" 'semantic-ia-describe-class)
-;;   (local-set-key "\C-c,s" 'semantic-ia-show-summary)
-;;   (local-set-key "\C-c,>" 'semantic-ia-fast-jump)
-;;   (local-set-key "\C-c,-" 'senator-fold-tag)
-;;   (local-set-key "\C-c,+" 'senator-unfold-tag))
-
-
-;; (add-hook 'c-mode-common-hook 'zl/set-semantic-keys)
 
 ;; ede-mode
 (use-package ede
@@ -536,17 +534,6 @@
   (ede-cpp-root-project "my project" :file "~/Desktop/DeepAR_Algorithm/include/SXAR/ARWrapper/Marker.h"
                       :include-path '("../../"))
   )
-
-
-
-(global-semantic-idle-scheduler-mode 1)
-
-(semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
-
-(defun zl/semantic-hook ()
-  (imenu-add-to-menubar "TAGS"))
-(add-hook 'semantic-init-hook 'zl/semantic-hook)
-
 
 ;; Package: smartparens
 (use-package smartparens
@@ -584,7 +571,6 @@
 (use-package elpy
   :ensure t
   :config
-  ;;  (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
   (require 'elpy)
   (elpy-enable)
   ;; set indent for python
@@ -707,11 +693,6 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-
-
-;; camcorder
-(use-package camcorder
-  :ensure t)
 
 ;; lua mode
 (use-package lua-mode
@@ -853,9 +834,6 @@
 (use-package smooth-scrolling
   :ensure t)
 
-(use-package graphviz-dot-mode
-  :ensure t
-  )
 
 (use-package cmake-mode
   :ensure t
@@ -883,34 +861,35 @@
    ;; Use `secondary-selection` (a builtin face) as background.
    (setq objc-font-lock-background-face 'secondary-selection))
 
+;; commented lines make org mode cannot convert to md.
 (use-package cc-mode
   :init
-    (defadvice ff-get-file-name (around ff-get-file-name-framework
-                    (search-dirs
-                     fname-stub
-                     &optional suffix-list))
-  "Search for Mac framework headers as well as POSIX headers."
-   (or
-    (if (string-match "\\(.*?\\)/\\(.*\\)" fname-stub)
-    (let* ((framework (match-string 1 fname-stub))
-           (header (match-string 2 fname-stub))
-           (fname-stub (concat framework ".framework/Headers/" header)))
-      ad-do-it))
-      ad-do-it))
+  ;;   (defadvice ff-get-file-name (around ff-get-file-name-framework
+  ;;                   (search-dirs
+  ;;                    fname-stub
+  ;;                    &optional suffix-list))
+  ;; "Search for Mac framework headers as well as POSIX headers."
+  ;;  (or
+  ;;   (if (string-match "\\(.*?\\)/\\(.*\\)" fname-stub)
+  ;;   (let* ((framework (match-string 1 fname-stub))
+  ;;          (header (match-string 2 fname-stub))
+  ;;          (fname-stub (concat framework ".framework/Headers/" header)))
+  ;;     ad-do-it))
+  ;;     ad-do-it))
   :config
-  (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
-  (add-to-list 'magic-mode-alist
-                `(,(lambda ()
-                     (and (string= (file-name-extension buffer-file-name) "h")
-                          (re-search-forward "@\\<interface\\>"
-                         magic-mode-regexp-match-limit t)))
-                  . objc-mode))
-  (require 'find-file) ;; for the "cc-other-file-alist" variable
-  (nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
+  ;; (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+  ;; (add-to-list 'magic-mode-alist
+  ;;               `(,(lambda ()
+  ;;                    (and (string= (file-name-extension buffer-file-name) "h")
+  ;;                         (re-search-forward "@\\<interface\\>"
+  ;;                        magic-mode-regexp-match-limit t)))
+  ;;                 . objc-mode))
+  ;; (require 'find-file) ;; for the "cc-other-file-alist" variable
+  ;; (nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
 
   ;; system header
-  (ad-enable-advice 'ff-get-file-name 'around 'ff-get-file-name-framework)
-  (ad-activate 'ff-get-file-name)
+  ;; (ad-enable-advice 'ff-get-file-name 'around 'ff-get-file-name-framework)
+  ;; (ad-activate 'ff-get-file-name)
 
   (setq cc-search-directories '("." "../include" "/usr/include" "/usr/local/include/*"
                                 "/System/Library/Frameworks" "/Library/Frameworks"))
@@ -927,6 +906,7 @@
 (use-package dummy-h-mode
   :ensure t)
 
+<<<<<<< HEAD
 ;; switch window shortcut
 (use-package   window-numbering
   :ensure t
@@ -947,3 +927,5 @@
   (setq window-numbering-assign-func
         (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
   )
+=======
+>>>>>>> org-mode

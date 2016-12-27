@@ -103,6 +103,7 @@
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#839496" 0.2))
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")
+ '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
     ((20 . "#dc322f")
