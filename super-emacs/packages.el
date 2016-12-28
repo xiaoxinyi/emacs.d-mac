@@ -155,7 +155,7 @@
                                 darcula
                                 zenburn
                                 ;;wheatgrass
-(use-pa ox-md)(use-pa ox-md)                                ;;monokai
+                                ;;monokai
                                 solarized-dark))
   (theme-looper-set-customizations 'powerline-reset))
 
