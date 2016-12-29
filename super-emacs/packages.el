@@ -26,6 +26,7 @@
 
 ;; Load default auto-complete configs
 (use-package auto-complete
+  :disabled t
   :config
   ;; auto complete mode
   ;; should be loaded after yasnippet so that they can work together
@@ -38,7 +39,39 @@
   ;; (ac-set-trigger-key "TAB")
   ;; (ac-set-trigger-key "<tab>")
 
-)
+  )
+
+(use-package cc-mode)
+
+(use-package company
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  )
+
+;; add .dir-locals.el to project root
+;; ((nil . ((company-clang-arguments . ("-I/home/<user>/project_root/include1/"
+;;                                      "-I/home/<user>/project_root/include2/")))))
+;; company-clang do company-complete
+(use-package company-clang
+  :bind(:map c-mode-map
+             ("<tab>" . company-complete)
+             :map c++-mode-map
+             ("<tab>" . company-complete))
+  :config
+  (setq company-backends (delete 'company-semantic company-backends))
+
+  )
+
+
+(use-package company-c-headers
+  :defer 2
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-c-headers)
+  (add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/")
+  (message (concat "company-c-header-path-system is " (car company-c-headers-path-system)))
+  )
 
 
 (use-package multiple-cursors
@@ -159,20 +192,6 @@
                                 solarized-dark))
   (theme-looper-set-customizations 'powerline-reset))
 
-
-;; Configure myterminal-controls
-(use-package myterminal-controls
-  :commands myterminal-controls-open-controls
-  :bind (("C-M-'" . myterminal-controls-open-controls))
-  :config
-  (myterminal-controls-set-controls-data
-   '(("t" "Change color theme" theme-looper-enable-next-theme)
-     ("r" "Reload file" super-emacs-reload-current-file))))
-
-;; Set up helm-mode
-;; (require 'helm)
-;; (require 'helm-config)
-;; (require 'helm-ag nil t)
 (use-package helm
   :init
   :bind (("M-x" . helm-M-x)
@@ -196,6 +215,21 @@
   (use-package helm-ag
     :ensure t)
   (require 'helm-config))
+
+
+;; Configure myterminal-controls
+(use-package myterminal-controls
+  :commands myterminal-controls-open-controls
+  :bind (("C-M-'" . myterminal-controls-open-controls))
+  :config
+  (myterminal-controls-set-controls-data
+   '(("t" "Change color theme" theme-looper-enable-next-theme)
+     ("r" "Reload file" super-emacs-reload-current-file))))
+
+;; Set up helm-mode
+;; (require 'helm)
+;; (require 'helm-config)
+;; (require 'helm-ag nil t)
 
 ;; switch window shortcut
 (use-package   window-numbering
@@ -389,6 +423,10 @@
 ;; ido
 (use-package ido
   :ensure t
+  :commands (ido-enable-flex-matching
+             ido-ignore-extensions
+             ido-use-virtual-buffers
+             ido-everywhere)
   :init  (setq ido-enable-flex-matching t
                ido-ignore-extensions t
                ido-use-virtual-buffers t
@@ -440,23 +478,6 @@
   )
 
 
-;; auto-complete-c-header
-(use-package auto-complete-c-headers
-  :ensure t
-  :config
-  ;; c header complete
-  (defun zl/ac-complete-c-header-init ()
-    (require 'auto-complete-c-headers)
-
-    (add-to-list 'ac-sources 'ac-source-c-headers)
-
-    (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/c++/4.2.1")
-
-    (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include"))
-
-  (add-hook 'c++-mode-hook 'zl/ac-complete-c-header-init)
-  (add-hook 'c-mode-hook 'zl/ac-complete-c-header-init))
-
 ;; iedit
 (use-package iedit
   :ensure t
@@ -487,53 +508,72 @@
 
 
 ;; cedet
-(use-package cedet)
+(use-package cedet
+  :demand
+  :config
+  (message "hello cedet"))
 
-;; stickfunc-enhance
-(use-package stickyfunc-enhance
-  :ensure t)
+(use-package ede
+  :config
+  (message "hello ede")
+  ;; ede-mode part of cedet to manage project
+  (require 'ede)
+  (global-ede-mode 1)
+  (ede-cpp-root-project "deepar"
+                        :file "~/Desktop/DeepAR_Algorithm/Makefile"
+                        :include-path '("/include")
+                        :system-include-path '("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/")
+                        )
+  )
+
 
 ;; semantic
 (use-package semantic
-  :init
-  ;; add senmatic as a suggestion backend to auto complete
-  (defun zl/add-senmantic-to-autocompelte ()
-    (add-to-list 'ac-sources 'ac-source-semantic)
-    (add-to-list 'ac-sources 'ac-source-gtags)
-    )
+  :demand
+  (require 'cc-mode)
   :bind (:map
          semantic-mode-map
-         ("\C-c d" . semantic-ia-show-doc)
-         ("\C-c c" . semantic-ia-describe-class)
-         ("\C-c s" . semantic-ia-show-summary)
-         ("\C-c >" . semantic-ia-fast-jump)
-         ("\C-c -" . senator-fold-tag)
-         ("\C-c +" . senator-unfold-tag))
+         ("C-c , d" . semantic-ia-show-doc)
+         ("C-c , c" . semantic-ia-describe-class)
+         ("C-c , s" . semantic-ia-show-summary)
+         ("C-c , >" . semantic-ia-fast-jump)
+         ("C-c , -" . senator-fold-tag)
+         ("C-c , +" . senator-unfold-tag)
+         ("C-c , u" . senator-go-to-up-reference)
+         )
 
   :config
+  (message "hello semantic")
+  (require 'semantic)
+  (global-semanticdb-minor-mode 1)
+  ;; stickfunc-enhance
+  (use-package stickyfunc-enhance
+    :ensure t
+    :config
+      ;; this mode shows the function point is currently in at the first line of the current buffer. This is useful when you have a very long function that spreads more than a screen, and you don't have to scroll up to read the function name and then scroll down to original position.
+    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+    )
   (semantic-mode 1)
-  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-
-  (add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
-  (add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
-
   (global-semantic-idle-scheduler-mode 1)
-  
-  (semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
-  
-  (defun zl/semantic-hook ()
-    (imenu-add-to-menubar "TAGS"))
-  (add-hook 'semantic-init-hook 'zl/semantic-hook)
   )
 
 
-;; ede-mode
-(use-package ede
+(use-package function-args
+  :ensure t
   :config
-  (global-ede-mode 1)
-  (ede-cpp-root-project "my project" :file "~/Desktop/DeepAR_Algorithm/include/SXAR/ARWrapper/Marker.h"
-                      :include-path '("../../"))
+  (require 'function-args)
+  (fa-config-default)
+  ;; Put c++-mode as default for *.h files
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+  (set-default 'semantic-case-fold t)
+  (semantic-add-system-include "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/" 'c++-mode)
+  (semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
+  ;; You can add this to improve the parse of macro-heavy code:
+  (require 'semantic/bovine/c)
+  (add-to-list 'semantic-lex-c-preprocessor-symbol-file
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/cstddef")
   )
+
 
 ;; Package: smartparens
 (use-package smartparens
@@ -657,6 +697,9 @@
   :commands  ag
   :init      (setq ag-highlight-search t)
   :config    (add-to-list 'ag-arguments "--word-regexp"))
+
+
+
 
 ;; exec-path-from-shell makes the command-line path with Emacs’s shell match the same one on OS X
 (use-package exec-path-from-shell
@@ -861,39 +904,6 @@
    ;; Use `secondary-selection` (a builtin face) as background.
    (setq objc-font-lock-background-face 'secondary-selection))
 
-;; commented lines make org mode cannot convert to md.
-(use-package cc-mode
-  :init
-  ;;   (defadvice ff-get-file-name (around ff-get-file-name-framework
-  ;;                   (search-dirs
-  ;;                    fname-stub
-  ;;                    &optional suffix-list))
-  ;; "Search for Mac framework headers as well as POSIX headers."
-  ;;  (or
-  ;;   (if (string-match "\\(.*?\\)/\\(.*\\)" fname-stub)
-  ;;   (let* ((framework (match-string 1 fname-stub))
-  ;;          (header (match-string 2 fname-stub))
-  ;;          (fname-stub (concat framework ".framework/Headers/" header)))
-  ;;     ad-do-it))
-  ;;     ad-do-it))
-  :config
-  ;; (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
-  ;; (add-to-list 'magic-mode-alist
-  ;;               `(,(lambda ()
-  ;;                    (and (string= (file-name-extension buffer-file-name) "h")
-  ;;                         (re-search-forward "@\\<interface\\>"
-  ;;                        magic-mode-regexp-match-limit t)))
-  ;;                 . objc-mode))
-  ;; (require 'find-file) ;; for the "cc-other-file-alist" variable
-  ;; (nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
-
-  ;; system header
-  ;; (ad-enable-advice 'ff-get-file-name 'around 'ff-get-file-name-framework)
-  ;; (ad-activate 'ff-get-file-name)
-
-  (setq cc-search-directories '("." "../include" "/usr/include" "/usr/local/include/*"
-                                "/System/Library/Frameworks" "/Library/Frameworks"))
-  )
 
 ;; flycheck for objective c
 (use-package flycheck-objc-clang
@@ -927,3 +937,53 @@
   (setq window-numbering-assign-func
         (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
   )
+
+
+(use-package ggtags
+  :ensure t
+  :init
+    (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+                (ggtags-mode 1))))
+  :bind (:map ggtags-mode-map
+              ("C-c g s" . ggtags-find-other-symbol)
+              ("C-c g h" . ggtags-view-tag-history)
+              ("C-c g r" . ggtags-find-reference)
+              ("C-c g f" . ggtags-find-file)
+              ("C-c g c" . ggtags-create-tags)
+              ("C-c g u" . ggtags-update-tags)
+              )
+  :config
+
+  )
+
+(use-package helm-gtags
+  :ensure t
+  :commands (helm-gtags-mode)
+  :init
+    ;; Enable helm-gtags-mode
+  (add-hook 'dired-mode-hook 'helm-gtags-mode)
+  (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+  (add-hook 'c-mode-hook 'helm-gtags-mode)
+  (add-hook 'c++-mode-hook 'helm-gtags-mode)
+  (add-hook 'asm-mode-hook 'helm-gtags-mode)
+  :bind (:map helm-gtags-mode-map
+              ("C-c g a" .  helm-gtags-tags-in-this-function)
+              ("C-j" .  helm-gtags-select)
+              ("C-s-." .  helm-gtags-dwim)
+              ("C-s-," .  helm-gtags-pop-stack)
+              ("C-c <" .  helm-gtags-previous-history)
+              ("C-c >" .  helm-gtags-next-history)
+              ("M-," .  pop-tag-mark)
+              )
+  :config
+  (setq
+   helm-gtags-ignore-case t
+   helm-gtags-auto-update t
+   helm-gtags-use-input-at-cursor t
+   helm-gtags-pulse-at-cursor t
+   helm-gtags-prefix-key "\C-cg"
+   helm-gtags-suggested-key-mapping t
+   )
+)
