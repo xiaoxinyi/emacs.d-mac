@@ -41,6 +41,8 @@
 
   )
 
+(use-package cc-mode)
+
 (use-package company
   :ensure t
   :config
@@ -61,17 +63,16 @@
 
   )
 
-(use-package cc-mode)
-
-
-
 
 (use-package company-c-headers
+  :defer 2
   :ensure t
   :config
   (add-to-list 'company-backends 'company-c-headers)
   (add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/")
+  (message (concat "company-c-header-path-system is " (car company-c-headers-path-system)))
   )
+
 
 (use-package multiple-cursors
   :ensure t
@@ -422,6 +423,10 @@
 ;; ido
 (use-package ido
   :ensure t
+  :commands (ido-enable-flex-matching
+             ido-ignore-extensions
+             ido-use-virtual-buffers
+             ido-everywhere)
   :init  (setq ido-enable-flex-matching t
                ido-ignore-extensions t
                ido-use-virtual-buffers t
@@ -473,23 +478,6 @@
   )
 
 
-;; ;; auto-complete-c-header
-;; (use-package auto-complete-c-headers
-;;   :ensure t
-;;   :config
-;;   ;; c header complete
-;;   (defun zl/ac-complete-c-header-init ()
-;;     (require 'auto-complete-c-headers)
-
-;;     (add-to-list 'ac-sources 'ac-source-c-headers)
-
-;;     (add-to-list 'achead:include-directories '" /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/c++/4.2.1")
-
-;;     (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include"))
-
-;;   (add-hook 'c++-mode-hook 'zl/ac-complete-c-header-init)
-;;   (add-hook 'c-mode-hook 'zl/ac-complete-c-header-init))
-
 ;; iedit
 (use-package iedit
   :ensure t
@@ -521,7 +509,13 @@
 
 ;; cedet
 (use-package cedet
+  :demand
   :config
+  (message "hello cedet"))
+
+(use-package ede
+  :config
+  (message "hello ede")
   ;; ede-mode part of cedet to manage project
   (require 'ede)
   (global-ede-mode 1)
@@ -529,48 +523,56 @@
                         :file "~/Desktop/DeepAR_Algorithm/Makefile"
                         :include-path '("/include")
                         :system-include-path '("/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/")
-                        ))
+                        )
+  )
 
-;; stickfunc-enhance
-(use-package stickyfunc-enhance
-  :ensure t)
 
 ;; semantic
 (use-package semantic
-  :init
-  ;; add senmatic as a suggestion backend to auto complete
-  ;; (defun zl/add-senmantic-to-autocompelte ()
-  ;;   (add-to-list 'ac-sources 'ac-source-semantic)
-  ;;   (add-to-list 'ac-sources 'ac-source-gtags)
-  ;;   )
+  :demand
   (require 'cc-mode)
   :bind (:map
          semantic-mode-map
-         ("\C-c d" . semantic-ia-show-doc)
-         ("\C-c c" . semantic-ia-describe-class)
-         ("\C-c s" . semantic-ia-show-summary)
-         ("\C-c >" . semantic-ia-fast-jump)
-         ("\C-c -" . senator-fold-tag)
-         ("\C-c +" . senator-unfold-tag))
+         ("C-c , d" . semantic-ia-show-doc)
+         ("C-c , c" . semantic-ia-describe-class)
+         ("C-c , s" . semantic-ia-show-summary)
+         ("C-c , >" . semantic-ia-fast-jump)
+         ("C-c , -" . senator-fold-tag)
+         ("C-c , +" . senator-unfold-tag)
+         ("C-c , u" . senator-go-to-up-reference)
+         )
 
   :config
+  (message "hello semantic")
+  (require 'semantic)
   (global-semanticdb-minor-mode 1)
+  ;; stickfunc-enhance
+  (use-package stickyfunc-enhance
+    :ensure t
+    :config
+      ;; this mode shows the function point is currently in at the first line of the current buffer. This is useful when you have a very long function that spreads more than a screen, and you don't have to scroll up to read the function name and then scroll down to original position.
+    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+    )
   (semantic-mode 1)
-  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
   (global-semantic-idle-scheduler-mode 1)
-
-  ;; (add-hook 'c-mode-common-hook 'zl/add-senmantic-to-autocompelte)
-  ;; (add-hook 'c-mode-common-hook 'global-semantic-mru-bookmark-mode)
-
-
-  ;; (semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
-  (semantic-add-system-include "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/")
-
-  ;; (defun zl/semantic-hook ()
-  ;;   (imenu-add-to-menubar "TAGS"))
-  ;; (add-hook 'semantic-init-hook 'zl/semantic-hook)
   )
 
+
+(use-package function-args
+  :ensure t
+  :config
+  (require 'function-args)
+  (fa-config-default)
+  ;; Put c++-mode as default for *.h files
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+  (set-default 'semantic-case-fold t)
+  (semantic-add-system-include "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/" 'c++-mode)
+  (semantic-add-system-include "/usr/local/Cellar/gsl/1.16/include" 'c++-mode)
+  ;; You can add this to improve the parse of macro-heavy code:
+  (require 'semantic/bovine/c)
+  (add-to-list 'semantic-lex-c-preprocessor-symbol-file
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/cstddef")
+  )
 
 
 ;; Package: smartparens
