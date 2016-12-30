@@ -986,4 +986,36 @@
    helm-gtags-prefix-key "\C-cg"
    helm-gtags-suggested-key-mapping t
    )
-)
+  )
+
+(use-package rtags
+  :ensure t
+  :bind (:map c-mode-base-map
+	      ("C-c t ." . rtags-find-symbol-at-point)
+	      ("C-c t ," . rtags-find-references-at-point)
+	      ("C-c t v" . rtags-find-virtuals-at-point)
+	      ("C-c t V" . rtags-print-enum-value-at-point)
+	      ("C-c t /" . rtags-find-all-references-at-point)
+	      ("C-c t Y" . rtags-cycle-overlays-on-screen)
+	      ("C-c t >" . rtags-find-symbol)
+	      ("C-c t <" . rtags-find-references)
+	      ("C-c t -" . rtags-location-stack-back)
+	      ("C-c t +" . rtags-location-stack-forward)
+	      ("C-c t D" . rtags-diagnostics)
+	      ("C-c t G" . rtags-guess-function-at-point)
+	      ("C-c t p" . rtags-set-current-project)
+	      ("C-c t P" . rtags-print-dependencies)
+	      ("C-c t e" . rtags-reparse-file)
+	      ("C-c t E" . rtags-preprocess-file)
+	      ("C-c t R" . rtags-rename-symbol)
+	      ("C-c t M" . rtags-symbol-info)
+	      ("C-c t S" . rtags-display-summary)
+	      ("C-c t O" . rtags-goto-offset)
+	      ("C-c t ;" . rtags-find-file)
+	      ("C-c t F" . rtags-fixit)
+	      ("C-c t X" . rtags-fix-fixit-at-point)
+	      ("C-c t B" . rtags-show-rtags-buffer)
+	      ("C-c t I" . rtags-imenu)
+	      ("C-c t T" . rtags-taglist)
+	      )
+  )
