@@ -94,8 +94,8 @@
   :init (use-package visual-regexp
           :ensure t)
   :bind* (
-          ("C-c r" . vr/replace)
-          ("C-c q" . vr/query-replace)
+          ("C-c v r" . vr/replace)
+          ("C-c v q" . vr/query-replace)
           ("C-c v m" . vr/mc-mark)
           ("C-M-s" . vr/isearch-forward)
           ("C-M-r" . vr/isearch-backward))
@@ -444,6 +444,7 @@
   :config (flx-ido-mode 1))
 
 (use-package ido-vertical-mode
+  :commands (ido-vertical-define-keys)
   :ensure t
   :init               ;; I like up and down arrow keys:
   (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
@@ -741,9 +742,7 @@
 (use-package lua-mode
   :ensure t
   :interpreter "lua5.1"
-  :config
-  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+  :mode (("\\.lua\\'" . lua-mode))
   :bind
   (
    :map lua-mode-map
@@ -818,8 +817,6 @@
 
       :bind* (("M-*" . pop-tag-mark)
               ("M-." . my-find-tag))
-  ;;:config
-  ;; (global-set-key (kbd "M-.") 'my-find-tag)
   )
 
 ;; hs-minor-mode
@@ -871,7 +868,7 @@
 
 (use-package macrostep
   :ensure t
-  ;; :bind ("C-c m e" . macrostep-expand)
+  :bind ("C-c n e" . macrostep-expand)
   )
 
 (use-package smooth-scrolling
@@ -880,13 +877,20 @@
 
 (use-package cmake-mode
   :ensure t
-  :config
-  ;; Add cmake listfile names to the mode list.
-  (setq auto-mode-alist
-        (append
-         '(("CMakeLists\\.txt\\'" . cmake-mode))
-         '(("\\.cmake\\'" . cmake-mode))
-         auto-mode-alist)))
+  :mode (
+         ("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'" . cmake-mode)
+         )
+)
+
+(use-package ninja-mode
+  :load-path "/Users/zhangli/.emacs.d/elpa/ninja-mode-20141203.2159"
+  :ensure t
+  :mode (
+         ("build\\.ninja\\'" . ninja-mode)
+         ("\\.ninja\\'" . ninja-mode))
+)
+
 
 (use-package cmake-font-lock
   :ensure t)
@@ -970,7 +974,7 @@
   (add-hook 'asm-mode-hook 'helm-gtags-mode)
   :bind (:map helm-gtags-mode-map
               ("C-c g a" .  helm-gtags-tags-in-this-function)
-              ("C-j" .  helm-gtags-select)
+              ("C-c g j" .  helm-gtags-select)
               ("C-s-." .  helm-gtags-dwim)
               ("C-s-," .  helm-gtags-pop-stack)
               ("C-c <" .  helm-gtags-previous-history)
@@ -989,6 +993,13 @@
   )
 
 (use-package rtags
+  :init
+  (defun setup-flycheck-rtags ()
+    (interactive)
+    (flycheck-select-checker 'rtags)
+    ;; RTags creates more accurate overlays.
+    (setq-local flycheck-highlighting-mode nil)
+    (setq-local flycheck-check-syntax-automatically nil))
   :ensure t
   :bind (:map c-mode-base-map
 	      ("C-c t ." . rtags-find-symbol-at-point)
@@ -1017,5 +1028,19 @@
 	      ("C-c t B" . rtags-show-rtags-buffer)
 	      ("C-c t I" . rtags-imenu)
 	      ("C-c t T" . rtags-taglist)
-	      )
+          )
+  :config
+  ;; comment this out if you don't have or don't use helm
+  (setq rtags-use-helm t)
+  ;; company completion setup
+  (setq rtags-autostart-diagnostics t)
+  (rtags-diagnostics)
+  (setq rtags-completions-enabled t)
+  (push 'company-rtags company-backends)
+  (global-company-mode)
+  ;; use rtags flycheck mode -- clang warnings shown inline
+  (require 'flycheck-rtags)
+  ;; c-mode-common-hook is also called by c++-mode
+  (add-hook 'c-mode-common-hook #'setup-flycheck-rtags)
   )
+
