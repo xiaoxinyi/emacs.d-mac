@@ -881,23 +881,31 @@
          ("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'" . cmake-mode)
          )
+  :config
+  (use-package cmake-font-lock
+    :ensure t
+    :config
+    (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
+    (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+    )
 )
 
 (use-package ninja-mode
-  :load-path "/Users/zhangli/.emacs.d/elpa/ninja-mode-20141203.2159"
+  :load-path "~/.emacs.d/elpa/ninja-mode-20141203.2159"
   :ensure t
   :mode (
          ("build\\.ninja\\'" . ninja-mode)
          ("\\.ninja\\'" . ninja-mode))
 )
 
-
-(use-package cmake-font-lock
-  :ensure t)
-
 ;; yaml-mode
 (use-package yaml-mode
-  :ensure t)
+  :ensure t
+  :mode (
+         ("\\.yml\\'" . yaml-mode)
+         ("\\.yaml\\'" . yaml-mode)
+         )
+  )
 
 (use-package objc-font-lock
   :ensure t
