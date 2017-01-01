@@ -1,4 +1,4 @@
-;Change title-bar text
+;;Change title-bar text
 (setq frame-title-format
       "emacs")
 

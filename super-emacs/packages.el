@@ -21,7 +21,10 @@
   :config
   (yas-global-mode 1)
   (setq yas-snippet-dirs
-    '("~/.emacs.d/snippets"))
+        '(
+          ;; "~/.emacs.d/snippets"
+          "~/.emacs.d/elpa/yasnippet-20161201.1520/snippets"
+          ))
   )
 
 ;; Load default auto-complete configs
@@ -1052,3 +1055,11 @@
   (add-hook 'c-mode-common-hook #'setup-flycheck-rtags)
   )
 
+
+(use-package cmake-ide
+  :ensure
+  :defer 2
+  :config
+  ;; optional, must have rtags installed
+  (require 'rtags)
+  (cmake-ide-setup))
