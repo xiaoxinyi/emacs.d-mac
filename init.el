@@ -95,13 +95,16 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (cmake-ide ninja-mode function-args helm-gtags company-c-headers window-numbering clang-format dummy-h-mode flycheck-objc-clang objc-font-lock zenburn-theme molokai-theme darcula-theme visual-regexp-steroids visual-regexp yaml-mode graphviz-dot-mode cmake-font-lock cmake-mode yasnippet objc-mode phi-search-mc mc-extras smooth-scrolling cyberpunk-theme macrostep smart-mode-line solarized solarized-dark auto-complete helm ztree ws-butler use-package undo-tree theme-looper switch-window stickyfunc-enhance solarized-theme smex smartparens py-autopep8 powerline pallet ox-twbs ox-gfm org-pandoc org-bullets org ob-ipython myterminal-controls multiple-cursors multi-term monokai-theme meta-presenter material-theme markdown-mode magit lua-mode irony impatient-mode iedit ido-vertical-mode ido-ubiquitous helm-themes helm-projectile helm-ag google-c-style github-theme git-gutter+ ggtags flymake-google-cpplint flymake-cursor flycheck flx-isearch flx-ido exec-path-from-shell etags-select eproject elpy ein direx dired-open dired+ cuda-mode ctags-update command-log-mode color-theme-solarized color-theme-monokai clean-aindent-mode cask-mode camcorder buffer-move bookmark+ auto-complete-c-headers anaconda-mode ag ace-jump-mode)))
+    (flycheck-google-cpplint cmake-ide ninja-mode function-args helm-gtags company-c-headers window-numbering clang-format dummy-h-mode flycheck-objc-clang objc-font-lock zenburn-theme molokai-theme darcula-theme visual-regexp-steroids visual-regexp yaml-mode graphviz-dot-mode cmake-font-lock cmake-mode yasnippet objc-mode phi-search-mc mc-extras smooth-scrolling cyberpunk-theme macrostep smart-mode-line solarized solarized-dark auto-complete helm ztree ws-butler use-package undo-tree theme-looper switch-window stickyfunc-enhance solarized-theme smex smartparens py-autopep8 powerline pallet ox-twbs ox-gfm org-pandoc org-bullets org ob-ipython myterminal-controls multiple-cursors multi-term monokai-theme meta-presenter material-theme markdown-mode magit lua-mode irony impatient-mode iedit ido-vertical-mode ido-ubiquitous helm-themes helm-projectile helm-ag google-c-style github-theme git-gutter+ ggtags flymake-google-cpplint flymake-cursor flycheck flx-isearch flx-ido exec-path-from-shell etags-select eproject elpy ein direx dired-open dired+ cuda-mode ctags-update command-log-mode color-theme-solarized color-theme-monokai clean-aindent-mode cask-mode camcorder buffer-move bookmark+ auto-complete-c-headers anaconda-mode ag ace-jump-mode)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(safe-local-variable-values
    (quote
-    ((company-c-headers-path-user "/Users/zhangli/Desktop/DeepAR_Algorithm/include/")
+    ((cmake-ide--build-dir "/Users/zhangli/code/design-pattern/factory/build")
+     (company-c-headers-path-user "/Users/zhangli/code/design-pattern/factory/include")
+     (company-clang-arguments "-I/Users/zhangli/code/design-pattern/factory/include")
+     (company-c-headers-path-user "/Users/zhangli/Desktop/DeepAR_Algorithm/include/")
      (company-clang-arguments "-I/Users/zhangli/Desktop/DeepAR_Algorithm/include/"))))
  '(send-mail-function (quote mailclient-send-it))
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#839496" 0.2))

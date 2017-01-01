@@ -481,25 +481,27 @@
                          (list (expand-file-name "~/Desktop/DeepAR_Algorithm/include")))))
   )
 
+(use-package flycheck-google-cpplint
+  :ensure t
+  :config
+  (defun zl/flycheck-google-init ()
+    (require 'flycheck-google-cpplint)
+    (custom-set-variables
+     '(flycheck-c/c++-googlelint-executable "/usr/local/bin/cpplint"))
+    ;; Add Google C++ Style checker.
+    ;; In default, syntax checked by Clang and Cppcheck.
+    (flycheck-add-next-checker 'c/c++-cppcheck
+                               '(warning . c/c++-googlelint))
+    )
+  (add-hook 'c-mode-hook 'zl/flycheck-google-init)
+  (add-hook 'c++-mode-hook 'zl/flycheck-google-init)
+  )
+
 
 ;; iedit
 (use-package iedit
   :ensure t
   :bind (("C-c o" . iedit-mode)))
-
-
-;; flymake google cpp
-(use-package flymake-google-cpplint
-  :ensure t
-  :config
-  (defun zl/flymake-google-init ()
-    (require 'flymake-google-cpplint)
-    (custom-set-variables
-     '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
-    (flymake-google-cpplint-load))
-  (add-hook 'c-mode-hook 'zl/flymake-google-init)
-  (add-hook 'c++-mode-hook 'zl/flymake-google-init)
-)
 
 
 ;; google-c-style
@@ -1058,8 +1060,10 @@
 
 (use-package cmake-ide
   :ensure
+  ;;:disabled t
   :defer 2
   :config
   ;; optional, must have rtags installed
   (require 'rtags)
-  (cmake-ide-setup))
+  (cmake-ide-setup)
+  )
