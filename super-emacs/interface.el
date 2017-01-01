@@ -11,7 +11,7 @@
 ;Disable scroll-bar
 (scroll-bar-mode -1)
 
-(defun hrs/mac? ()
+(defun zl/mac? ()
   (eq system-type 'darwin))
 
 
@@ -34,14 +34,20 @@
 ;;     )
 ;;)
 
-;;(when window-system
+
 (use-package hl-line
+  :if window-system
   :config
   (global-hl-line-mode))
-;;)
 
-(when (hrs/mac?)
+
+(when (zl/mac?)
   (set-frame-parameter nil 'fullscreen 'fullboth))
+
+(defun zl/is-window-system
+    nil
+    (when window-system t)
+  )
 
 
 ;; ;Set font
@@ -53,54 +59,91 @@
 
 ;; font config
 
-;; (setq hrs/default-font "Inconsolata")
-(setq hrs/default-font "Fira Code")
-;; (setq hrs/default-font "Source Code Pro")
-(setq hrs/default-font-size 15)
-(setq hrs/current-font-size hrs/default-font-size)
+;; (setq zl/default-font "Inconsolata")
+(setq zl/default-font "Source Code Pro")
+(setq zl/default-font "Fira Code")
 
-;; (if (hrs/mac?)
-;;     (setq hrs/default-font-size 16)
-;;     (setq hrs/default-font-size 12))
+(setq zl/default-font-size 15)
+(setq zl/current-font-size zl/default-font-size)
 
-(setq hrs/font-change-increment 1.1)
+;; (if (zl/mac?)
+;;     (setq zl/default-font-size 16)
+;;     (setq zl/default-font-size 12))
+
+(setq zl/font-change-increment 1.1)
 
 
 
-(defun hrs/set-font-size ()
-  "Set the font to `hrs/default-font' at `hrs/current-font-size'."
+(defun zl/set-font-size ()
+  "Set the font to `zl/default-font' at `zl/current-font-size'."
   (set-frame-font
-   (concat hrs/default-font "-" (number-to-string hrs/current-font-size))))
+   (concat zl/default-font "-" (number-to-string zl/current-font-size)))
 
-(defun hrs/reset-font-size ()
-  "Change font size back to `hrs/default-font-size'."
-  (interactive)
-  (setq hrs/current-font-size hrs/default-font-size)
-  (hrs/set-font-size))
+  (when (and (string= zl/default-font "Fira Code") (zl/is-window-system))
+      (set-frame-font
+   (concat zl/default-font "-" (number-to-string zl/current-font-size)))
+      (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                     (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                     (36 . ".\\(?:>\\)")
+                     (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                     (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                     (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                     (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                     (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                     (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                     (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                     (48 . ".\\(?:x[a-zA-Z]\\)")
+                     (58 . ".\\(?:::\\|[:=]\\)")
+                     (59 . ".\\(?:;;\\|;\\)")
+                     (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                     (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                     (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                     (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                     (91 . ".\\(?:]\\)")
+                     (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                     (94 . ".\\(?:=\\)")
+                     (119 . ".\\(?:ww\\)")
+                     (123 . ".\\(?:-\\)")
+                     (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                     (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                     )
+                   ))
+        (dolist (char-regexp alist)
+          (set-char-table-range composition-function-table (car char-regexp)
+                                `([,(cdr char-regexp) 0 font-shape-gstring])))
+        )
+      )
+  )
 
-(defun hrs/increase-font-size ()
-  "Increase current font size by a factor of `hrs/font-change-increment'."
+(defun zl/reset-font-size ()
+  "Change font size back to `zl/default-font-size'."
   (interactive)
-  (setq hrs/current-font-size
-        (ceiling (* hrs/current-font-size hrs/font-change-increment)))
-  (hrs/set-font-size))
+  (setq zl/current-font-size zl/default-font-size)
+  (zl/set-font-size))
 
-(defun hrs/decrease-font-size ()
-  "Decrease current font size by a factor of `hrs/font-change-increment', down to a minimum size of 1."
+(defun zl/increase-font-size ()
+  "Increase current font size by a factor of `zl/font-change-increment'."
   (interactive)
-  (setq hrs/current-font-size
+  (setq zl/current-font-size
+        (ceiling (* zl/current-font-size zl/font-change-increment)))
+  (zl/set-font-size))
+
+(defun zl/decrease-font-size ()
+  "Decrease current font size by a factor of `zl/font-change-increment', down to a minimum size of 1."
+  (interactive)
+  (setq zl/current-font-size
         (max 1
-             (floor (/ hrs/current-font-size hrs/font-change-increment))))
-  (hrs/set-font-size))
+             (floor (/ zl/current-font-size zl/font-change-increment))))
+  (zl/set-font-size))
 
-(hrs/set-font-size)
+(zl/set-font-size)
 
-(bind-key "C-)" 'hrs/reset-font-size)
-(bind-key "C-)" 'hrs/reset-font-size)
-(bind-key "C-+" 'hrs/increase-font-size)
-(bind-key "C-=" 'hrs/increase-font-size)
-(bind-key "C-_" 'hrs/decrease-font-size)
-(bind-key "C--" 'hrs/decrease-font-size)
+(bind-key "C-)" 'zl/reset-font-size)
+(bind-key "C-)" 'zl/reset-font-size)
+(bind-key "C-+" 'zl/increase-font-size)
+(bind-key "C-=" 'zl/increase-font-size)
+(bind-key "C-_" 'zl/decrease-font-size)
+(bind-key "C--" 'zl/decrease-font-size)
 
 
 (global-prettify-symbols-mode t)
