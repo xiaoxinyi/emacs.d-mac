@@ -731,7 +731,14 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "multimarkdown")
+  (defun my-md-mode-hook ()
+    (progn
+      (auto-fill-mode 1)
+      (linum-mode 1)))
+  :config
+  (add-hook 'markdown-mode-hook 'my-md-mode-hook)
+  )
 
 
 ;; lua mode
@@ -1052,7 +1059,7 @@
 (use-package cmake-ide
   :ensure
   ;;:disabled t
-  :defer 2
+  ;;:defer 2
   :config
   ;; optional, must have rtags installed
   (require 'rtags)
