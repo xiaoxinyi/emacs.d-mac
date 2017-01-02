@@ -357,6 +357,8 @@ rc -J
 ## cmake-ide
 
 1.`cmake-ide`配置，[参考](https://github.com/atilaneves/cmake-ide)
+
+``` emacs-lisp
 (use-package cmake-ide
   :ensure
   :config
@@ -364,6 +366,8 @@ rc -J
   (require 'rtags)
   (cmake-ide-setup)
   )
+
+```
 
 2.⚠️注意`company-c-headers`的配置应该放在`cmake-ide`的配置后面(有待验证)
 
