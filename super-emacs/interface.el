@@ -1,4 +1,4 @@
-;Change title-bar text
+;;Change title-bar text
 (setq frame-title-format
       "emacs")
 
@@ -11,7 +11,7 @@
 ;Disable scroll-bar
 (scroll-bar-mode -1)
 
-(defun hrs/mac? ()
+(defun zl/mac? ()
   (eq system-type 'darwin))
 
 
@@ -34,14 +34,20 @@
 ;;     )
 ;;)
 
-;;(when window-system
+
 (use-package hl-line
+  :if window-system
   :config
   (global-hl-line-mode))
-;;)
 
-(when (hrs/mac?)
+
+(when (zl/mac?)
   (set-frame-parameter nil 'fullscreen 'fullboth))
+
+(defun zl/is-window-system
+    nil
+    (when window-system t)
+  )
 
 
 ;; ;Set font
@@ -53,54 +59,185 @@
 
 ;; font config
 
-;; (setq hrs/default-font "Inconsolata")
-(setq hrs/default-font "Fira Code")
-;; (setq hrs/default-font "Source Code Pro")
-(setq hrs/default-font-size 15)
-(setq hrs/current-font-size hrs/default-font-size)
+;; (setq zl/default-font "Inconsolata")
+(setq zl/default-font "Source Code Pro")
+(setq zl/default-font "Fira Code")
 
-;; (if (hrs/mac?)
-;;     (setq hrs/default-font-size 16)
-;;     (setq hrs/default-font-size 12))
-
-(setq hrs/font-change-increment 1.1)
+(setq zl/default-font-size 15)
+(setq zl/current-font-size zl/default-font-size)
+(setq zl/font-change-increment 1.1)
 
 
+(defconst fira-code-font-lock-keywords-alist
+  (mapcar (lambda (regex-char-pair)
+            `(,(car regex-char-pair)
+              (0 (prog1 ()
+                   (compose-region (match-beginning 1)
+                                   (match-end 1)
+                                   ;; The first argument to concat is a string containing a literal tab
+                                   ,(concat "	" (list (decode-char 'ucs (cadr regex-char-pair)))))))))
+          '(("\\(www\\)"                   #Xe100)
+            ("[^/]\\(\\*\\*\\)[^/]"        #Xe101)
+            ("\\(\\*\\*\\*\\)"             #Xe102)
+            ("\\(\\*\\*/\\)"               #Xe103)
+            ("\\(\\*>\\)"                  #Xe104)
+            ("[^*]\\(\\*/\\)"              #Xe105)
+            ("\\(\\\\\\\\\\)"              #Xe106)
+            ("\\(\\\\\\\\\\\\\\)"          #Xe107)
+            ("\\({-\\)"                    #Xe108)
+            ("\\(\\[\\]\\)"                #Xe109)
+            ("\\(::\\)"                    #Xe10a)
+            ("\\(:::\\)"                   #Xe10b)
+            ("[^=]\\(:=\\)"                #Xe10c)
+            ("\\(!!\\)"                    #Xe10d)
+            ("\\(!=\\)"                    #Xe10e)
+            ("\\(!==\\)"                   #Xe10f)
+            ("\\(-}\\)"                    #Xe110)
+            ("\\(--\\)"                    #Xe111)
+            ("\\(---\\)"                   #Xe112)
+            ("\\(-->\\)"                   #Xe113)
+            ("[^-]\\(->\\)"                #Xe114)
+            ("\\(->>\\)"                   #Xe115)
+            ("\\(-<\\)"                    #Xe116)
+            ("\\(-<<\\)"                   #Xe117)
+            ("\\(-~\\)"                    #Xe118)
+            ("\\(#{\\)"                    #Xe119)
+            ("\\(#\\[\\)"                  #Xe11a)
+            ("\\(##\\)"                    #Xe11b)
+            ("\\(###\\)"                   #Xe11c)
+            ("\\(####\\)"                  #Xe11d)
+            ("\\(#(\\)"                    #Xe11e)
+            ("\\(#\\?\\)"                  #Xe11f)
+            ("\\(#_\\)"                    #Xe120)
+            ("\\(#_(\\)"                   #Xe121)
+            ("\\(\\.-\\)"                  #Xe122)
+            ("\\(\\.=\\)"                  #Xe123)
+            ("\\(\\.\\.\\)"                #Xe124)
+            ("\\(\\.\\.<\\)"               #Xe125)
+            ("\\(\\.\\.\\.\\)"             #Xe126)
+            ("\\(\\?=\\)"                  #Xe127)
+            ("\\(\\?\\?\\)"                #Xe128)
+            ("\\(;;\\)"                    #Xe129)
+            ("\\(/\\*\\)"                  #Xe12a)
+            ("\\(/\\*\\*\\)"               #Xe12b)
+            ("\\(/=\\)"                    #Xe12c)
+            ("\\(/==\\)"                   #Xe12d)
+            ("\\(/>\\)"                    #Xe12e)
+            ("\\(//\\)"                    #Xe12f)
+            ("\\(///\\)"                   #Xe130)
+            ("\\(&&\\)"                    #Xe131)
+            ("\\(||\\)"                    #Xe132)
+            ("\\(||=\\)"                   #Xe133)
+            ("[^|]\\(|=\\)"                #Xe134)
+            ("\\(|>\\)"                    #Xe135)
+            ("\\(\\^=\\)"                  #Xe136)
+            ("\\(\\$>\\)"                  #Xe137)
+            ("\\(\\+\\+\\)"                #Xe138)
+            ("\\(\\+\\+\\+\\)"             #Xe139)
+            ("\\(\\+>\\)"                  #Xe13a)
+            ("\\(=:=\\)"                   #Xe13b)
+            ("[^!/]\\(==\\)[^>]"           #Xe13c)
+            ("\\(===\\)"                   #Xe13d)
+            ("\\(==>\\)"                   #Xe13e)
+            ("[^=]\\(=>\\)"                #Xe13f)
+            ("\\(=>>\\)"                   #Xe140)
+            ("\\(<=\\)"                    #Xe141)
+            ("\\(=<<\\)"                   #Xe142)
+            ("\\(=/=\\)"                   #Xe143)
+            ("\\(>-\\)"                    #Xe144)
+            ("\\(>=\\)"                    #Xe145)
+            ("\\(>=>\\)"                   #Xe146)
+            ("[^-=]\\(>>\\)"               #Xe147)
+            ("\\(>>-\\)"                   #Xe148)
+            ("\\(>>=\\)"                   #Xe149)
+            ("\\(>>>\\)"                   #Xe14a)
+            ("\\(<\\*\\)"                  #Xe14b)
+            ("\\(<\\*>\\)"                 #Xe14c)
+            ("\\(<|\\)"                    #Xe14d)
+            ("\\(<|>\\)"                   #Xe14e)
+            ("\\(<\\$\\)"                  #Xe14f)
+            ("\\(<\\$>\\)"                 #Xe150)
+            ("\\(<!--\\)"                  #Xe151)
+            ("\\(<-\\)"                    #Xe152)
+            ("\\(<--\\)"                   #Xe153)
+            ("\\(<->\\)"                   #Xe154)
+            ("\\(<\\+\\)"                  #Xe155)
+            ("\\(<\\+>\\)"                 #Xe156)
+            ("\\(<=\\)"                    #Xe157)
+            ("\\(<==\\)"                   #Xe158)
+            ("\\(<=>\\)"                   #Xe159)
+            ("\\(<=<\\)"                   #Xe15a)
+            ("\\(<>\\)"                    #Xe15b)
+            ("[^-=]\\(<<\\)"               #Xe15c)
+            ("\\(<<-\\)"                   #Xe15d)
+            ("\\(<<=\\)"                   #Xe15e)
+            ("\\(<<<\\)"                   #Xe15f)
+            ("\\(<~\\)"                    #Xe160)
+            ("\\(<~~\\)"                   #Xe161)
+            ("\\(</\\)"                    #Xe162)
+            ("\\(</>\\)"                   #Xe163)
+            ("\\(~@\\)"                    #Xe164)
+            ("\\(~-\\)"                    #Xe165)
+            ("\\(~=\\)"                    #Xe166)
+            ("\\(~>\\)"                    #Xe167)
+            ("[^<]\\(~~\\)"                #Xe168)
+            ("\\(~~>\\)"                   #Xe169)
+            ("\\(%%\\)"                    #Xe16a)
+            ;;("\\(x\\)"                     #Xe16b)
+            ("[^:=]\\(:\\)[^:=]"           #Xe16c)
+            ("[^\\+<>]\\(\\+\\)[^\\+<>]"   #Xe16d)
+            ("[^\\*/<>]\\(\\*\\)[^\\*/<>]" #Xe16f))))
 
-(defun hrs/set-font-size ()
-  "Set the font to `hrs/default-font' at `hrs/current-font-size'."
+(defun add-fira-code-symbol-keywords ()
+  (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
+
+(when (and (string= zl/default-font "Fira Code") (zl/is-window-system))
+  ;;; Fira code
+  ;; This works when using emacs --daemon + emacsclient
+  (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
+  ;; This works when using emacs without server/client
+  (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")
+  ;; I haven't found one statement that makes both of the above situations work, so I use both for now
+
+  (add-hook 'prog-mode-hook
+            #'add-fira-code-symbol-keywords)
+)
+
+(defun zl/set-font-size ()
+  "Set the font to `zl/default-font' at `zl/current-font-size'."
   (set-frame-font
-   (concat hrs/default-font "-" (number-to-string hrs/current-font-size))))
+   (concat zl/default-font "-" (number-to-string zl/current-font-size)))
+  )
 
-(defun hrs/reset-font-size ()
-  "Change font size back to `hrs/default-font-size'."
+(defun zl/reset-font-size ()
+  "Change font size back to `zl/default-font-size'."
   (interactive)
-  (setq hrs/current-font-size hrs/default-font-size)
-  (hrs/set-font-size))
+  (setq zl/current-font-size zl/default-font-size)
+  (zl/set-font-size))
 
-(defun hrs/increase-font-size ()
-  "Increase current font size by a factor of `hrs/font-change-increment'."
+(defun zl/increase-font-size ()
+  "Increase current font size by a factor of `zl/font-change-increment'."
   (interactive)
-  (setq hrs/current-font-size
-        (ceiling (* hrs/current-font-size hrs/font-change-increment)))
-  (hrs/set-font-size))
+  (setq zl/current-font-size
+        (ceiling (* zl/current-font-size zl/font-change-increment)))
+  (zl/set-font-size))
 
-(defun hrs/decrease-font-size ()
-  "Decrease current font size by a factor of `hrs/font-change-increment', down to a minimum size of 1."
+(defun zl/decrease-font-size ()
+  "Decrease current font size by a factor of `zl/font-change-increment', down to a minimum size of 1."
   (interactive)
-  (setq hrs/current-font-size
+  (setq zl/current-font-size
         (max 1
-             (floor (/ hrs/current-font-size hrs/font-change-increment))))
-  (hrs/set-font-size))
+             (floor (/ zl/current-font-size zl/font-change-increment))))
+  (zl/set-font-size))
 
-(hrs/set-font-size)
+(zl/set-font-size)
 
-(bind-key "C-)" 'hrs/reset-font-size)
-(bind-key "C-)" 'hrs/reset-font-size)
-(bind-key "C-+" 'hrs/increase-font-size)
-(bind-key "C-=" 'hrs/increase-font-size)
-(bind-key "C-_" 'hrs/decrease-font-size)
-(bind-key "C--" 'hrs/decrease-font-size)
+(bind-key "C-)" 'zl/reset-font-size)
+(bind-key "C-)" 'zl/reset-font-size)
+(bind-key "C-+" 'zl/increase-font-size)
+(bind-key "C-=" 'zl/increase-font-size)
+(bind-key "C-_" 'zl/decrease-font-size)
+(bind-key "C--" 'zl/decrease-font-size)
 
 
 (global-prettify-symbols-mode t)

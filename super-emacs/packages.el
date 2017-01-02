@@ -21,7 +21,10 @@
   :config
   (yas-global-mode 1)
   (setq yas-snippet-dirs
-    '("~/.emacs.d/snippets"))
+        '(
+          ;; "~/.emacs.d/snippets"
+          "~/.emacs.d/elpa/yasnippet-20161201.1520/snippets"
+          ))
   )
 
 ;; Load default auto-complete configs
@@ -64,15 +67,6 @@
   )
 
 
-(use-package company-c-headers
-  :defer 2
-  :ensure t
-  :config
-  (add-to-list 'company-backends 'company-c-headers)
-  (add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/")
-  (message (concat "company-c-header-path-system is " (car company-c-headers-path-system)))
-  )
-
 
 (use-package multiple-cursors
   :ensure t
@@ -94,8 +88,8 @@
   :init (use-package visual-regexp
           :ensure t)
   :bind* (
-          ("C-c r" . vr/replace)
-          ("C-c q" . vr/query-replace)
+          ("C-c v r" . vr/replace)
+          ("C-c v q" . vr/query-replace)
           ("C-c v m" . vr/mc-mark)
           ("C-M-s" . vr/isearch-forward)
           ("C-M-r" . vr/isearch-backward))
@@ -444,6 +438,7 @@
   :config (flx-ido-mode 1))
 
 (use-package ido-vertical-mode
+  :commands (ido-vertical-define-keys)
   :ensure t
   :init               ;; I like up and down arrow keys:
   (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
@@ -477,25 +472,27 @@
                          (list (expand-file-name "~/Desktop/DeepAR_Algorithm/include")))))
   )
 
+(use-package flycheck-google-cpplint
+  :ensure t
+  :config
+  (defun zl/flycheck-google-init ()
+    (require 'flycheck-google-cpplint)
+    (custom-set-variables
+     '(flycheck-c/c++-googlelint-executable "/usr/local/bin/cpplint"))
+    ;; Add Google C++ Style checker.
+    ;; In default, syntax checked by Clang and Cppcheck.
+    (flycheck-add-next-checker 'c/c++-cppcheck
+                               '(warning . c/c++-googlelint))
+    )
+  (add-hook 'c-mode-hook 'zl/flycheck-google-init)
+  (add-hook 'c++-mode-hook 'zl/flycheck-google-init)
+  )
+
 
 ;; iedit
 (use-package iedit
   :ensure t
   :bind (("C-c o" . iedit-mode)))
-
-
-;; flymake google cpp
-(use-package flymake-google-cpplint
-  :ensure t
-  :config
-  (defun zl/flymake-google-init ()
-    (require 'flymake-google-cpplint)
-    (custom-set-variables
-     '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
-    (flymake-google-cpplint-load))
-  (add-hook 'c-mode-hook 'zl/flymake-google-init)
-  (add-hook 'c++-mode-hook 'zl/flymake-google-init)
-)
 
 
 ;; google-c-style
@@ -734,16 +731,21 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "multimarkdown")
+  (defun my-md-mode-hook ()
+    (progn
+      (auto-fill-mode 1)
+      (linum-mode 1)))
+  :config
+  (add-hook 'markdown-mode-hook 'my-md-mode-hook)
+  )
 
 
 ;; lua mode
 (use-package lua-mode
   :ensure t
   :interpreter "lua5.1"
-  :config
-  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+  :mode (("\\.lua\\'" . lua-mode))
   :bind
   (
    :map lua-mode-map
@@ -818,8 +820,6 @@
 
       :bind* (("M-*" . pop-tag-mark)
               ("M-." . my-find-tag))
-  ;;:config
-  ;; (global-set-key (kbd "M-.") 'my-find-tag)
   )
 
 ;; hs-minor-mode
@@ -871,7 +871,7 @@
 
 (use-package macrostep
   :ensure t
-  ;; :bind ("C-c m e" . macrostep-expand)
+  :bind ("C-c n e" . macrostep-expand)
   )
 
 (use-package smooth-scrolling
@@ -880,20 +880,35 @@
 
 (use-package cmake-mode
   :ensure t
+  :mode (
+         ("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'" . cmake-mode)
+         )
   :config
-  ;; Add cmake listfile names to the mode list.
-  (setq auto-mode-alist
-        (append
-         '(("CMakeLists\\.txt\\'" . cmake-mode))
-         '(("\\.cmake\\'" . cmake-mode))
-         auto-mode-alist)))
+  (use-package cmake-font-lock
+    :ensure t
+    :config
+    (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
+    (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+    )
+)
 
-(use-package cmake-font-lock
-  :ensure t)
+(use-package ninja-mode
+  :load-path "~/.emacs.d/elpa/ninja-mode-20141203.2159"
+  :ensure t
+  :mode (
+         ("build\\.ninja\\'" . ninja-mode)
+         ("\\.ninja\\'" . ninja-mode))
+)
 
 ;; yaml-mode
 (use-package yaml-mode
-  :ensure t)
+  :ensure t
+  :mode (
+         ("\\.yml\\'" . yaml-mode)
+         ("\\.yaml\\'" . yaml-mode)
+         )
+  )
 
 (use-package objc-font-lock
   :ensure t
@@ -970,7 +985,7 @@
   (add-hook 'asm-mode-hook 'helm-gtags-mode)
   :bind (:map helm-gtags-mode-map
               ("C-c g a" .  helm-gtags-tags-in-this-function)
-              ("C-j" .  helm-gtags-select)
+              ("C-c g j" .  helm-gtags-select)
               ("C-s-." .  helm-gtags-dwim)
               ("C-s-," .  helm-gtags-pop-stack)
               ("C-c <" .  helm-gtags-previous-history)
@@ -986,4 +1001,103 @@
    helm-gtags-prefix-key "\C-cg"
    helm-gtags-suggested-key-mapping t
    )
-)
+  )
+
+(use-package rtags
+  :init
+  (defun setup-flycheck-rtags ()
+    (interactive)
+    (flycheck-select-checker 'rtags)
+    ;; RTags creates more accurate overlays.
+    (setq-local flycheck-highlighting-mode nil)
+    (setq-local flycheck-check-syntax-automatically nil))
+  :ensure t
+  :bind (:map c-mode-base-map
+	      ("C-c t ." . rtags-find-symbol-at-point)
+	      ("C-c t ," . rtags-find-references-at-point)
+	      ("C-c t v" . rtags-find-virtuals-at-point)
+	      ("C-c t V" . rtags-print-enum-value-at-point)
+	      ("C-c t /" . rtags-find-all-references-at-point)
+	      ("C-c t Y" . rtags-cycle-overlays-on-screen)
+	      ("C-c t >" . rtags-find-symbol)
+	      ("C-c t <" . rtags-find-references)
+	      ("C-c t -" . rtags-location-stack-back)
+	      ("C-c t +" . rtags-location-stack-forward)
+	      ("C-c t D" . rtags-diagnostics)
+	      ("C-c t G" . rtags-guess-function-at-point)
+	      ("C-c t p" . rtags-set-current-project)
+	      ("C-c t P" . rtags-print-dependencies)
+	      ("C-c t e" . rtags-reparse-file)
+	      ("C-c t E" . rtags-preprocess-file)
+	      ("C-c t R" . rtags-rename-symbol)
+	      ("C-c t M" . rtags-symbol-info)
+	      ("C-c t S" . rtags-display-summary)
+	      ("C-c t O" . rtags-goto-offset)
+	      ("C-c t ;" . rtags-find-file)
+	      ("C-c t F" . rtags-fixit)
+	      ("C-c t X" . rtags-fix-fixit-at-point)
+	      ("C-c t B" . rtags-show-rtags-buffer)
+	      ("C-c t I" . rtags-imenu)
+	      ("C-c t T" . rtags-taglist)
+          )
+  :config
+  ;; comment this out if you don't have or don't use helm
+  (setq rtags-use-helm t)
+  ;; company completion setup
+  (setq rtags-autostart-diagnostics t)
+  (rtags-diagnostics)
+  (setq rtags-completions-enabled t)
+  (push 'company-rtags company-backends)
+  (global-company-mode)
+  ;; use rtags flycheck mode -- clang warnings shown inline
+  (require 'flycheck-rtags)
+  ;; c-mode-common-hook is also called by c++-mode
+  (add-hook 'c-mode-common-hook #'setup-flycheck-rtags)
+  )
+
+
+(use-package cmake-ide
+  :ensure
+  ;;:disabled t
+  ;;:defer 2
+  :config
+  ;; optional, must have rtags installed
+  (require 'rtags)
+  (cmake-ide-setup)
+  )
+
+
+
+
+(use-package company-c-headers
+  :defer 2
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-c-headers)
+  (add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/")
+  (message (concat "company-c-header-path-system is " (car company-c-headers-path-system)))
+  )
+
+(defun my-reload-dir-locals-for-current-buffer ()
+  "reload dir locals for the current buffer"
+  (interactive)
+  (let ((enable-local-variables :all))
+    (hack-dir-local-variables-non-file-buffer)))
+
+(defun my-reload-dir-locals-for-all-buffer-in-this-directory ()
+  "For every buffer with the same `default-directory` as the
+current buffer's, reload dir-locals."
+  (interactive)
+  (let ((dir default-directory))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (equal default-directory dir))
+        (my-reload-dir-locals-for-current-buffer)))))
+
+(add-hook 'emacs-lisp-mode-hook
+          (defun enable-autoreload-for-dir-locals ()
+            (when (and (buffer-file-name)
+                       (equal dir-locals-file
+                              (file-name-nondirectory (buffer-file-name))))
+              (add-hook (make-variable-buffer-local 'after-save-hook)
+                        'my-reload-dir-locals-for-all-buffer-in-this-directory))))
